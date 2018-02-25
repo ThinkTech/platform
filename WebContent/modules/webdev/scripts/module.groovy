@@ -8,33 +8,42 @@ class ModuleAction extends ActionSupport {
        response.addHeader("Access-Control-Allow-Origin", "*");
        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
        if(request.method == "POST") { 
-          def subscription = parse(request)
-	      def connection = getConnection()
-	      def user = connection.firstRow("select * from users where email = ?", [subscription.email])
-	      if(user) {
-		    json([status : 0])
-	      }else{
+         def status = 2
+         def subscription = parse(request)
+	     def connection = getConnection()
+	     def user = connection.firstRow("select * from users where email = ?", [subscription.email])
+	     if(user) {
+	        def count = connection.firstRow("select count(*) as num from subscriptions where service = ? and structure_id = ?", ["web dev",user.structure_id]).num
+	        if(count){
+	           json([status : 0])
+		       connection.close()
+		       return
+	        }
+	     }else{
+	        user = new Expando()
 	        def params = [subscription.structure]
-            def result = connection.executeInsert 'insert into structures(name) values (?)', params
-            def structure_id = result[0][0]
-            params = ["web dev",structure_id]
-            connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
-	        params = [subscription.name,subscription.email,subscription.password,"administrateur",true,structure_id]
+	        def result = connection.executeInsert 'insert into structures(name) values (?)', params
+            user.structure_id = result[0][0]
+            params = [subscription.name,subscription.email,subscription.password,"administrateur",true,user.structure_id]
             result = connection.executeInsert 'insert into users(name,email,password,role,owner,structure_id) values (?,?,sha(?),?,?,?)', params
-            def user_id = result[0][0]
+            user.id = result[0][0]
             def alphabet = (('A'..'N')+('P'..'Z')+('a'..'k')+('m'..'z')+('2'..'9')).join()  
- 			def n = 30 
+ 	        def n = 30 
  		    subscription.activationCode = new Random().with { (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join() }
- 		    params = [subscription.activationCode,user_id]
-       		connection.executeInsert 'insert into accounts(activation_code,user_id) values (?, ?)', params
-            def template = getSubscriptionTemplate(subscription)
-            params = ["Souscription reussie",template,user_id,structure_id]
-       		connection.executeInsert 'insert into messages(subject,message,user_id,structure_id) values (?, ?, ?, ?)', params
-	   		params = [subscription.project,subscription.project,"web dev",subscription.plan,user_id,structure_id]
-       		result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params
-       		def project_id = result[0][0]
-       		def bill = createBill(subscription)
-       		if(bill.amount){
+ 		    params = [subscription.activationCode,user.id]
+            connection.executeInsert 'insert into accounts(activation_code,user_id) values (?, ?)', params
+            status = 1
+	     }
+	     def params = ["web dev",user.structure_id]
+         connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
+	     def template = getSubscriptionTemplate(subscription)
+         params = ["Souscription reussie",template,user.id,user.structure_id]
+         connection.executeInsert 'insert into messages(subject,message,user_id,structure_id) values (?, ?, ?, ?)', params
+	   	 params = [subscription.project,subscription.project,"web dev",subscription.plan,user.id,user.structure_id]
+       	 def result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params
+       	 def project_id = result[0][0]
+       	 def bill = createBill(subscription)
+       	 if(bill.amount){
 		       params = [bill.fee,bill.amount,project_id]
 		       connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
 	       	   def query = 'insert into projects_tasks(task_id,info,project_id) values (?, ?, ?)'
@@ -43,20 +52,19 @@ class ModuleAction extends ActionSupport {
 	               ps.addBatch(it+1,"aucune information",project_id)
 	            } 
 	           }
-	          }else{
+	     }else{
 	           def query = 'insert into projects_tasks(task_id,info,project_id) values (?, ? , ?)'
 	      	   connection.withBatch(query){ ps ->
 	           10.times{
 	              if(it!=0) ps.addBatch(it+1,"aucune information",project_id)
 	           }
 	          }
-	        }
-	        def mailConfig = new MailConfig(context.getInitParameter("smtp.email"),context.getInitParameter("smtp.password"),"smtp.thinktech.sn")
-		    def mailSender = new MailSender(mailConfig)
-		    def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, veuillez confirmer votre souscription au ${subscription.plan}",template)
-		    mailSender.sendMail(mail)
-		    json([status : 1])
-	      }
+	     }
+	     def mailConfig = new MailConfig(context.getInitParameter("smtp.email"),context.getInitParameter("smtp.password"),"smtp.thinktech.sn")
+		 def mailSender = new MailSender(mailConfig)
+		 def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, veuillez confirmer votre souscription au ${subscription.plan}",template)
+		 mailSender.sendMail(mail)
+		 json([status : status])
 	     connection.close()
        }
     }
@@ -84,8 +92,10 @@ class ModuleAction extends ActionSupport {
 		      h4(style : "font-size: 200%;color: #fff;margin: 3px") {
 		        span("Souscription reussie")
 		      }
-		      p(style : "font-size:150%;color:#fff"){
-		         span("cliquer sur le bouton en bas pour confirmation")
+		      if(subscription.activationCode){
+			      p(style : "font-size:150%;color:#fff"){
+			         span("cliquer sur le bouton en bas pour confirmation")
+			      }
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
@@ -94,19 +104,26 @@ class ModuleAction extends ActionSupport {
 		         span("Structure : $subscription.structure")
 		        }
 		      }
-		      p("Merci pour votre souscription au ${subscription.plan}")
-		      p("Veuillez confirmer votre souscription pour activer votre compte.")
-		    }
-		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-		       a(href : "$url/users/registration/confirm?activationCode=$subscription.activationCode",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
-		         span("Confirmer")
+		      h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
+		         span("Service : web dev")
 		       }
+		      p("Merci pour votre souscription au ${subscription.plan}")
+		      if(subscription.activationCode){
+		      	p("Veuillez confirmer votre souscription pour activer votre compte.")
+		      }
+		    }
+		    if(subscription.activationCode){
+			    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
+			       a(href : "$url/users/registration/confirm?activationCode=$subscription.activationCode",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			         span("Confirmer")
+			       }
+			    }
 		    }
 		  }
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 11px;text-align:center") {
 		      p("Vous recevez cet email parce que vous (ou quelqu'un utilisant cet email)")
-		      p("a cr&edot;&edot; un projet en utilisant cette adresse")
+		      p("a souscrit &agrave; ce service en utilisant cette adresse")
 		  }
 		  
 		 }

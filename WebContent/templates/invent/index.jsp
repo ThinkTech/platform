@@ -15,13 +15,13 @@
  <meta name="twitter:site" content="@thinktech">
  <meta name="twitter:domain" property="og:site_name" content="platform.thinktech.sn">
  <meta name="twitter:url" property="og:url" content="${baseUrl}">
- <meta name="twitter:title" property="og:title" content="ThinkTech - Portail"> 
+ <meta name="twitter:title" property="og:title" content="ThinkTech - Platform"> 
  <meta name="twitter:description" property="og:description" content="Bienvenue sur la plateforme de ThinkTech"> 
  <meta name="twitter:image" property="og:image" content="${baseUrl}/templates/invent/images/banner.jpeg">
 <style type="text/css">
- <%@include file="/templates/invent/css/bootstrap.css"%>
  <%@include file="/css/metamorphosis.css"%>
 </style>
+<link href="templates/invent/css/bootstrap.css" rel="stylesheet">
 <link href="templates/invent/css/template.css" rel="stylesheet"> 
 <link href="templates/invent/css/font-awesome.css" rel="stylesheet"> <!-- font-awesome icons -->
 <!-- //Custom Theme files --> 
@@ -77,7 +77,6 @@
 	<!-- services -->
 	<div class="services">
 		<div class="container">
-			<h3 class="agileits-title">Services</h3> 
 			<div class="services-row-agileinfo">
 				<div class="col-sm-4 col-xs-6 services-w3grid">
 					<span class="glyphicon glyphicon-heart hi-icon" aria-hidden="true"></span>
@@ -194,6 +193,7 @@
 			$().UItoTop({ easingType: 'easeOutQuart' });
 			
 		});
+		<%@include file="/templates/invent/js/template.js"%>
 	</script>
 	<!-- //smooth-scrolling-of-move-up -->    
 	<!-- Bootstrap core JavaScript

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3.xsd"
+         version="3.0">
+   <context-param>
+     <param-name>smtp.email</param-name>
+     <param-value>info@thinktech.sn</param-value>
+   </context-param>  
+   
+   <context-param>
+     <param-name>smtp.password</param-name>
+     <param-value>qW#^csufU8</param-value>
+   </context-param>
+   
+   <session-config>
+		<session-timeout>-1</session-timeout>
+	</session-config>
+         
+</web-app>

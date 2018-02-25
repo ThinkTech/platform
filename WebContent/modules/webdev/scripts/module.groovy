@@ -28,7 +28,7 @@ class ModuleAction extends ActionSupport {
  		    params = [subscription.activationCode,user_id]
        		connection.executeInsert 'insert into accounts(activation_code,user_id) values (?, ?)', params
             def template = getSubscriptionTemplate(subscription)
-            params = ["Bienvenue",template,user_id,structure_id]
+            params = ["Souscription reussie",template,user_id,structure_id]
        		connection.executeInsert 'insert into messages(subject,message,user_id,structure_id) values (?, ?, ?, ?)', params
 	   		params = [subscription.project,subscription.project,"web dev",subscription.plan,user_id,structure_id]
        		result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params

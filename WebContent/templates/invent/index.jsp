@@ -69,7 +69,7 @@
 		<!-- //navigation --> 
 		<div class="banner-w3text w3layouts">
 			<h2>Nos <span>Services</span></h2> 
-			<h6>Selon votre besoin, souscrivez à nos services </h6> 
+			<h6>Selon votre besoin, souscrivez à un de nos services </h6> 
 		</div>  
 	</div>
 	<!-- //banner --> 

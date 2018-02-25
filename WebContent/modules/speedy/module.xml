@@ -1,6 +1,6 @@
 <module>
   <name>speedy</name>
-  <url>services/speedy</url>
+  <url>speedy</url>
   <type>front-end</type>
   <actions>
     <action  url="subscribe"  method="subscribe"/>

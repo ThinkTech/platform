@@ -1,6 +1,6 @@
 <module>
   <name>webdev</name>
-  <url>services/webdev</url>
+  <url>webdev</url>
   <type>front-end</type>
   <actions>
      <action  url="subscribe"  method="subscribe"/>

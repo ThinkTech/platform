@@ -3,5 +3,6 @@
   <url>services/speedy</url>
   <type>front-end</type>
   <actions>
+    <action  url="subscribe"  method="subscribe"/>
   </actions>
 </module>

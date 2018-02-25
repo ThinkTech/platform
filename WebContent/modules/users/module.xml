@@ -1,0 +1,8 @@
+<module>
+	<name>users</name>
+	<type>back-end</type>
+	<actions>
+	    <action  url="login"  method="login"/>
+		<action  url="logout"  method="logout"/>
+	</actions>
+</module>

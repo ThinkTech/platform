@@ -3,5 +3,6 @@
   <url>services/webdev</url>
   <type>front-end</type>
   <actions>
+     <action  url="subscribe"  method="subscribe"/>
   </actions>
 </module>

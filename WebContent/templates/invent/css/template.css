@@ -156,8 +156,9 @@ ul.nav.navbar {
 }
 .banner-w3text h2 {
     font-size: 5em;
-    color: #222; 
+    color: #000000; 
     text-align: center;
+    font-weight: bold;
 }
 .banner-w3text h2 span {
     font-weight: 900;
@@ -168,7 +169,7 @@ ul.nav.navbar {
     color: #f49a7e; 
     text-align: center;
     letter-spacing: 5px;
-	font-weight: 700;
+	font-weight: bold;
 	margin-top: 20px;
 }
 .wthree-bnr-login ul li {
@@ -183,9 +184,9 @@ ul.nav.navbar {
     margin: 3em auto;
 }
 .banner-w3text input[type="text"],.banner-w3text input[type="email"]{
-    border: 1px solid #222;
+    border: 1px solid #000000;
     font-size: 1em;
-    color: #222;
+    color: #000000;
     background: none;
     width: 100%;
     padding: .8em 1.5em;
@@ -563,8 +564,8 @@ p{
     padding-bottom: 1.5em;
 }
 .footer-bottom {
-    border-top: 1px solid #fff;
-    padding: 2.5em 0 0;
+    padding: 0em 0 0;
+    text-align: center;
 }
 .footer-grids:nth-child(1) {
     padding-left: 0;
@@ -726,7 +727,7 @@ a.agile-more:hover{
     margin: 0 5px; 
 }
 .w3l_banner_figure p a:hover{ 
-    color: #222; 
+    color: #000000; 
 }
 /*-- image-hover --*/ 
 .wthree_team_grid_left figure {
@@ -1070,7 +1071,7 @@ figure.effect-julia:hover p {
 	transition: 0.5s all;
 }
 .address-agileinfo ul li a:hover{
-	color:#222;
+	color:#000000;
 } 
 /*-- //contact --*/
 /*-- single --*/ 
@@ -1131,7 +1132,7 @@ figure.effect-julia:hover p {
 	margin-top: 0.4em;
 } 
 .w3ls_single_left_grid1_right .social-icon a {
-    color: #222;
+    color: #000000;
 } 
 .w3ls_single_left_grid1_right .social-icon a:hover{
     color: #08ccf7;
@@ -1154,7 +1155,7 @@ figure.effect-julia:hover p {
 .w3l_admin a {
     display: block;
     text-align: right;
-    color:#222;
+    color:#000000;
     font-size: 1em;
     text-decoration: none;
 }
@@ -1277,7 +1278,7 @@ figure.effect-julia:hover p {
 }
 .Hardy h4 {
     font-size: 1.5em;
-    color: #222;
+    color: #000000;
 }
 .Hardy p {
     color:#08ccf7;

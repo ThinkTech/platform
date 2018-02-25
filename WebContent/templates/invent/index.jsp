@@ -117,37 +117,8 @@
 	<!-- footer -->
 	<div class="footer">
 		<div class="container">
-			<div class="footer-row w3l-newsletter"> 
-				<div class="col-md-6 w3_agile_newsletter_left">
-					<h4>ABONNEZ-VOUS AUX NOUVELLES</h4>
-				</div>
-				<div class="col-md-6 w3_agile_newsletter_right">
-					<form action="#" method="post">
-						<input type="email" name="Email" placeholder="email..." required="">
-						<input type="submit" value="ANNULER">
-					</form>
-				</div>
-				<div class="clearfix"> </div> 
-			</div> 
 			<div class="footer-bottom">
-				<div class="col-sm-4 col-xs-4 footer-grids footer-mdl">
-					<div class="col-md-6 col-xs-6 grid-left">
-						<ul>
-							<li><a href="index.html"><i class="fa fa-angle-right"></i>Accueil</a></li>
-							<li><a href="about.html"><i class="fa fa-angle-right"></i>Nos Services</a></li>
-							<li><a href="gallery.html"><i class="fa fa-angle-right"></i>Contact</a></li>
-						</ul>	
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="col-sm-6 col-xs-4 footer-grids">
-					<ul>
-						<li class="phn"><i class="fa fa-phone"></i>+(221) 33 855 10 91</li>
-						<li><a href="mailto:info@thinktech.sn"><i class="fa fa-envelope-o"></i> info@thinktech.sn</a></li>
-					</ul>
-					<p>© 2017 Tous droits réservés | Concu par <a href="https://www.thinktech.sn/">ThinkTech</a></p>
-				</div>
-				<div class="clearfix"> </div>
+				<p>© 2018 <a href="https://www.thinktech.sn/">ThinkTech</a></p>
 			</div>
 		</div>
 	</div>

@@ -35,7 +35,7 @@ body a:hover,body a:focus {
 } 
 /*-- banner --*/
 .agileits-banner {
-	background:url(../images/bg.jpg)no-repeat center 0px;
+	background:url(../images/bg.jpg)no-repeat center -407px;
 	-webkit-background-size:cover;
 	background-size:cover;
 	-moz-background-size:cover;
@@ -165,7 +165,7 @@ ul.nav.navbar {
 }
 .banner-w3text  h6 {
     font-size: 1em;
-    color: #222; 
+    color: #f49a7e; 
     text-align: center;
     letter-spacing: 5px;
 	font-weight: 700;
@@ -256,7 +256,7 @@ ul.nav.navbar {
 /*-- //banner-bottom --*/
 /*-- about --*/
 .about,.events,.services,.team,.gallery,.contact,.codes{
-	padding:5em 0;
+	padding:2em 0;
 }
 h3.agileits-title {
     font-size: 3.5em;
@@ -596,7 +596,7 @@ p{
 .footer-grids.footer-mdl {
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
-    padding: 0 4em;
+    padding: 0 0em;
 }
 .footer-grids:nth-child(3) {
     padding: 0 2em 0 4em;

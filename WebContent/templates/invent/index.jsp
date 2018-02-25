@@ -77,36 +77,13 @@
 	<div class="services">
 		<div class="container">
 			<div class="services-row-agileinfo">
-				<div class="col-sm-4 col-xs-6 services-w3grid">
+			    <s:iterator value="#application.moduleManager.frontendModules" var="module">
+		           <div class="col-sm-4 col-xs-6 services-w3grid">
 					<span class="glyphicon glyphicon-heart hi-icon" aria-hidden="true"></span>
-					<h5>Cum soluta nobis</h5>
-					<p>Itaque earum rerum hic a sapiente delectus</p>
+					<h5>${module.name}</h5>
+					<p>${module.name}</p>
 				</div>
-				<div class="col-sm-4 col-xs-6 services-w3grid">
-					<span class="glyphicon glyphicon-list-alt hi-icon" aria-hidden="true"></span>
-					<h5>Soluta vum nobis</h5>
-					<p>Itaque earum rerum hic a sapiente delectus</p>
-				</div>
-				<div class="col-sm-4 col-xs-6 services-w3grid">
-					<span class="glyphicon glyphicon-leaf hi-icon" aria-hidden="true"></span>
-					<h5>Nobis cum soluta</h5>
-					<p>Itaque earum rerum hic a sapiente delectus</p>
-				</div>
-				<div class="col-sm-4 col-xs-6 services-w3grid bottom-grids wow fadeInUp animated" data-wow-delay=".5s">
-					<span class="glyphicon glyphicon-globe hi-icon" aria-hidden="true"></span>
-					<h5>Taaum solu nobis</h5>
-					<p>Itaque earum rerum hic a sapiente delectus</p>
-				</div>
-				<div class="col-sm-4 col-xs-6 services-w3grid bottom-grids">
-					<span class="glyphicon glyphicon-cutlery hi-icon" aria-hidden="true"></span>
-					<h5>Vum soluta nobis</h5>
-					<p>Itaque earum rerum hic a sapiente delectus</p>
-				</div>
-				<div class="col-sm-4 col-xs-6 services-w3grid bottom-grids">
-					<span class="glyphicon glyphicon-th-large hi-icon" aria-hidden="true"></span>
-					<h5>Bisno cum soluta</h5>
-					<p>Itaque earum rerum hic a sapiente delectus</p>
-				</div>
+		        </s:iterator>
 				<div class="clearfix"> </div>
 			</div>
 			<div class="clearfix"> </div>

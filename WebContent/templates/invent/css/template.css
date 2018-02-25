@@ -88,6 +88,7 @@ ul.nav.navbar {
 /* Effect 11: text fill based on Lea Verou's animation http://dabblet.com/gist/6046779 */
 .top-nav ul li a {
     text-decoration: none;
+    text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 1.1em;
     color: #ff5722;

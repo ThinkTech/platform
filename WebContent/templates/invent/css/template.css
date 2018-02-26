@@ -29,8 +29,8 @@ body a:hover,body a:focus {
 } 
 /*-- banner --*/
 .agileits-banner {
-	background: #eeeff1;
-	position: relative; 
+	background: #08ccf7;
+	position: relative;
 } 
 /*-- logo --*/
 .w3llogo h1 {
@@ -57,7 +57,7 @@ ul.nav.navbar {
     text-align: center;
     margin: 0;
     min-height: inherit;
-    background: #eeeff1;
+    background: #08ccf7;
     border-radius: 0;
     border: none;
 }
@@ -89,7 +89,8 @@ ul.nav.navbar {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    color:#08ccf7;
+    color: #ffffff;
+    font-weight: bold;
 }
 /*-- //top-nav --*/
 /*-- social-icons --*/ 
@@ -108,15 +109,16 @@ ul.nav.navbar {
 }
 .banner-w3text h2 span {
     font-weight: 900;
-    color: #FF5722;
+    color: #ffffff;
 }
 .banner-w3text  h6 {
     font-size: 1em;
-    color: #f49a7e; 
+    color: #ffffff;
     text-align: center;
     letter-spacing: 5px;
-	font-weight: bold;
-	margin-top: 0px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 /*-- //banner-text --*/
 /*-- banner-bottom --*/
@@ -134,7 +136,7 @@ p{
 /*-- services --*/
 .services {
     background: #d9edf7;
-    min-height : 500px;
+    min-height : 474px;
 }
 .services-w3grid {
     text-align: center;

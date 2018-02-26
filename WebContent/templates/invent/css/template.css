@@ -29,10 +29,7 @@ body a:hover,body a:focus {
 } 
 /*-- banner --*/
 .agileits-banner {
-	background:url(../images/bg.jpg)no-repeat center -407px;
-	-webkit-background-size:cover;
-	background-size:cover;
-	-moz-background-size:cover;
+	background: #eeeff1;
 	position: relative; 
 } 
 /*-- logo --*/
@@ -60,8 +57,7 @@ ul.nav.navbar {
     text-align: center;
     margin: 0;
     min-height: inherit;
-    background: url(../images/bg.jpg)no-repeat center 0px;
-    background-size: cover;
+    background: #eeeff1;
     border-radius: 0;
     border: none;
 }
@@ -379,8 +375,9 @@ div#bs-example-navbar-collapse-1 {
 }
 .banner-w3text.w3layouts {
     padding: 1em 0;
+    padding-top: 30px;
     margin-top: -15px;
-    margin-bottom: 3px;
+    margin-bottom: 0px;
 }
 .services {
     padding: 2em 0;
@@ -410,9 +407,6 @@ p {
 .banner-w3text h6 { 
     padding: 0 1em;
     letter-spacing: 1px;
-}
-.banner-w3text.w3layouts {
-    padding: 1em 0;
 }
 .services-w3grid span {
     font-size: 1em;

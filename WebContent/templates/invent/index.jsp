@@ -58,10 +58,6 @@
 							<li><a href="contact.html">Contact</a></li>
 						</ul>
 					</div>
-					<div class="w3ls-bnr-icons social-icon navbar-right">
-						<a href="#" class="social-button twitter"><i class="fa fa-twitter"></i></a>
-						<a href="#" class="social-button facebook"><i class="fa fa-facebook"></i></a> 
-					</div> 
 					<div class="clearfix"> </div>  
 				</div>
 			</div>	

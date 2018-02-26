@@ -76,15 +76,6 @@
 		</div>
 	</div>
 	<!-- //services -->
-	<!-- footer -->
-	<div class="footer">
-		<div class="container">
-			<div class="footer-bottom">
-				<p>© 2018 <a href="https://www.thinktech.sn/">ThinkTech</a></p>
-			</div>
-		</div>
-	</div>
-	<!-- footer --> 
 	<script type="text/javascript">
 	    <%@include file="/js/jquery-3.1.1.min.js"%>
 	    <%@include file="/js/metamorphosis.js"%>

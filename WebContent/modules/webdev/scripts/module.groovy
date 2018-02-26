@@ -149,7 +149,7 @@ class ModuleAction extends ActionSupport {
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 11px;text-align:center") {
 		      p("Vous recevez cet email parce que vous (ou quelqu'un utilisant cet email)")
-		      p("a souscrit &agrave; ce service en utilisant cette adresse")
+		      p("a souscrit au service web dev en utilisant cette adresse")
 		  }
 		  
 		 }

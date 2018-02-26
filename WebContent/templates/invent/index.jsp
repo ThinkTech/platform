@@ -73,11 +73,11 @@
 	<div class="services">
 		<div class="container">
 			<div class="services-row-agileinfo">
-			    <s:iterator value="#application.moduleManager.frontendModules" var="module">
+			    <s:iterator value="#application.moduleManager.frontendModules" var="it">
 		           <div class="col-sm-4 col-xs-6 services-w3grid">
 					<span class="glyphicon glyphicon-heart hi-icon" aria-hidden="true"></span>
-					<h5>${module.name}</h5>
-					<p>${module.name}</p>
+					<h5><a href="${it.url}">${it.name}</a></h5>
+					<p>${it.name}</p>
 				</div>
 		        </s:iterator>
 				<div class="clearfix"> </div>

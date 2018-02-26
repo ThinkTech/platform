@@ -42,22 +42,23 @@ class ModuleAction extends ActionSupport {
 	   	 params = [subscription.project,subscription.project,"web dev",subscription.plan,user.id,user.structure_id]
        	 def result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params
        	 def project_id = result[0][0]
+       	 def tasks = getTasks()
        	 def bill = createBill(subscription)
        	 if(bill.amount){
 		       params = [bill.fee,bill.amount,project_id]
 		       connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
-	       	   def query = 'insert into projects_tasks(task_id,info,project_id) values (?, ?, ?)'
+	       	   def query = 'insert into projects_tasks(name,description,info,project_id) values (?, ?, ?, ?)'
 	      	   connection.withBatch(query){ ps ->
-	             10.times{
-	               ps.addBatch(it+1,"aucune information",project_id)
+	             tasks.each{
+	               ps.addBatch(it.name,it.description,"aucune information",project_id)
 	            } 
 	           }
 	     }else{
-	           def query = 'insert into projects_tasks(task_id,info,project_id) values (?, ? , ?)'
+	           def query = 'insert into projects_tasks(name,description,info,project_id) values (?, ?, ?, ?)'
 	      	   connection.withBatch(query){ ps ->
-	           10.times{
-	              if(it!=0) ps.addBatch(it+1,"aucune information",project_id)
-	           }
+	             tasks.eachWithIndex { it, i ->
+	              if(i!=0) ps.addBatch(it.name,it.description,"aucune information",project_id)
+	            }
 	          }
 	     }
 	     def mailConfig = new MailConfig(context.getInitParameter("smtp.email"),context.getInitParameter("smtp.password"),"smtp.thinktech.sn")
@@ -80,6 +81,31 @@ class ModuleAction extends ActionSupport {
 	      bill.amount = 15000 * 3
 	   }
 	   bill
+	}
+	
+	def getTasks(){
+	   def tasks = []
+	   def task = new Expando(name :"Contrat et Caution",description :"cette phase intiale établit la relation légale qui vous lie à ThinkTech")
+	   tasks << task
+	   task = new Expando(name :"Traitement",description : "cette phase d'approbation est celle où notre équipe technique prend en charge votre projet")
+       tasks << task
+       task = new Expando(name :"Analyse du projet",description : "cette phase est celle de l'analyse de votre projet pour une meilleure compréhension des objectifs")
+	   tasks << task
+	   task = new Expando(name :"Définition des fonctionnalités",description : "cette phase est celle de la définition des fonctionnalités du produit")
+	   tasks << task
+	   task = new Expando(name :"Conception de l'interface",description : "cette phase est celle de la conception de l'interface utilisateur")
+       tasks << task
+       task = new Expando(name :"Développement des fonctionnalités",description : "cette phase est celle du développement des fonctionnalités du produit")
+       tasks << task
+       task = new Expando(name :"Tests",description : "cette phase permet de tester les fonctionnalités du produit")
+       tasks << task
+       task = new Expando(name :"Validation",description : "cette phase est celle de la validation des fonctionnalités du produit")
+       tasks << task
+       task = new Expando(name :"Livraison du produit",description : "cette phase est celle du deploiement du produit final")
+       tasks << task
+       task = new Expando(name :"Formation",description : "cette phase finale est celle de la formation pour une prise en main du produit")
+	   tasks << task
+	   tasks
 	}
     
     def getSubscriptionTemplate(subscription) {

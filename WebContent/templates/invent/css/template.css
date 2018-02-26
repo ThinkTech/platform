@@ -153,7 +153,7 @@ ul.nav.navbar {
 /*-- //social-icons --*/
 /*-- banner-text --*/
 .banner-w3text.w3layouts {
-    padding:4em 0;
+    padding:1em 0;
 }
 .banner-w3text h2 {
     font-size: 5em;
@@ -171,7 +171,7 @@ ul.nav.navbar {
     text-align: center;
     letter-spacing: 5px;
 	font-weight: bold;
-	margin-top: 20px;
+	margin-top: 0px;
 }
 .wthree-bnr-login ul li {
     display: inline-block;
@@ -1867,7 +1867,7 @@ h2.typoh2{
     width: 31%;
 }
 .banner-w3text.w3layouts {
-    padding: 4em 0;
+    padding: 1em 0;
 } 
 } 
 @media(max-width:1080px){
@@ -1878,7 +1878,7 @@ h2.typoh2{
     padding: 1.3em 1.5em; 
 }
 .banner-w3text.w3layouts {
-    padding: 15em 0;
+    padding: 1em 0;
 }
 .banner-bottom p { 
     width: 58%; 
@@ -1990,7 +1990,7 @@ a.agile-more {
     letter-spacing: 3px; 
 }
 .banner-w3text.w3layouts {
-    padding: 12em 0;
+    padding: 1em 0;
 }
 .banner-bottom p {
     width: 66%;
@@ -2176,7 +2176,7 @@ figure.effect-julia p {
     margin-top: 0.35em;
 }
 .banner-w3text.w3layouts {
-    padding: 10em 0;
+    padding: 1em 0;
 }
 .banner-w3text input[type="text"], .banner-w3text input[type="email"] { 
     padding: .6em 1.5em; 
@@ -2211,6 +2211,8 @@ h3.agileits-title {
 button.navbar-toggle {
     border-color: #ff5722;
     margin: 0;
+    margin-top: -10px;
+    margin-bottom: 1px;
 }
 span.icon-bar {
     background: #ff5722;
@@ -2391,7 +2393,7 @@ h3.agileits-title {
 }
 @media(max-width:600px){
 .banner-w3text.w3layouts {
-    padding: 8em 0;
+    padding: 1em 0;
 }
 .wthree-bnr-login {
     width: 90%; 
@@ -2557,7 +2559,9 @@ a.agile-more {
     margin: 1em auto;
 }
 .banner-w3text.w3layouts {
-    padding: 6em 0;
+    padding: 1em 0;
+    margin-top: -15px;
+    margin-bottom: 3px;
 }
 .banner-bottom h5 {
     font-size: 1.4em;
@@ -2773,7 +2777,7 @@ a.agile-more {
     letter-spacing: 1px;
 }
 .banner-w3text.w3layouts {
-    padding: 4em 0;
+    padding: 1em 0;
 }
 .banner-bottom p {
     margin: 0.5em auto 0;

@@ -96,7 +96,9 @@ ul.nav.navbar {
 /*-- //social-icons --*/
 /*-- banner-text --*/
 .banner-w3text.w3layouts {
-    padding:1em 0;
+   padding: 1em 0;
+    padding-top: 5px;
+    padding-bottom: 20px;
 }
 .banner-w3text h2 {
     font-size: 5em;
@@ -240,11 +242,6 @@ p{
 }
 /*-- //pages --*/
 /*-- responsive-design --*/ 
-@media(max-width:1366px){
-.banner-w3text.w3layouts {
-    padding: 1em 0;
-} 
-} 
 @media(max-width:1080px){
 .w3menu.navbar-left {
     margin-left: 8em;

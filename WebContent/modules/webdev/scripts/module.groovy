@@ -87,7 +87,7 @@ class ModuleAction extends ActionSupport {
 	   def tasks = []
 	   def task = new Expando(name :"Contrat et Caution",description :"cette phase intiale &edot;tablit la relation l&edot;gale qui vous lie à ThinkTech")
 	   tasks << task
-	   task = new Expando(name :"Traitement",description : "cette phase d'approbation est celle où notre &edot;quipe technique prend en charge votre projet")
+	   task = new Expando(name :"Traitement",description : "cette phase d'approbation est celle o&ugrave; notre &edot;quipe technique prend en charge votre projet")
        tasks << task
        task = new Expando(name :"Analyse du projet",description : "cette phase est celle de l'analyse de votre projet pour une meilleure compr&edot;hension des objectifs")
 	   tasks << task

@@ -85,21 +85,21 @@ class ModuleAction extends ActionSupport {
 	
 	def getTasks(){
 	   def tasks = []
-	   def task = new Expando(name :"Contrat et Caution",description :"cette phase intiale établit la relation légale qui vous lie à ThinkTech")
+	   def task = new Expando(name :"Contrat et Caution",description :"cette phase intiale &edot;tablit la relation l&edot;gale qui vous lie à ThinkTech")
 	   tasks << task
-	   task = new Expando(name :"Traitement",description : "cette phase d'approbation est celle où notre équipe technique prend en charge votre projet")
+	   task = new Expando(name :"Traitement",description : "cette phase d'approbation est celle où notre &edot;quipe technique prend en charge votre projet")
        tasks << task
-       task = new Expando(name :"Analyse du projet",description : "cette phase est celle de l'analyse de votre projet pour une meilleure compréhension des objectifs")
+       task = new Expando(name :"Analyse du projet",description : "cette phase est celle de l'analyse de votre projet pour une meilleure compr&edot;hension des objectifs")
 	   tasks << task
-	   task = new Expando(name :"Définition des fonctionnalités",description : "cette phase est celle de la définition des fonctionnalités du produit")
+	   task = new Expando(name :"D&edot;finition des fonctionnalit&edot;s",description : "cette phase est celle de la d&edot;finition des fonctionnalit&edot;s du produit")
 	   tasks << task
 	   task = new Expando(name :"Conception de l'interface",description : "cette phase est celle de la conception de l'interface utilisateur")
        tasks << task
-       task = new Expando(name :"Développement des fonctionnalités",description : "cette phase est celle du développement des fonctionnalités du produit")
+       task = new Expando(name :"D&edot;veloppement des fonctionnalit&edot;s",description : "cette phase est celle du d&edot;veloppement des fonctionnalit&edot;s du produit")
        tasks << task
-       task = new Expando(name :"Tests",description : "cette phase permet de tester les fonctionnalités du produit")
+       task = new Expando(name :"Tests",description : "cette phase permet de tester les fonctionnalit&edot;s du produit")
        tasks << task
-       task = new Expando(name :"Validation",description : "cette phase est celle de la validation des fonctionnalités du produit")
+       task = new Expando(name :"Validation",description : "cette phase est celle de la validation des fonctionnalit&edot;s du produit")
        tasks << task
        task = new Expando(name :"Livraison du produit",description : "cette phase est celle du deploiement du produit final")
        tasks << task

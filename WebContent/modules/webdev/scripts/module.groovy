@@ -76,7 +76,7 @@ class ModuleAction extends ActionSupport {
        if(request.method == "POST") { 
 		   def project = parse(request) 
 		   def connection = getConnection()
-		   def params = [project.subject,project.priority,project.service,project.plan,project.description,project.user,project.structure]
+		   def params = [project.subject,project.priority,"web dev",project.plan,project.description,project.user,project.structure]
 	       def result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id) values (?, ?, ?,?,?,?,?)', params
 	       def id = result[0][0]
 	       def tasks = getTasks()

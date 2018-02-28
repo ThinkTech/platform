@@ -70,6 +70,35 @@ class ModuleAction extends ActionSupport {
        }
     }
     
+    def createProject() {
+	   def project = parse(request) 
+	   def connection = getConnection()
+	   def params = [project.subject,project.priority,project.service,project.plan,project.description,project.user,project.structure]
+       def result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id) values (?, ?, ?,?,?,?,?)', params
+       def id = result[0][0]
+       def tasks = getTasks()
+       def bill = createBill(project)
+       if(bill.amount){
+	       params = [bill.fee,bill.amount,id]
+	       connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
+       	   def query = 'insert into projects_tasks(name,description,info,project_id) values (?, ?, ?, ?)'
+      	   connection.withBatch(query){ ps ->
+             tasks.each{
+               ps.addBatch(it.name,it.description,"aucune information",id)
+            } 
+           }
+	    }else{
+           def query = 'insert into projects_tasks(name,description,info,project_id) values (?, ?, ?, ?)'
+      	   connection.withBatch(query){ ps ->
+             tasks.eachWithIndex { it, i ->
+              if(i!=0) ps.addBatch(it.name,it.description,"aucune information",id)
+            }
+          }
+	   }
+	   connection.close()
+	   json([id: id])
+	}
+    
     def createBill(subscription){
 	   def bill = new Expando()
 	   bill.fee = "caution"

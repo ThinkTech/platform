@@ -10,7 +10,13 @@ class ModuleAction extends ActionSupport {
 	      println bill
 	      def modules = moduleManager.modules
 	      modules.each{
-	         println it.name
+	         if(it.name == bill.service){
+	            println "service url "+it.url
+	         	println "paying bill"
+	         	def service = moduleManager.buildAndCacheAction(it,null)
+	         	println service
+	         	break;
+	         }
 	      }
 		  json([status: 1])
 	   }

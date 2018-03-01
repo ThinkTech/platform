@@ -7,15 +7,12 @@ class ModuleAction extends ActionSupport {
        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
        if(request.method == "POST") { 
 	      def bill = parse(request) 
-	      println bill
 	      def modules = moduleManager.modules
 	      modules.each{
 	         if(it.name == bill.service){
-	            println "service url "+it.url
-	         	println "paying bill"
-	         	def service = moduleManager.buildAndCacheAction(it,null)
-	         	println service
-	         	break;
+	            def reload = System.getenv("metamorphosis.reload")
+		        def service = "true".equals(reload) ? moduleManager.buildAction(it,null) : moduleManager.buildAndCacheAction(it,null)
+	         	service.payBill(it,bill)
 	         }
 	      }
 		  json([status: 1])

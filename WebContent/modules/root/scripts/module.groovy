@@ -11,12 +11,48 @@ class ModuleAction extends ActionSupport {
 	      def modules = moduleManager.modules
 	      modules.each{
 	         if(it.name == subscription.service){
-	            def reload = System.getenv("metamorphosis.reload")
-		        def service = "true".equals(reload) ? moduleManager.buildAction(it,null) : moduleManager.buildAndCacheAction(it,null)
-	         	service.subscribe(it,subscription)
+	            def status = 2
+                def connection = getConnection()
+			    def user = connection.firstRow("select * from users where email = ?", [subscription.email])
+			    if(user) {
+			        def count = connection.firstRow("select count(*) as num from subscriptions where service = ? and structure_id = ?", ["web dev",user.structure_id]).num
+			        if(count){
+			           json([status : 0])
+				       connection.close()
+				       return
+			        }
+			    }else{
+			        user = new Expando()
+			        def params = [subscription.structure]
+			        def result = connection.executeInsert 'insert into structures(name) values (?)', params
+		            user.structure_id = result[0][0]
+		            params = [subscription.name,subscription.email,subscription.password,"administrateur",true,user.structure_id]
+		            result = connection.executeInsert 'insert into users(name,email,password,role,owner,structure_id) values (?,?,sha(?),?,?,?)', params
+		            user.id = result[0][0]
+		            def alphabet = (('A'..'N')+('P'..'Z')+('a'..'k')+('m'..'z')+('2'..'9')).join()  
+		 	        def n = 30 
+		 		    subscription.activationCode = new Random().with { (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join() }
+		 		    params = [subscription.activationCode,user.id]
+		            connection.executeInsert 'insert into accounts(activation_code,user_id) values (?, ?)', params
+		            status = 1
+			     }
+			     def params = ["web dev",user.structure_id]
+		         connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
+			     def template = getSubscriptionTemplate(subscription)
+		         params = ["Souscription reussie",template,user.id,user.structure_id]
+		         connection.executeInsert 'insert into messages(subject,message,user_id,structure_id) values (?, ?, ?, ?)', params
+			     connection.close()
+			     def reload = System.getenv("metamorphosis.reload")
+		         def service = "true".equals(reload) ? moduleManager.buildAction(it,null) : moduleManager.buildAndCacheAction(it,null)   	
+	         	 service.subscribe(it,subscription)
+	         	 def mailConfig = new MailConfig(context.getInitParameter("smtp.email"),context.getInitParameter("smtp.password"),"smtp.thinktech.sn")
+			     def mailSender = new MailSender(mailConfig)
+			     def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, veuillez confirmer votre souscription au ${subscription.plan}",template)
+			     mailSender.sendMail(mail)
+			     json([status : status])
 	         }
 	      }
-		  json([status: 1])
+		  
 	   }
    }
    

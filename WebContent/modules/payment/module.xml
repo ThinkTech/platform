@@ -1,0 +1,8 @@
+<module>
+  <name>payment</name>
+  <url>payment</url>
+  <type>front-end</type>
+  <actions>
+   	<action url="pay"  method="payBill"/>
+  </actions>
+</module>

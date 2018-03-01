@@ -5,6 +5,5 @@
   <actions>
      <action  url="subscribe"  method="subscribe"/>
      <action  url="projects/create"  method="createProject"/>
-     <action  url="bills/pay"  method="payBill"/>
   </actions>
 </module>

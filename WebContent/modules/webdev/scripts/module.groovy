@@ -143,8 +143,7 @@ class ModuleAction extends ActionSupport {
 	   tasks
 	}
 	
-	def payBill(){
-      def bill = parse(request) 
+	def payBill(bill){
       def connection = getConnection()
 	  connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,session.getAttribute("user").id,bill.id]
 	  if(bill.fee == "caution"){
@@ -153,17 +152,15 @@ class ModuleAction extends ActionSupport {
 	  	def info = "le paiement de la caution a &edot;t&edot; &edot;ffectu&edot; et le contrat vous liant &aacute; ThinkTech a &edot;t&edot; g&edot;n&edot;r&edot; et ajout&edot; aux documents du projet"
 	  	connection.executeUpdate "update projects_tasks set date = ?, status = 'finished', info = ? , progression = 100 where name = ? and project_id = ?", [project.date,info,"Contrat et Caution",bill.project_id]
 	  	connection.executeUpdate "update projects_tasks set date = ?, status = 'in progress' where name = ? and project_id = ?", [project.date,"Traitement",bill.project_id]
-	  	def params = ["contrat.doc",50000,bill.project_id,session.getAttribute("user").id]
+	  	def params = ["contrat.doc",50000,bill.project_id,bill.user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
-	  	generateContract(project)
+	  	generateContract(bill.user,project)
 	  }
 	  connection.close()
 	  json([status: 1])
     }
    
-    def generateContract(project) {
-      def user = session.getAttribute("user")
-      def structure = user.structure
+    def generateContract(user,project) {
       def folder =  currentModule.folder.absolutePath + "/contracts/"
       Thread.start{
         if(project.service == "web dev"){

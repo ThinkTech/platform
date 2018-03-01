@@ -1,6 +1,5 @@
 body{
 	margin:0;
-	font-family: 'Roboto', sans-serif;
 	background: #fff;  
 }
 body a{ 
@@ -119,6 +118,7 @@ ul.nav.navbar {
     font-weight: bold;
     margin-top: 5px;
     margin-bottom: 5px;
+    font-family: tahoma;
 }
 /*-- //banner-text --*/
 /*-- banner-bottom --*/

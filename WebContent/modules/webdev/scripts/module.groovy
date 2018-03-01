@@ -157,7 +157,6 @@ class ModuleAction extends ActionSupport {
 	  	generateContract(bill.user,project)
 	  }
 	  connection.close()
-	  json([status: 1])
     }
    
     def generateContract(user,project) {

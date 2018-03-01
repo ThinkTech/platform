@@ -2,6 +2,7 @@
   <name>web dev</name>
   <url>webdev</url>
   <type>front-end</type>
+  <description>service de développement web</description>
   <actions>
      <action  url="subscribe"  method="subscribe"/>
      <action  url="projects/create"  method="createProject"/>

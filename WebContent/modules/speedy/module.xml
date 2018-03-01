@@ -2,6 +2,7 @@
   <name>speedy</name>
   <url>speedy</url>
   <type>front-end</type>
+  <description>service de livraison</description>
   <actions>
     <action  url="subscribe"  method="subscribe"/>
   </actions>

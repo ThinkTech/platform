@@ -67,7 +67,7 @@
 		           <div class="col-sm-4 col-xs-6 services-w3grid">
 					<span class="glyphicon glyphicon-heart hi-icon" aria-hidden="true"></span>
 					<h5><a href="${it.url}">${it.name}</a></h5>
-					<p>${it.name}</p>
+					<p>${it.description}</p>
 				</div>
 		        </s:iterator>
 				<div class="clearfix"> </div>

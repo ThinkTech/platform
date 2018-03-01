@@ -7,7 +7,8 @@ class ModuleAction extends ActionSupport {
     
 	def subscribe(module,subscription) {
 	     def connection = getConnection()
-       	 def params = [subscription.project,subscription.project,"web dev",subscription.plan,user.id,user.structure_id]
+	     def user = subscription.user
+       	 def params = [subscription.project,subscription.project,subscription.service,subscription.plan,user.id,user.structure_id]
        	 def result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params
        	 def project_id = result[0][0]
        	 def tasks = getTasks()

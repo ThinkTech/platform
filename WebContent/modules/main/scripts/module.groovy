@@ -9,10 +9,8 @@ class ModuleAction extends ActionSupport {
        if(request.method == "POST") { 
           def status = 2
           def subscription = parse(request) 
-	      println subscription
-	      def modules = moduleManager.modules
-	      modules.each{
-	         if(it.name == subscription.service){
+	      def module = moduleManager.getModuleByName(subscription.service)
+	      if(module){
 	            def count = 0
                 def connection = getConnection()
 			    def user = connection.firstRow("select * from users where email = ?", [subscription.email])
@@ -41,16 +39,14 @@ class ModuleAction extends ActionSupport {
 				    def params = [subscription.service,user.structure_id]
 			        connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
 				    connection.close()
-				    def reload = System.getenv("metamorphosis.reload")
-			        def service = "true".equals(reload) ? moduleManager.buildAction(it,null) : moduleManager.buildAndCacheAction(it,null)   	
+				    def service = getAction(module)
 		         	subscription.user = user
-		         	service.subscribe(it,subscription)
+		         	service.subscribe(module,subscription)
 		         	def mailConfig = new MailConfig(context.getInitParameter("smtp.email"),context.getInitParameter("smtp.password"),"smtp.thinktech.sn")
 				    def mailSender = new MailSender(mailConfig)
 				    def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, veuillez confirmer votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 				    mailSender.sendMail(mail)
 			    }
-	         }
 	      }
 	      json([status : status])
 	   }

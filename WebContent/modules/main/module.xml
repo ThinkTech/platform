@@ -4,7 +4,7 @@
   <visible>false</visible>
   <type>front-end</type>
   <actions>
-   	<action url="subscribe"  method="subscribe"/>
+   	<action  url="subscribe"  method="subscribe"/>
    	<action  url="projects/create"  method="createProject"/>
   </actions>
 </module>

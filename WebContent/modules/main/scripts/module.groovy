@@ -59,9 +59,14 @@ class ModuleAction extends ActionSupport {
 		   def project = parse(request) 
 		   def module = moduleManager.getModuleByName(project.service)
 	       if(module){
+	         def connection = getConnection()
+		     def params = [project.subject,project.priority,project.service,project.plan,project.description,project.user,project.structure]
+	         def result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id) values (?, ?, ?,?,?,?,?)', params
+	         project.id = result[0][0]
+	         connection.close()
 	         def service = getAction(module)
-		     def id = service.createProject(module,project)
-		     json([id: id])
+		     service.createProject(module,project)
+		     json([id: project.id])
 		   }	   
 	   }
 	}

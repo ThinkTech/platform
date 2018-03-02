@@ -52,6 +52,20 @@ class ModuleAction extends ActionSupport {
 	   }
    }
    
+   def createProject() {
+	   response.addHeader("Access-Control-Allow-Origin", "*");
+       response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+       if(request.method == "POST") { 
+		   def project = parse(request) 
+		   def module = moduleManager.getModuleByName(project.service)
+	       if(module){
+	         def service = getAction(module)
+		     def id = service.createProject(module,project)
+		     json([id: id])
+		   }	   
+	   }
+	}
+   
    def getSubscriptionTemplate(subscription) {
 		MarkupTemplateEngine engine = new MarkupTemplateEngine()
 		def text = '''\

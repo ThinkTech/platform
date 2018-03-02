@@ -3,7 +3,4 @@
   <url>webdev</url>
   <type>front-end</type>
   <description>service de développement web</description>
-  <actions>
-     <action  url="projects/create"  method="createProject"/>
-  </actions>
 </module>

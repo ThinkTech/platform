@@ -11,49 +11,41 @@ class ModuleAction extends ActionSupport {
        	 def params = [subscription.project,subscription.project,subscription.service,subscription.plan,user.id,user.structure_id]
        	 def result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params
        	 def project_id = result[0][0]
-       	 def tasks = getTasks()
+       	 def tasks
        	 def bill = createBill(subscription)
        	 if(bill.amount){
-		       params = [bill.fee,bill.amount,project_id]
-		       connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
-	       	   def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
-	      	   connection.withBatch(query){ ps ->
-	             tasks.each{
-	               ps.addBatch(it.name,it.description,project_id)
-	            } 
-	           }
+		    params = [bill.fee,bill.amount,project_id]
+		    connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
+	       	tasks = getTasks(true)
 	     }else{
-	           def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
-	      	   connection.withBatch(query){ ps ->
-	             tasks.eachWithIndex { it, i ->
-	              if(i!=0) ps.addBatch(it.name,it.description,project_id)
-	            }
-	          }
+	        tasks = getTasks(false)
+	     }
+	     def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
+	     connection.withBatch(query){ ps ->
+	         tasks.each{
+	            ps.addBatch(it.name,it.description,project_id)
+	         } 
 	     }
 	     connection.close()
     }
     
     def createProject(module,project) {
 	     def connection = getConnection()
-		 def tasks = getTasks()
+		 def tasks
 	     def bill = createBill(project)
 	     if(bill.amount){
-		       def params = [bill.fee,bill.amount,project.id]
-		       connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
-	       	   def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
-	      	   connection.withBatch(query){ ps ->
-	             tasks.each{
-	               ps.addBatch(it.name,it.description,project.id)
-	            } 
-	           }
+		      def params = [bill.fee,bill.amount,project.id]
+		      connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
+	       	  tasks = getTasks(true)
 		  }else{
-	           def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
-	      	   connection.withBatch(query){ ps ->
-	             tasks.eachWithIndex { it, i ->
-	              if(i!=0) ps.addBatch(it.name,it.description,project.id)
-	            }
-	          }
+	          tasks = getTasks(false)
 		  }
+		  def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
+	      connection.withBatch(query){ ps ->
+	         tasks.each{
+	            ps.addBatch(it.name,it.description,project_id)
+	         } 
+	      }
 		  connection.close()
 	}
     
@@ -70,9 +62,9 @@ class ModuleAction extends ActionSupport {
 	   bill
 	}
 	
-	def getTasks(){
+	def getTasks(caution){
 	   def tasks = []
-	   def task = new Expando(name :"Contrat et Caution",description :"cette phase intiale &edot;tablit la relation l&edot;gale qui vous lie &agrave; ThinkTech")
+	   def task = new Expando(name : caution ? "Contrat et Caution" : "Contrat",description :"cette phase intiale &edot;tablit la relation l&edot;gale qui vous lie &agrave; ThinkTech")
 	   tasks << task
 	   task = new Expando(name :"Traitement",description : "cette phase d'approbation est celle o&ugrave; notre &edot;quipe technique prend en charge votre projet")
        tasks << task

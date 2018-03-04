@@ -16,17 +16,17 @@ class ModuleAction extends ActionSupport {
        	 if(bill.amount){
 		       params = [bill.fee,bill.amount,project_id]
 		       connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
-	       	   def query = 'insert into projects_tasks(name,description,info,project_id) values (?, ?, ?, ?)'
+	       	   def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?, ?)'
 	      	   connection.withBatch(query){ ps ->
 	             tasks.each{
-	               ps.addBatch(it.name,it.description,"aucune information",project_id)
+	               ps.addBatch(it.name,it.description,project_id)
 	            } 
 	           }
 	     }else{
-	           def query = 'insert into projects_tasks(name,description,info,project_id) values (?, ?, ?, ?)'
+	           def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?, ?)'
 	      	   connection.withBatch(query){ ps ->
 	             tasks.eachWithIndex { it, i ->
-	              if(i!=0) ps.addBatch(it.name,it.description,"aucune information",project_id)
+	              if(i!=0) ps.addBatch(it.name,it.description,project_id)
 	            }
 	          }
 	     }
@@ -40,17 +40,17 @@ class ModuleAction extends ActionSupport {
 	     if(bill.amount){
 		       def params = [bill.fee,bill.amount,project.id]
 		       connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
-	       	   def query = 'insert into projects_tasks(name,description,info,project_id) values (?, ?, ?, ?)'
+	       	   def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?, ?)'
 	      	   connection.withBatch(query){ ps ->
 	             tasks.each{
-	               ps.addBatch(it.name,it.description,"aucune information",project.id)
+	               ps.addBatch(it.name,it.description,project.id)
 	            } 
 	           }
 		  }else{
-	           def query = 'insert into projects_tasks(name,description,info,project_id) values (?, ?, ?, ?)'
+	           def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?, ?)'
 	      	   connection.withBatch(query){ ps ->
 	             tasks.eachWithIndex { it, i ->
-	              if(i!=0) ps.addBatch(it.name,it.description,"aucune information",project.id)
+	              if(i!=0) ps.addBatch(it.name,it.description,project.id)
 	            }
 	          }
 		  }

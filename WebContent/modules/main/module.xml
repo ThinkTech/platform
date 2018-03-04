@@ -1,7 +1,8 @@
 <module>
-  <name>root</name>
+  <name>main</name>
   <url>services</url>
   <visible>false</visible>
+  <main>true</main>
   <type>front-end</type>
   <actions>
    	<action  url="subscribe"  method="subscribe"/>

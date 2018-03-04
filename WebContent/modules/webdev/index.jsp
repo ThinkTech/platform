@@ -1,0 +1,1 @@
+<h5><span class="glyphicon glyphicon-heart hi-icon" aria-hidden="true"></span> ${module.name}</h5>

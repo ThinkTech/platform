@@ -43,7 +43,7 @@ class ModuleAction extends ActionSupport {
 		  def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
 	      connection.withBatch(query){ ps ->
 	         tasks.each{
-	            ps.addBatch(it.name,it.description,project_id)
+	            ps.addBatch(it.name,it.description,project.id)
 	         } 
 	      }
 		  connection.close()

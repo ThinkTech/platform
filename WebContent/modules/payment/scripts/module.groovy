@@ -7,12 +7,14 @@ class ModuleAction extends ActionSupport {
        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
        if(request.method == "POST") { 
 	      def bill = parse(request) 
+	      def status = 0
 	      def module = getModule(bill.service)
           if(module){
             def service = getAction(module)
          	service.payBill(module,bill)
+         	status = 1
           }
-		  json([status: 1])
+		  json([status: status])
 	   }
    }
    

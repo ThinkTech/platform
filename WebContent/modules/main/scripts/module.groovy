@@ -9,7 +9,7 @@ class ModuleAction extends ActionSupport {
        if(request.method == "POST") { 
           def status = 2
           def subscription = parse(request) 
-	      def module = moduleManager.getModuleByName(subscription.service)
+	      def module = getModule(subscription.service)
 	      if(module){
 	            def count = 0
                 def connection = getConnection()
@@ -57,7 +57,7 @@ class ModuleAction extends ActionSupport {
        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
        if(request.method == "POST") { 
 		   def project = parse(request) 
-		   def module = moduleManager.getModuleByName(project.service)
+		   def module = getModule(project.service)
 	       if(module){
 	         def connection = getConnection()
 		     def params = [project.subject,project.priority,project.service,project.plan,project.description,project.user,project.structure]

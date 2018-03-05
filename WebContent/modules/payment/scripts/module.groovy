@@ -7,7 +7,7 @@ class ModuleAction extends ActionSupport {
        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
        if(request.method == "POST") { 
 	      def bill = parse(request) 
-	      def module = moduleManager.getModuleByName(bill.service)
+	      def module = getModule(bill.service)
           if(module){
             def service = getAction(module)
          	service.payBill(module,bill)

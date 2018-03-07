@@ -17,12 +17,12 @@
    
    <context-param>
      <param-name>smtp.email</param-name>
-     <param-value>lamine.ba@thinktech.sn</param-value>
+     <param-value>noreply@thinktech.sn</param-value>
    </context-param>  
    
    <context-param>
      <param-name>smtp.password</param-name>
-     <param-value>California2003</param-value>
+     <param-value>pa145rgd95vnfn32</param-value>
    </context-param>
    
    <session-config>

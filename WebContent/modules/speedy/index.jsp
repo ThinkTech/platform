@@ -1,1 +1,9 @@
-<h5><span class="glyphicon glyphicon-heart hi-icon" aria-hidden="true"></span> ${module.name}</h5>
+<div class="services">
+		<div class="container">
+			<div class="services-row-agileinfo">
+			    	<h1>${module.name}</h1>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+</div>

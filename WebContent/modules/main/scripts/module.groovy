@@ -42,7 +42,7 @@ class ModuleAction extends ActionSupport {
 				    def service = getAction(module)
 		         	subscription.user = user
 		         	service.subscribe(module,subscription)
-		         	def mailConfig = new MailConfig(context.getInitParameter("smtp.email"),context.getInitParameter("smtp.password"),"smtp.thinktech.sn")
+		         	def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 				    def mailSender = new MailSender(mailConfig)
 				    def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, veuillez confirmer votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 				    mailSender.sendMail(mail)

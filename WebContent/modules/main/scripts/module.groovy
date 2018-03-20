@@ -117,7 +117,7 @@ class ModuleAction extends ActionSupport {
 		  
 		 }
 		'''
-		def template = engine.createTemplate(text).make([subscription:subscription,url : "http://app.thinktech.sn"])
+		def template = engine.createTemplate(text).make([subscription:subscription,url : "https://thinktech-app.herokuapp.com"])
 		template.toString()
 	}
    

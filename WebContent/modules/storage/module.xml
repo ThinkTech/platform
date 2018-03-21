@@ -1,0 +1,6 @@
+<module>
+  <name>storage</name>
+  <url>storage</url>
+  <type>front-end</type>
+  <description>service de gestion de documents</description>
+</module>

@@ -55,9 +55,9 @@ class ModuleAction extends ActionSupport {
 	   if(subscription.plan == "plan business") {
 	      bill.amount = 25000 * 3
 	   }else if(subscription.plan == "plan corporate") {
-	      bill.amount = 20000 * 3
-	   }else if(subscription.plan == "plan personal") {
 	      bill.amount = 15000 * 3
+	   }else if(subscription.plan == "plan personal") {
+	      bill.amount = 10000 * 3
 	   }
 	   bill
 	}

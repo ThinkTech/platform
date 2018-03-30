@@ -91,11 +91,11 @@ class ModuleAction extends ActionSupport {
       def connection = getConnection()
 	  connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,bill.user.id,bill.id]
 	  if(bill.fee == "caution"){
-	  	connection.executeUpdate "update projects set status = 'in progress', progression = 10 where id = ?", [bill.project_id]
+	  	connection.executeUpdate "update projects set status = 'in progress', startedOn = NOW(), progression = 10 where id = ?", [bill.project_id]
 	  	def project = connection.firstRow("select * from projects  where id = ?", [bill.project_id])
 	  	def info = "le paiement de la caution a &edot;t&edot; &edot;ffectu&edot; et le contrat vous liant &aacute; ThinkTech a &edot;t&edot; g&edot;n&edot;r&edot; et ajout&edot; aux documents du projet"
-	  	connection.executeUpdate "update projects_tasks set date = ?, status = 'finished', info = ? , progression = 100 where name = ? and project_id = ?", [project.date,info,"Contrat et Caution",bill.project_id]
-	  	connection.executeUpdate "update projects_tasks set date = ?, status = 'in progress' where name = ? and project_id = ?", [project.date,"Traitement",bill.project_id]
+	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'finished', info = ? , progression = 100 where name = ? and project_id = ?", [info,"Contrat et Caution",bill.project_id]
+	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'in progress' where name = ? and project_id = ?", ["Traitement",bill.project_id]
 	  	def params = ["contrat.doc",50000,bill.project_id,bill.user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
 	  	generateContract(module,bill.user,project)

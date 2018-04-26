@@ -36,8 +36,8 @@ class ModuleAction extends ActionSupport {
 		            status = 1
 			    }
 			    if(!count){
-				    def params = [subscription.service,user.structure_id]
-			        connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
+				    def params = [subscription.service,subscription.plan,user.structure_id]
+			        connection.executeInsert 'insert into subscriptions(service,plan,structure_id) values (?,?,?)', params
 				    connection.close()
 				    def service = getAction(module)
 		         	subscription.user = user

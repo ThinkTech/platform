@@ -7,7 +7,7 @@ class ModuleAction extends ActionSupport {
 	   def ticket = new Expando()
 	   ticket.subject = "configuration business email"
 	   ticket.service = subscription.service
-	   ticket.message = "Configuration de votre business email - plan "+subscription.plan
+	   ticket.message = "<p>Configuration business email - plan "+subscription.plan+"</p>"
 	   def user = subscription.user
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params

@@ -5,7 +5,7 @@ import app.FileManager
 
 class ModuleAction extends ActionSupport {
     
-	def subscribe(module,subscription) {
+	def subscribe(subscription) {
 	     def connection = getConnection()
 	     def user = subscription.user
        	 def params = [subscription.project,subscription.project,subscription.service,subscription.plan,user.id,user.structure_id]
@@ -29,7 +29,7 @@ class ModuleAction extends ActionSupport {
 	     connection.close()
     }
     
-    def createProject(module,project) {
+    def createProject(project) {
 	     def connection = getConnection()
 		 def tasks
 	     def bill = createBill(project)
@@ -87,7 +87,7 @@ class ModuleAction extends ActionSupport {
 	   tasks
 	}
 	
-	def payBill(module,bill){
+	def payBill(bill){
       def connection = getConnection()
 	  connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,bill.user.id,bill.id]
 	  if(bill.fee == "caution"){
@@ -98,7 +98,7 @@ class ModuleAction extends ActionSupport {
 	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'in progress' where name = ? and project_id = ?", ["Traitement",bill.project_id]
 	  	def params = ["contrat.doc",50000,bill.project_id,bill.user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
-	  	generateContract(module,bill.user,project)
+	  	generateContract(bill.module,bill.user,project)
 	  }
 	  connection.close()
     }

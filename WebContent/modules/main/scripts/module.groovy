@@ -41,7 +41,8 @@ class ModuleAction extends ActionSupport {
 				    connection.close()
 				    def service = getAction(module)
 		         	subscription.user = user
-		         	service.subscribe(module,subscription)
+		         	subscription.module = module
+		         	service.subscribe(subscription)
 		         	def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 				    def mailSender = new MailSender(mailConfig)
 				    def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
@@ -65,7 +66,8 @@ class ModuleAction extends ActionSupport {
 	         project.id = result[0][0]
 	         connection.close()
 	         def service = getAction(module)
-		     service.createProject(module,project)
+	         project.module = module
+		     service.createProject(project)
 		     json([id: project.id])
 		   }	   
 	   }

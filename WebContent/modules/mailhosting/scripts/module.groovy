@@ -2,7 +2,7 @@ import groovy.sql.Sql
 
 class ModuleAction extends ActionSupport {
     
-	def subscribe(module,subscription) {
+	def subscribe(subscription) {
     }
    
 	def getConnection() {

@@ -11,7 +11,8 @@ class ModuleAction extends ActionSupport {
 	      def module = getModule(bill.service)
           if(module){
             def service = getAction(module)
-         	service.payBill(module,bill)
+            bill.module = module
+         	service.payBill(bill)
          	status = 1
           }
 		  json([status: status])

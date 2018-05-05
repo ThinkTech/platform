@@ -5,18 +5,21 @@ import app.FileManager
 class Service extends ActionSupport {
     
 	def subscribe(subscription) {
-	     subscription.per = "month"
-	     def user = subscription.user
-	     def params = ["mailhosting","free",user.structure_id]
-		 connection.executeInsert 'insert into subscriptions(service,plan,structure_id) values (?,?,?)', params		    
-       	 params = [subscription.project,subscription.project,subscription.service,subscription.plan,user.id,user.structure_id]
+	  subscription.per = "month"
+	  def user = subscription.user
+	  def count = connection.firstRow("select count(*) as num from subscriptions where service = ? and structure_id = ?", ["mailhosting",user.structure_id]).num
+	  if(!count) {
+	    def params = ["mailhosting","free",user.structure_id]
+	    connection.executeInsert 'insert into subscriptions(service,plan,structure_id) values (?,?,?)', params
+	 }		    
+       	 def params = [subscription.project,subscription.project,subscription.service,subscription.plan,user.id,user.structure_id]
        	 def result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params
        	 def project_id = result[0][0]
        	 def tasks
        	 def bill = createBill(subscription)
        	 if(bill.amount){
-		    params = [bill.fee,bill.amount,project_id]
-		    connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
+		params = [bill.fee,bill.amount,project_id]
+		connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
 	       	tasks = getTasks(true)
 	     }else{
 	        tasks = getTasks(false)

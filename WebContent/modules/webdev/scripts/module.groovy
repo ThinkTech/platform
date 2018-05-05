@@ -2,7 +2,7 @@ import org.apache.poi.hwpf.HWPFDocument
 import org.apache.poi.poifs.filesystem.POIFSFileSystem
 import app.FileManager
 
-class ModuleAction extends ActionSupport {
+class Service extends ActionSupport {
     
 	def subscribe(subscription) {
 	     subscription.per = "month"
@@ -118,4 +118,4 @@ class ModuleAction extends ActionSupport {
 	
 }
 
-new ModuleAction()
+new Service()

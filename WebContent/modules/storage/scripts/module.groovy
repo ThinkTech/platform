@@ -1,4 +1,4 @@
-class ModuleAction extends ActionSupport {
+class Service extends ActionSupport {
     
 	def subscribe(subscription) {
 	
@@ -6,4 +6,4 @@ class ModuleAction extends ActionSupport {
 	
 }
 
-new ModuleAction()
+new Service()

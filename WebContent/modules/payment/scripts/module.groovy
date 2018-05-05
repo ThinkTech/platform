@@ -1,6 +1,6 @@
 import groovy.sql.Sql
 
-class ModuleAction extends ActionSupport {
+class Service extends ActionSupport {
 
     def payBill(){
        response.addHeader("Access-Control-Allow-Origin", "*");
@@ -27,4 +27,4 @@ class ModuleAction extends ActionSupport {
    }
 }
 
-new ModuleAction()
+new Service()

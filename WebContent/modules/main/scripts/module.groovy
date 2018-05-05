@@ -1,7 +1,7 @@
 import groovy.text.markup.MarkupTemplateEngine
 import groovy.sql.Sql
 
-class ModuleAction extends ActionSupport {
+class Service extends ActionSupport {
 
     def subscribe(){
        response.addHeader("Access-Control-Allow-Origin", "*");
@@ -132,4 +132,4 @@ class ModuleAction extends ActionSupport {
    }
 }
 
-new ModuleAction()
+new Service()

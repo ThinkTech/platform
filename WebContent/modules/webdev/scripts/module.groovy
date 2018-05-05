@@ -1,4 +1,3 @@
-import groovy.sql.Sql
 import org.apache.poi.hwpf.HWPFDocument
 import org.apache.poi.poifs.filesystem.POIFSFileSystem
 import app.FileManager
@@ -6,7 +5,6 @@ import app.FileManager
 class ModuleAction extends ActionSupport {
     
 	def subscribe(subscription) {
-	     def connection = getConnection()
 	     subscription.per = "month"
 	     def user = subscription.user
 	     def params = ["mailhosting","free",user.structure_id]
@@ -29,11 +27,9 @@ class ModuleAction extends ActionSupport {
 	            ps.addBatch(it.name,it.description,project_id)
 	         } 
 	     }
-	     connection.close()
     }
     
     def createProject(project) {
-	     def connection = getConnection()
 		 def tasks
 	     def bill = createBill(project)
 	     if(bill.amount){
@@ -49,17 +45,16 @@ class ModuleAction extends ActionSupport {
 	            ps.addBatch(it.name,it.description,project.id)
 	         } 
 	      }
-		  connection.close()
 	}
     
     def createBill(subscription){
 	   def bill = new Expando()
 	   bill.fee = "caution"
-	   if(subscription.plan == "plan business") {
+	   if(subscription.plan == "business") {
 	      bill.amount = 25000 * 3
-	   }else if(subscription.plan == "plan corporate") {
+	   }else if(subscription.plan == "corporate") {
 	      bill.amount = 15000 * 3
-	   }else if(subscription.plan == "plan personal") {
+	   }else if(subscription.plan == "personal") {
 	      bill.amount = 10000 * 3
 	   }
 	   bill
@@ -91,7 +86,6 @@ class ModuleAction extends ActionSupport {
 	}
 	
 	def payBill(bill){
-      def connection = getConnection()
 	  connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,bill.user.id,bill.id]
 	  if(bill.fee == "caution"){
 	  	connection.executeUpdate "update projects set status = 'in progress', startedOn = NOW(), progression = 10 where id = ?", [bill.project_id]
@@ -103,7 +97,6 @@ class ModuleAction extends ActionSupport {
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
 	  	generateContract(bill.module,bill.user,project)
 	  }
-	  connection.close()
     }
    
     def generateContract(module,user,project) {
@@ -122,9 +115,6 @@ class ModuleAction extends ActionSupport {
       }
     }
 	
-	def getConnection() {
-		new Sql(dataSource)
-	}
 	
 }
 

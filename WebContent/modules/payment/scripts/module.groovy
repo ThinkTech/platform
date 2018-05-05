@@ -11,8 +11,11 @@ class ModuleAction extends ActionSupport {
 	      def module = getModule(bill.service)
           if(module){
             def service = getAction(module)
+            def connection = getConnection()
+            service.metaClass.connection = connection
             bill.module = module
          	service.payBill(bill)
+         	connection.close()
          	status = 1
           }
 		  json([status: status])

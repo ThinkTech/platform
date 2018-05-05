@@ -36,18 +36,19 @@ class ModuleAction extends ActionSupport {
 		            status = 1
 			    }
 			    if(!count){
-				    def service = getAction(module)
-		         	subscription.user = user
-		         	subscription.module = module
-		         	service.subscribe(subscription)
-		         	subscription.per = subscription.per ? subscription.per : "year"
-		         	def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
-			        connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
-				    connection.close()
-		         	def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
-				    def mailSender = new MailSender(mailConfig)
-				    def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
-				    mailSender.sendMail(mail)
+			      def service = getAction(module)
+			      service.metaClass.connection = connection
+		          subscription.user = user
+		          subscription.module = module
+		          service.subscribe(subscription)
+		          subscription.per = subscription.per ? subscription.per : "year"
+		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
+			      connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
+				  connection.close()
+		          def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
+				  def mailSender = new MailSender(mailConfig)
+				  def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
+				  mailSender.sendMail(mail)  
 			    }
 	      }
 	      json([status : status])
@@ -65,10 +66,11 @@ class ModuleAction extends ActionSupport {
 		     def params = [project.subject,project.priority,project.service,project.plan,project.description,project.user,project.structure]
 	         def result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id) values (?, ?, ?,?,?,?,?)', params
 	         project.id = result[0][0]
-	         connection.close()
 	         def service = getAction(module)
+	         service.metaClass.connection = connection
 	         project.module = module
 		     service.createProject(project)
+		     connection.close()
 		     json([id: project.id])
 		   }	   
 	   }

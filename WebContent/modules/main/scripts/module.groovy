@@ -16,10 +16,7 @@ class Service extends ActionSupport {
 			    def user = connection.firstRow("select * from users where email = ?", [subscription.email])
 			    if(user) {
 			        count = connection.firstRow("select count(*) as num from subscriptions where service = ? and structure_id = ?", [subscription.service,user.structure_id]).num
-			        if(count){
-			           status = 0
-				       connection.close()
-			        }
+			        if(count) status = 0
 			    }else{
 			        user = new Expando()
 			        def params = [subscription.structure]
@@ -44,12 +41,12 @@ class Service extends ActionSupport {
 		          subscription.per = subscription.per ? subscription.per : "year"
 		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
 			      connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
-				  connection.close()
 		          def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 				  def mailSender = new MailSender(mailConfig)
 				  def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 				  mailSender.sendMail(mail)  
 			    }
+			    connection.close()
 	      }
 	      json([status : status])
 	   }

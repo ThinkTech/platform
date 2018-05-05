@@ -35,8 +35,8 @@ class Service extends ActionSupport {
 			    if(!count){
 			      def service = getAction(module)
 			      service.metaClass.connection = connection
+		          service.metaClass.module = module
 		          subscription.user = user
-		          subscription.module = module
 		          service.subscribe(subscription)
 		          subscription.per = subscription.per ? subscription.per : "year"
 		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
@@ -65,7 +65,7 @@ class Service extends ActionSupport {
 	         project.id = result[0][0]
 	         def service = getAction(module)
 	         service.metaClass.connection = connection
-	         project.module = module
+		     service.metaClass.module = module
 		     service.createProject(project)
 		     connection.close()
 		     json([id: project.id])

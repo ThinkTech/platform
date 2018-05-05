@@ -13,7 +13,7 @@ class Service extends ActionSupport {
             def service = getAction(module)
             def connection = getConnection()
             service.metaClass.connection = connection
-            bill.module = module
+		    service.metaClass.module = module
          	service.payBill(bill)
          	connection.close()
          	status = 1

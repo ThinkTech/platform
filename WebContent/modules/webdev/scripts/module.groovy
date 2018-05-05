@@ -95,11 +95,11 @@ class Service extends ActionSupport {
 	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'in progress' where name = ? and project_id = ?", ["Traitement",bill.project_id]
 	  	def params = ["contrat.doc",50000,bill.project_id,bill.user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
-	  	generateContract(bill.module,bill.user,project)
+	  	generateContract(bill.user,project)
 	  }
     }
    
-    def generateContract(module,user,project) {
+    def generateContract(user,project) {
       def folder =  module.folder.absolutePath + "/contracts/"
       Thread.start{
           def file = project.plan.replace(' ','-')+".doc"

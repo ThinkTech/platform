@@ -7,6 +7,7 @@ class ModuleAction extends ActionSupport {
     
 	def subscribe(subscription) {
 	     def connection = getConnection()
+	     subscription.per = "month"
 	     def user = subscription.user
 	     def params = ["mailhosting","free",user.structure_id]
 		 connection.executeInsert 'insert into subscriptions(service,plan,structure_id) values (?,?,?)', params		    

@@ -36,13 +36,14 @@ class ModuleAction extends ActionSupport {
 		            status = 1
 			    }
 			    if(!count){
-				    def params = [subscription.service,subscription.plan,user.structure_id]
-			        connection.executeInsert 'insert into subscriptions(service,plan,structure_id) values (?,?,?)', params
-				    connection.close()
 				    def service = getAction(module)
 		         	subscription.user = user
 		         	subscription.module = module
 		         	service.subscribe(subscription)
+		         	subscription.per = subscription.per ? subscription.per : "year"
+		         	def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
+			        connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
+				    connection.close()
 		         	def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 				    def mailSender = new MailSender(mailConfig)
 				    def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))

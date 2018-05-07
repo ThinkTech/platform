@@ -53,7 +53,7 @@ class Service extends ActionSupport {
 	   def bill = new Expando()
 	   bill.fee = "caution"
 	   if(subscription.plan == "business") {
-	      bill.amount = 25000 * 3
+	      bill.amount = 20000 * 3
 	   }else if(subscription.plan == "corporate") {
 	      bill.amount = 15000 * 3
 	   }else if(subscription.plan == "personal") {

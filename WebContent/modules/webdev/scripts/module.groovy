@@ -5,7 +5,6 @@ import app.FileManager
 class Service extends ActionSupport {
     
 	def subscribe(subscription) {
-	  subscription.per = "month"
 	  def user = subscription.user
 	  def count = connection.firstRow("select count(*) as num from subscriptions where service = ? and structure_id = ?", ["mailhosting",user.structure_id]).num
 	  if(!count) {

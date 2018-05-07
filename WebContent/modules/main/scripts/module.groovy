@@ -37,10 +37,10 @@ class Service extends ActionSupport {
 			      service.metaClass.connection = connection
 		          service.metaClass.module = module
 		          subscription.user = user
-		          service.subscribe(subscription)
-		          subscription.per = subscription.per ? subscription.per : "year"
 		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
-			      connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
+			      def result = connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
+		          subscription.id = result[0][0]
+		          service.subscribe(subscription)
 		          def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 				  def mailSender = new MailSender(mailConfig)
 				  def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))

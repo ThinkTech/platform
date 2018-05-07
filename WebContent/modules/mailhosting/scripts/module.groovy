@@ -8,7 +8,25 @@ class Service extends ActionSupport {
 	   def user = subscription.user
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
+       def bill = createBill(subscription)
+       if(bill.amount){
+		   def params = [bill.fee,bill.amount,subscription.id]
+		   connection.executeInsert 'insert into bills(fee,amount,subscription_id) values (?,?,?)', params
+	   }
     }
+    
+    def createBill(subscription){
+	   def bill = new Expando()
+	   bill.fee = "business email"
+	   if(subscription.plan == "standard") {
+	      bill.amount = 1500
+	   }else if(subscription.plan == "pro") {
+	      bill.amount = 3500
+	   }else if(subscription.plan == "enterprise") {
+	      bill.amount = 5500
+	   }
+	   bill
+	}
 	
 }
 

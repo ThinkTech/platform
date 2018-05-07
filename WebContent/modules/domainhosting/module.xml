@@ -1,0 +1,6 @@
+<module>
+  <name>domainhosting</name>
+  <url>domainhosting</url>
+  <type>front-end</type>
+  <description>service d'hébergement de noms de domaine</description>
+</module>

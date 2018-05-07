@@ -19,11 +19,11 @@ class Service extends ActionSupport {
 	   def bill = new Expando()
 	   bill.fee = "business email"
 	   if(subscription.plan == "standard") {
-	      bill.amount = 1500
+	      bill.amount = 14000
 	   }else if(subscription.plan == "pro") {
-	      bill.amount = 3500
+	      bill.amount = 34000
 	   }else if(subscription.plan == "enterprise") {
-	      bill.amount = 5500
+	      bill.amount = 54000
 	   }
 	   bill
 	}

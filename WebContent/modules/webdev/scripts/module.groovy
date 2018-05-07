@@ -11,25 +11,25 @@ class Service extends ActionSupport {
 	  if(!count) {
 	    def params = ["mailhosting","free",user.structure_id]
 	    connection.executeInsert 'insert into subscriptions(service,plan,structure_id) values (?,?,?)', params
-	 }		    
-       	 def params = [subscription.project,subscription.project,subscription.service,subscription.plan,user.id,user.structure_id]
-       	 def result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params
-       	 def project_id = result[0][0]
-       	 def tasks
-       	 def bill = createBill(subscription)
-       	 if(bill.amount){
-		params = [bill.fee,bill.amount,project_id]
-		connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
-	       	tasks = getTasks(true)
-	     }else{
-	        tasks = getTasks(false)
-	     }
-	     def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
-	     connection.withBatch(query){ ps ->
-	         tasks.each{
-	            ps.addBatch(it.name,it.description,project_id)
-	         } 
-	     }
+	  }		    
+   	  def params = [subscription.project,subscription.project,subscription.service,subscription.plan,user.id,user.structure_id]
+   	  def result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params
+   	  def project_id = result[0][0]
+   	  def tasks
+   	  def bill = createBill(subscription)
+   	  if(bill.amount){
+	  params = [bill.fee,bill.amount,project_id]
+	  connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
+      tasks = getTasks(true)
+     }else{
+        tasks = getTasks(false)
+     }
+     def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
+     connection.withBatch(query){ ps ->
+         tasks.each{
+            ps.addBatch(it.name,it.description,project_id)
+         } 
+      }
     }
     
     def createProject(project) {

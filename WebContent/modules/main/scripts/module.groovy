@@ -33,8 +33,6 @@ class Service extends ActionSupport {
 		            status = 1
 			    }
 			    if(!count){
-			      println "here"
-			      println subscription
 			      def service = getAction(module)
 			      service.metaClass.connection = connection
 		          service.metaClass.module = module

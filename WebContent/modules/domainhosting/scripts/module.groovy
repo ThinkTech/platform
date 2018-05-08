@@ -14,12 +14,16 @@ class Service extends ActionSupport {
 	
 	def verify(){
 	    def domain = getParameter("domain")
-	    def url = "https://api.duoservers.com/?auth_username=store203583&auth_password=apipassword&section=domains&command=check&name=${domain}&tlds[0]=com&tlds[1]=net&tlds[2]=org&tlds[3]=biz&tlds[4]=info&tlds[5]=tv&tlds[6]=press&tlds[7]=news&tlds[8]=tech&return_type=json"
-	    def get = new HttpGet(url)
-		def client = HttpClientBuilder.create().build()
-		def response = client.execute(get)
-		def responseBody = EntityUtils.toString(response.getEntity())
-		write(responseBody)
+	    if(domain){
+	        response.addHeader("Access-Control-Allow-Origin", "*");
+            response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	        def url = "https://api.duoservers.com/?auth_username=store203583&auth_password=apipassword&section=domains&command=check&name=${domain}&tlds[0]=com&tlds[1]=net&tlds[2]=org&tlds[3]=biz&tlds[4]=info&tlds[5]=tv&tlds[6]=press&tlds[7]=news&tlds[8]=tech&return_type=json"
+	    	def get = new HttpGet(url)
+			def client = HttpClientBuilder.create().build()
+			def response = client.execute(get)
+			def responseBody = EntityUtils.toString(response.getEntity())
+			write(responseBody)
+	    }
 	}
 
 }

@@ -1,6 +1,6 @@
 <module>
   <name>mailhosting</name>
-  <url>mailhosting</url>
+  <url>emails</url>
   <type>front-end</type>
   <description>service d'hébergement d'emails</description>
 </module>

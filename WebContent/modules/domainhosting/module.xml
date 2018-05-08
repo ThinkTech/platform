@@ -1,6 +1,9 @@
 <module>
   <name>domainhosting</name>
-  <url>domainhosting</url>
+  <url>domains</url>
   <type>front-end</type>
   <description>service d'hébergement de noms de domaine</description>
+   <actions>
+   	<action  url="verify"  method="verify"/>
+  </actions>
 </module>

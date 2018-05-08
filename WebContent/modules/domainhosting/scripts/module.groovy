@@ -4,6 +4,10 @@ class Service extends ActionSupport {
 	  
     }
 	
+	def verify(){
+	    
+	}
+
 }
 
 new Service()

@@ -21,8 +21,9 @@ class Service extends ActionSupport {
 		    def get = new HttpGet(url)
 			def client = HttpClientBuilder.create().build()
 			def response = client.execute(get)
-			def responseBody = EntityUtils.toString(response.getEntity())
-			write(responseBody)
+			def body = EntityUtils.toString(response.getEntity())
+			response.setHeader("Cache-control", "private, max-age=7200")
+			write(body)
 		}
 	}
 

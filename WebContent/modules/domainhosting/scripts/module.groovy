@@ -12,7 +12,7 @@ class Service extends ActionSupport {
 	  
     }
 	
-	def check(){
+	def search(){
 	    response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.addHeader("Cache-control", "private, max-age=7200")   

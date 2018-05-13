@@ -4,6 +4,6 @@
   <type>front-end</type>
   <description>service d'hébergement de noms de domaines</description>
    <actions>
-   	<action  url="check"  method="check"/>
+   	<action  url="search"  method="search"/>
   </actions>
 </module>

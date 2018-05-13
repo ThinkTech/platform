@@ -2,8 +2,8 @@
   <name>domainhosting</name>
   <url>domains</url>
   <type>front-end</type>
-  <description>service d'hébergement de noms de domaine</description>
+  <description>service d'hébergement de noms de domaines</description>
    <actions>
-   	<action  url="verify"  method="verify"/>
+   	<action  url="check"  method="check"/>
   </actions>
 </module>

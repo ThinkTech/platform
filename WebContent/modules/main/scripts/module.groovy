@@ -100,7 +100,9 @@ class Dispatcher extends ActionSupport {
 		      h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
 		         span("Dispatcher : $subscription.service")
 		       }
-		      p("Merci pour votre souscription au plan ${subscription.plan}")
+		      if(subscription.plan){
+		      	p("Merci pour votre souscription au plan ${subscription.plan}")
+		      }
 		      if(subscription.activationCode){
 		      	p("Veuillez confirmer votre souscription pour activer votre compte.")
 		      }

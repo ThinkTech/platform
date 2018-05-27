@@ -1,7 +1,7 @@
 import groovy.text.markup.MarkupTemplateEngine
 import groovy.sql.Sql
 
-class Service extends ActionSupport {
+class Dispatcher extends ActionSupport {
 
     def subscribe(){
        response.addHeader("Access-Control-Allow-Origin", "*");
@@ -34,9 +34,11 @@ class Service extends ActionSupport {
 			    }
 			    if(!count){
 			      def service = getAction(module)
-			      service.metaClass.connection = connection
-		          service.metaClass.module = module
-		          service.metaClass.user = user
+			      service.metaClass.with {
+			        connection = connection
+		            module = module
+		            user = user   
+			      }
 		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
 			      def result = connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
 		          subscription.id = result[0][0]
@@ -96,7 +98,7 @@ class Service extends ActionSupport {
 		        }
 		      }
 		      h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
-		         span("Service : $subscription.service")
+		         span("Dispatcher : $subscription.service")
 		       }
 		      p("Merci pour votre souscription au plan ${subscription.plan}")
 		      if(subscription.activationCode){
@@ -129,4 +131,4 @@ class Service extends ActionSupport {
    }
 }
 
-new Service()
+new Dispatcher()

@@ -36,7 +36,7 @@ class Service extends ActionSupport {
 			      def service = getAction(module)
 			      service.metaClass.connection = connection
 		          service.metaClass.module = module
-		          subscription.user = user
+		          service.metaClass.user = user
 		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
 			      def result = connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
 		          subscription.id = result[0][0]

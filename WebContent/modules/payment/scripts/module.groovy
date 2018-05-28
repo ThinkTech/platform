@@ -8,9 +8,10 @@ class Service extends ActionSupport {
        if(request.method == "POST") { 
 	      def bill = parse(request) 
 	      def status = 0
-	      def service = getService(bill.service)
+	      def module = getModule(bill.service)
           if(module){
             def connection = getConnection()
+            def service = getService(module)
             service.metaClass.connection = connection
 		    service.metaClass.module = module
 		    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,bill.user.id,bill.id]

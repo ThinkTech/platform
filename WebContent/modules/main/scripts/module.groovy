@@ -38,11 +38,11 @@ class Dispatcher extends ActionSupport {
 		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
 			      def result = connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
 		          subscription.id = result[0][0]
+		          service.subscribe(subscription)
 		          def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 				  def mailSender = new MailSender(mailConfig)
 				  def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 				  mailSender.sendMail(mail)
-				  service.subscribe(subscription)
 			    }
 			    connection.close()
 	      }

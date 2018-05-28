@@ -11,7 +11,7 @@ class Service extends ActionSupport {
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
        def bill = createBill(subscription)
        params = [bill.fee,subscription.service,bill.amount,subscription.id]
-	   connection.executeInsert 'insert into bills(fee,service,amount,product_id) values (?,?,?)', params
+	   connection.executeInsert 'insert into bills(fee,service,amount,product_id) values (?,?,?,?)', params
     }
     
     def createBill(subscription){

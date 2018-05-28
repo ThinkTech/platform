@@ -50,7 +50,7 @@ class Service extends ActionSupport {
 		    }
 		    table {
 		        tr{
-		           td(style:"text-align:right;width : 100px;white-space : nowrap;padding-right : 2px"){
+		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){
 		               span("Frais :")
 		           }
                    td{
@@ -58,7 +58,7 @@ class Service extends ActionSupport {
                    }
 		        }
 		        tr{
-		           td(style:"text-align:right;width : 100px;white-space : nowrap;padding-right : 2px"){
+		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){
 		               span("Montant :")
 		           }
                    td{
@@ -66,7 +66,7 @@ class Service extends ActionSupport {
                    }
 		        }
 		        tr{
-		           td(style:"text-align:right;width : 100px;white-space : nowrap;padding-right : 2px"){
+		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){
 		               span("Pay&eacute; par :")
 		           }
                    td{
@@ -75,7 +75,7 @@ class Service extends ActionSupport {
 		        }
 		        if(bill.code){
 		          tr{
-		           td(style:"text-align:right;width : 100px;white-space : nowrap;padding-right : 2px"){
+		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){
 		               span("Code :")
 		           }
                    td{

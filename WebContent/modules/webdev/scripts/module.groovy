@@ -87,7 +87,6 @@ class Service extends ActionSupport {
 	}
 	
 	def payBill(bill){
-	  connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,bill.user.id,bill.id]
 	  if(bill.fee == "caution"){
 	  	connection.executeUpdate "update projects set status = 'in progress', startedOn = NOW(), progression = 10 where id = ?", [bill.project_id]
 	  	def project = connection.firstRow("select * from projects  where id = ?", [bill.project_id])

@@ -14,6 +14,7 @@ class Service extends ActionSupport {
             def connection = getConnection()
             service.metaClass.connection = connection
 		    service.metaClass.module = module
+		    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,bill.user.id,bill.id]
          	service.payBill(bill)
          	connection.close()
          	status = 1

@@ -114,6 +114,5 @@ class Service extends ActionSupport {
 	      manager.upload(dir+"/contrat.doc",new ByteArrayInputStream(out.toByteArray()))
       }
     }
-	
-	
+		
 }

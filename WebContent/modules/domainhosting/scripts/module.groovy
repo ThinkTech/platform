@@ -12,7 +12,7 @@ class Service extends ActionSupport {
 	    def hosting = subscription.hosting
 	    def params = [hosting.domain,hosting.extension,hosting.price,hosting.year,hosting.action,hosting.eppCode,user.structure_id]
    	    def result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,structure_id) values (?,?,?,?,?,?,?)', params
-   	    params = ["h&edot;bergement domaine : "+hosting.domain,subscription.service,hosting.price,result[0][0],user.structure_id]
+   	    params = ["h&eacute;bergement domaine : "+hosting.domain,subscription.service,hosting.price,result[0][0],user.structure_id]
 	    connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 	    def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 		def mailSender = new MailSender(mailConfig)

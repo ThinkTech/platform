@@ -12,8 +12,8 @@ class Service extends ActionSupport {
 	    def hosting = subscription.hosting
 	    def params = [hosting.domain,hosting.extension,hosting.price,hosting.year,hosting.action,hosting.eppCode,user.structure_id]
    	    def result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,structure_id) values (?,?,?,?,?,?,?)', params
-   	    params = ["h&edot;bergement domaine",subscription.service,hosting.price,result[0][0]]
-	    connection.executeInsert 'insert into bills(fee,service,amount,product_id) values (?,?,?,?)', params
+   	    params = ["h&edot;bergement domaine",subscription.service,hosting.price,result[0][0],user.structure_id]
+	    connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
     }
 	
 	def search(){

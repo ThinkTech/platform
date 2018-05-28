@@ -16,8 +16,8 @@ class Service extends ActionSupport {
    	  def tasks
    	  def bill = createBill(subscription)
    	  if(bill.amount){
-	  params = [bill.fee,subscription.service,bill.amount,project_id]
-	  connection.executeInsert 'insert into bills(fee,service,amount,product_id) values (?,?,?,?)', params
+	  params = [bill.fee,subscription.service,bill.amount,project_id,user.structure_id]
+	  connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
       tasks = getTasks(true)
      }else{
         tasks = getTasks(false)
@@ -34,8 +34,8 @@ class Service extends ActionSupport {
 		 def tasks
 	     def bill = createBill(project)
 	     if(bill.amount){
-		      def params = [bill.fee,bill.amount,project.id]
-		      connection.executeInsert 'insert into bills(fee,amount,project_id) values (?,?,?)', params
+		      def params = [bill.fee,bill.amount,project.id,project.structure]
+		      connection.executeInsert 'insert into bills(fee,amount,project_id,structure_id) values (?,?,?,?)', params
 	       	  tasks = getTasks(true)
 		  }else{
 	          tasks = getTasks(false)

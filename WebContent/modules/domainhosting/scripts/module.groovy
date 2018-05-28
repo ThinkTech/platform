@@ -31,6 +31,9 @@ class Service extends ActionSupport {
 		}
 	}
 
+    def payBill(bill){
+    
+    }
 }
 
 new Service()

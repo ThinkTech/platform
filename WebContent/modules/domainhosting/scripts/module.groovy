@@ -9,10 +9,11 @@ import org.apache.http.util.EntityUtils
 class Service extends ActionSupport {
     
 	def subscribe(subscription) {
-	    def params = [subscription.domain,subscription.extension,subscription.price,subscription.year,subscription.eppCode,user.structure_id]
-   	    connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,structure_id) values (?,?,?,?,?,?)', params
-   	    params = ["h&edot;bergement domaine",subscription.price,subscription.id]
-	    connection.executeInsert 'insert into bills(fee,amount,subscription_id) values (?,?,?)', params
+	    def hosting = subscription.hosting
+	    def params = [hosting.domain,hosting.extension,hosting.price,hosting.year,hosting.action,hosting.eppCode,user.structure_id]
+   	    def result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,structure_id) values (?,?,?,?,?,?,?)', params
+   	    params = ["h&edot;bergement domaine",subscription.service,hosting.price,result[0][0]]
+	    connection.executeInsert 'insert into bills(fee,service,amount,product_id) values (?,?,?,?)', params
     }
 	
 	def search(){

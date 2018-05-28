@@ -34,11 +34,9 @@ class Dispatcher extends ActionSupport {
 			    }
 			    if(!count){
 			      def service = getAction(module)
-			      service.metaClass.with {
-			        connection = connection
-		            module = module
-		            user = user   
-			      }
+			      service.metaClass.connection = connection
+		          service.metaClass.module = module
+		          service.metaClass.user = user   
 		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
 			      def result = connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
 		          subscription.id = result[0][0]
@@ -46,7 +44,7 @@ class Dispatcher extends ActionSupport {
 		          def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 				  def mailSender = new MailSender(mailConfig)
 				  def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
-				  mailSender.sendMail(mail)  
+				  mailSender.sendMail(mail)
 			    }
 			    connection.close()
 	      }

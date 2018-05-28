@@ -19,7 +19,7 @@ class Service extends ActionSupport {
          	service.payBill(bill)
          	def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 		    def mailSender = new MailSender(mailConfig)
-		    def mail = new Mail(bill.user.name,bill.user.email,"Confirmation Paiement : "+bill.fee,getPaymentTemplate(bill))
+		    def mail = new Mail(bill.user.name,bill.user.email,"Confirmation paiement "+bill.fee,getPaymentTemplate(bill))
 		    mailSender.sendMail(mail)
          	connection.close()
          	status = 1

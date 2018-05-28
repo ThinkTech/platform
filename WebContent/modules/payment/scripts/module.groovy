@@ -50,7 +50,7 @@ class Service extends ActionSupport {
 		    }
 		    table {
 		        tr{
-		           td(style:"text-align:right"){
+		           td(style:"text-align:right;width : 100px;white-space : nowrap;padding-right : 2px"){
 		               span("Frais :")
 		           }
                    td{
@@ -58,7 +58,7 @@ class Service extends ActionSupport {
                    }
 		        }
 		        tr{
-		           td(style:"text-align:right"){
+		           td(style:"text-align:right;width : 100px;white-space : nowrap;padding-right : 2px"){
 		               span("Montant :")
 		           }
                    td{
@@ -66,7 +66,7 @@ class Service extends ActionSupport {
                    }
 		        }
 		        tr{
-		           td(style:"text-align:right"){
+		           td(style:"text-align:right;width : 100px;white-space : nowrap;padding-right : 2px"){
 		               span("Pay&eacute; par :")
 		           }
                    td{
@@ -75,7 +75,7 @@ class Service extends ActionSupport {
 		        }
 		        if(bill.code){
 		          tr{
-		           td(style:"text-align:right"){
+		           td(style:"text-align:right;width : 100px;white-space : nowrap;padding-right : 2px"){
 		               span("Code :")
 		           }
                    td{
@@ -86,7 +86,7 @@ class Service extends ActionSupport {
 		    }
 		   }
 		  }
-		  div(style :"margin: 10px;margin-top:10px;font-size : 60%;text-align:center") {
+		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
 		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
 		      p("a souscrit au service $bill.service en utilisant cette adresse")
 		  }

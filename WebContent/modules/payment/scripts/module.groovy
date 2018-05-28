@@ -26,5 +26,3 @@ class Service extends ActionSupport {
 		new Sql(dataSource)
    }
 }
-
-new Service()

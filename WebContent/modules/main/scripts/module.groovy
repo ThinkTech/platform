@@ -131,5 +131,3 @@ class Dispatcher extends ActionSupport {
 		new Sql(dataSource)
    }
 }
-
-new Dispatcher()

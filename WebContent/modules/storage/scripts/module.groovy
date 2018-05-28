@@ -5,5 +5,3 @@ class Service extends ActionSupport {
     }
 	
 }
-
-new Service()

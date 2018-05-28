@@ -89,5 +89,3 @@ class Service extends ActionSupport {
 		template.toString()
 	}
 }
-
-new Service()

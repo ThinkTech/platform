@@ -9,8 +9,8 @@ class Dispatcher extends ActionSupport {
        if(request.method == "POST") { 
           def status = 2
           def subscription = parse(request) 
-	      def module = getModule(subscription.service)
-	      if(module){
+	      def service = getService(subscription.service)
+	      if(service){
 	            def count = 0
                 def connection = getConnection()
 			    def user = connection.firstRow("select * from users where email = ?", [subscription.email])
@@ -33,9 +33,7 @@ class Dispatcher extends ActionSupport {
 		            status = 1
 			    }
 			    if(!count){
-			      def service = getAction(module)
 			      service.metaClass.connection = connection
-		          service.metaClass.module = module
 		          service.metaClass.user = user   
 		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
 			      def result = connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
@@ -63,7 +61,7 @@ class Dispatcher extends ActionSupport {
 		     def params = [project.subject,project.priority,project.service,project.plan,project.description,project.user,project.structure]
 	         def result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id) values (?, ?, ?,?,?,?,?)', params
 	         project.id = result[0][0]
-	         def service = getAction(module)
+	         def service = getService(module)
 	         service.metaClass.connection = connection
 		     service.metaClass.module = module
 		     service.createProject(project)

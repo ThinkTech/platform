@@ -8,9 +8,8 @@ class Service extends ActionSupport {
        if(request.method == "POST") { 
 	      def bill = parse(request) 
 	      def status = 0
-	      def module = getModule(bill.service)
+	      def service = getService(bill.service)
           if(module){
-            def service = getAction(module)
             def connection = getConnection()
             service.metaClass.connection = connection
 		    service.metaClass.module = module

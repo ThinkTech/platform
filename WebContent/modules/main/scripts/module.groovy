@@ -38,11 +38,11 @@ class Dispatcher extends ActionSupport {
 		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
 			      def result = connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
 		          subscription.id = result[0][0]
-		          service.subscribe(subscription)
 		          def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 				  def mailSender = new MailSender(mailConfig)
 				  def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 				  mailSender.sendMail(mail)
+				  service.subscribe(subscription)
 			    }
 			    connection.close()
 	      }
@@ -78,7 +78,7 @@ class Dispatcher extends ActionSupport {
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-top:2%;height:100px;text-align:center;background:#05d2ff") {
-		      h4(style : "font-size: 200%;color: #fff;margin: 3px") {
+		      h4(style : "font-size: 180%;color: #fff;margin: 3px") {
 		        span("Souscription reussie")
 		      }
 		      if(subscription.activationCode){

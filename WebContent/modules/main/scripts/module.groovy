@@ -96,7 +96,7 @@ class Dispatcher extends ActionSupport {
 		        }
 		      }
 		      h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
-		         span("Dispatcher : $subscription.service")
+		         span("Service : $subscription.service")
 		       }
 		      if(subscription.plan){
 		      	p("Merci pour votre souscription au plan ${subscription.plan}")

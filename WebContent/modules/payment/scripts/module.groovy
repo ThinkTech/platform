@@ -39,7 +39,7 @@ class Service extends ActionSupport {
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-top:2%;height:50px;text-align:center;background:#05d2ff") {
-		      h4(style : "font-size: 180%;color: #fff;margin: 3px") {
+		      h4(style : "font-size: 200%;color: #fff;margin: 3px") {
 		        span("Paiement reussie")
 		      }
 		    }
@@ -49,6 +49,14 @@ class Service extends ActionSupport {
 		         span("Service : $bill.service")
 		    }
 		    table {
+		        tr{
+		           td(style:"text-align:right"){
+		               span("Frais :")
+		           }
+                   td{
+                       span("$bill.fee")
+                   }
+		        }
 		        tr{
 		           td(style:"text-align:right"){
 		               span("Montant :")
@@ -78,7 +86,7 @@ class Service extends ActionSupport {
 		    }
 		   }
 		  }
-		  div(style :"margin: 10px;margin-top:10px;font-size : 11px;text-align:center") {
+		  div(style :"margin: 10px;margin-top:10px;font-size : 60%;text-align:center") {
 		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
 		      p("a souscrit au service $bill.service en utilisant cette adresse")
 		  }

@@ -77,7 +77,7 @@ class Dispatcher extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-top:2%;height:100px;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;height:100px;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 180%;color: #fff;margin: 3px") {
 		        span("Souscription reussie")
 		      }
@@ -115,7 +115,7 @@ class Dispatcher extends ActionSupport {
 		    }
 		  }
 		  
-		  div(style :"margin: 10px;margin-top:10px;font-size : 11px;text-align:center") {
+		  div(style :"margin: 10px;margin-top:10px;font-size : 60%;text-align:center") {
 		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
 		      p("a souscrit au service $subscription.service en utilisant cette adresse")
 		  }

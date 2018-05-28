@@ -100,7 +100,7 @@ class Dispatcher extends ActionSupport {
 		      	p("Merci pour votre souscription au plan ${subscription.plan}")
 		      }
 		      if(subscription.activationCode){
-		      	p("Veuillez confirmer votre souscription au service pour activer votre compte client.")
+		      	p("Veuillez confirmer votre souscription au service $subscription.service pour activer votre compte client.")
 		      }
 		    }
 		    if(subscription.activationCode){

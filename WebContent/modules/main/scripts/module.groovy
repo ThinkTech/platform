@@ -22,8 +22,8 @@ class Dispatcher extends ActionSupport {
 			        def params = [subscription.structure]
 			        def result = connection.executeInsert 'insert into structures(name) values (?)', params
 		            user.structure_id = result[0][0]
-		            params = [subscription.name,subscription.email,subscription.password,"administrateur",true,user.structure_id]
-		            result = connection.executeInsert 'insert into users(name,email,password,role,owner,structure_id) values (?,?,sha(?),?,?,?)', params
+		            params = [subscription.name,subscription.email,subscription.password,"administrateur",subscription.telephone,true,user.structure_id]
+		            result = connection.executeInsert 'insert into users(name,email,password,role,telephone,owner,structure_id) values (?,?,sha(?),?,?,?,?)', params
 		            user.id = result[0][0]
 		            def alphabet = (('A'..'N')+('P'..'Z')+('a'..'k')+('m'..'z')+('2'..'9')).join()  
 		 	        def n = 30 

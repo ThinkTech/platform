@@ -36,7 +36,7 @@ class Service extends ActionSupport {
 	}
 
     def payBill(bill){
-        connection.executeUpdate "update domains status = 'in progress' where id = ?", [bill.product_id]
+        connection.executeUpdate "update domains set status = 'in progress' where id = ?", [bill.product_id]
     }
     
      def getBillTemplate(subscription) {

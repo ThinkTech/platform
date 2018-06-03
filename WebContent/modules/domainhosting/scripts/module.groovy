@@ -11,7 +11,7 @@ class Service extends ActionSupport {
 	def subscribe(subscription) {
 	    def hosting = subscription.hosting
 	    def params = [hosting.domain,hosting.extension,hosting.price,hosting.year,hosting.action,hosting.eppCode,user.structure_id]
-   	    def result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,structure_id) values (?,?,?,?,?,?,?)', params
+   	    connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,structure_id) values (?,?,?,?,?,?,?)', params
    	    params = ["h&eacute;bergement domaine : "+hosting.domain,subscription.service,hosting.price,result[0][0],user.structure_id]
 	    connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 	    def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
@@ -19,6 +19,20 @@ class Service extends ActionSupport {
 	    def mail = new Mail(subscription.name,subscription.email,"Enregistrement du domaine ${hosting.domain} pour ${hosting.year} an",getBillTemplate(subscription))
 		mailSender.sendMail(mail)
     }
+	
+	def order(order){
+	    def params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,user.structure_id]
+   	    def result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,structure_id) values (?,?,?,?,?,?,?)', params
+   	    order.id = result[0][0];
+   	    params = ["h&eacute;bergement domaine : "+hosting.domain,subscription.service,hosting.price,result[0][0],user.structure_id]
+	    result = connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
+	    order.bill_id = result[0][0];
+	    def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
+		def mailSender = new MailSender(mailConfig)
+	    def mail = new Mail(user.name,user.email,"Enregistrement du domaine ${hosting.domain} pour ${hosting.year} an",getBillTemplate(subscription))
+		mailSender.sendMail(mail)
+	}
+
 	
 	def search(){
 	    response.addHeader("Access-Control-Allow-Origin", "*");

@@ -70,6 +70,25 @@ class Dispatcher extends ActionSupport {
 		   }	   
 	   }
 	}
+	
+	def order() {
+	   response.addHeader("Access-Control-Allow-Origin", "*");
+       response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+       if(request.method == "POST") { 
+		   def order = parse(request) 
+		   def module = getModule(order.service)
+	       if(module){
+	         def connection = getConnection()
+	         def user = connection.firstRow("select * from users where id = ?", [order.user_id])
+		     def service = getService(module)
+		     service.metaClass.connection = connection
+	         service.metaClass.user = user
+		     service.order(order)
+		     connection.close()
+		     json([entity: order])
+		   }	   
+	   }
+	}
    
    def getSubscriptionTemplate(subscription) {
 		MarkupTemplateEngine engine = new MarkupTemplateEngine()

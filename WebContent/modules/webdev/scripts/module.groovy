@@ -105,7 +105,6 @@ class Service extends ActionSupport {
           def file = project.plan.replace(' ','-')+".doc"
 	      def document = new HWPFDocument(new POIFSFileSystem(new File(folder+file)))
 	      document.range.replaceText("structure_name",user.structure.name)
-	      document.range.replaceText("user_name",user.name)
 	      document.range.replaceText("date_contract",new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date()))
 	      def out = new ByteArrayOutputStream()
 	      document.write(out)

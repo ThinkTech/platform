@@ -3,18 +3,18 @@ import groovy.text.markup.MarkupTemplateEngine
 class Service extends ActionSupport {
     
 	def subscribe(subscription) {
-	   def ticket = new Expando()
+       order(subscription.hosting)
+    }
+    
+    def order(order){
+       def ticket = new Expando()
 	   ticket.with {
          subject = "configuration business email"
-         service = subscription.service
-         message = "<p>Configuration business email - plan "+subscription.hosting.plan+"</p>"
+         service = "mailhosting"
+         message = "<p>Configuration business email - plan "+order.plan+"</p>"
        }
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
-       saveDomain(subscription.hosting)
-    }
-    
-    def saveDomain(order){
        if(order.plan == "free"){
            order.price = order.price/order.year         
            order.year = 1

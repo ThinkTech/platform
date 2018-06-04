@@ -20,7 +20,7 @@ class Service extends ActionSupport {
     
     def saveDomain(order){
 	   def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
-   	   connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
+   	   def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
    	   if(order.plan != "free"){
             params = ["h&eacute;bergement domaine : "+order.domain,"mailhosting",order.price,result[0][0],user.structure_id]
 		    connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params

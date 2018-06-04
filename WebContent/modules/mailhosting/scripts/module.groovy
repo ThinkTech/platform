@@ -11,7 +11,7 @@ class Service extends ActionSupport {
        }
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
-       def bill = createBill(subscription)
+       def bill = createBill(subscription.hosting)
        params = [bill.fee,subscription.service,bill.amount,subscription.id]
 	   connection.executeInsert 'insert into bills(fee,service,amount,product_id) values (?,?,?,?)', params
 	   saveDomain(subscription.hosting)
@@ -35,17 +35,17 @@ class Service extends ActionSupport {
        }
 	}
     
-    def createBill(subscription){
+    def createBill(hosting){
 	   def bill = new Expando()
 	   bill.fee = "h&eacute;bergement email"
-	   if(subscription.plan == "free") {
+	   if(hosting.plan == "free") {
 	      bill.amount = 20000
 	   }
-	   else if(subscription.plan == "standard") {
+	   else if(hosting.plan == "standard") {
 	      bill.amount = 14000
-	   }else if(subscription.plan == "pro") {
+	   }else if(hosting.plan == "pro") {
 	      bill.amount = 34000
-	   }else if(subscription.plan == "enterprise") {
+	   }else if(hosting.plan == "enterprise") {
 	      bill.amount = 54000
 	   }
 	   bill

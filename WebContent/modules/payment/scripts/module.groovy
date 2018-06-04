@@ -15,11 +15,13 @@ class Service extends ActionSupport {
             def service = getService(module)
             service.metaClass.connection = connection
 		    service.metaClass.module = module
-		    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,bill.user.id,bill.id]
+		    def user = connection.firstRow("select * from users where id = ?", [bill.user.id])
+		    service.metaClass.user = user 
+		    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,user.id,bill.id]
          	service.payBill(bill)
          	def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 		    def mailSender = new MailSender(mailConfig)
-		    def mail = new Mail(bill.user.name,bill.user.email,"Confirmation paiement "+bill.fee,getPaymentTemplate(bill))
+		    def mail = new Mail(user.name,user.email,"Confirmation paiement "+bill.fee,getPaymentTemplate(bill))
 		    mailSender.sendMail(mail)
          	connection.close()
          	status = 1

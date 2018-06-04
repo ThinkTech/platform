@@ -18,8 +18,8 @@ class Service extends ActionSupport {
        if(order.plan == "free"){
            order.price = order.price/order.year         
            order.year = 1
-           params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email,"in progress"]
-   	       def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email,status) values (?,?,?,?,?,?,?,?,?,?,?)', params
+           params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
+   	       def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
    	       def bill = createBill(order)
            params = [bill.fee,"mailhosting",bill.amount,result[0][0],user.structure_id]
 	       connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params

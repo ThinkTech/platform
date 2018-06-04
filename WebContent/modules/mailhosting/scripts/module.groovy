@@ -20,17 +20,18 @@ class Service extends ActionSupport {
     def saveDomain(order){
        if(order.plan == "free"){
            order.price = order.price/order.year         
-           order.year = 1     
-       }
-	   def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
-   	   def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
-   	   if(order.plan != "free"){
-            params = ["h&eacute;bergement domaine : "+order.domain,"mailhosting",order.price,result[0][0],user.structure_id]
-		    connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-		    def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
-		    def mailSender = new MailSender(mailConfig)
-		    def mail = new Mail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",getBillTemplate(order))
-		    mailSender.sendMail(mail)
+           order.year = 1
+           def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email,"in progress"]
+   	       def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email,status) values (?,?,?,?,?,?,?,?,?,?,?)', params   
+       }else{
+         def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
+   	     def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
+   	     params = ["h&eacute;bergement domaine : "+order.domain,"mailhosting",order.price,result[0][0],user.structure_id]
+		 connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
+		 def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
+		 def mailSender = new MailSender(mailConfig)
+		 def mail = new Mail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",getBillTemplate(order))
+		 mailSender.sendMail(mail)
        }
 	}
     

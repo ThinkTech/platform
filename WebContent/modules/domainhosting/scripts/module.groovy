@@ -9,7 +9,7 @@ import groovy.text.markup.MarkupTemplateEngine
 class Service extends ActionSupport {
     
 	def subscribe(subscription) {
-	    order(subscription.order)
+	    order(subscription.hosting)
     }
 	
 	def order(order){

@@ -9,7 +9,7 @@ class Service extends ActionSupport {
     def order(order){
        def ticket = new Expando()
 	   ticket.with {
-         subject = "configuration business email"
+         subject = "configuration business email "+order.plan
          service = "mailhosting"
          message = "<p>Configuration business email pour le domaine "+order.domain+" et avec le plan "+order.plan+"</p>"
        }
@@ -40,7 +40,7 @@ class Service extends ActionSupport {
     
     def createBill(order){
 	   def bill = new Expando()
-	   bill.fee = "h&eacute;bergement email : "+order.domain
+	   bill.fee = "h&eacute;bergement email "+order.plan+" : "+order.domain
 	   if(order.plan == "free") {
 	      bill.amount = 20000
 	   }

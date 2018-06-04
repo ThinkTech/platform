@@ -11,10 +11,7 @@ class Service extends ActionSupport {
        }
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
-       def bill = createBill(subscription.hosting)
-       params = [bill.fee,subscription.service,bill.amount,subscription.id,user.structure_id]
-	   connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-	   saveDomain(subscription.hosting)
+       saveDomain(subscription.hosting)
     }
     
     def saveDomain(order){
@@ -22,12 +19,18 @@ class Service extends ActionSupport {
            order.price = order.price/order.year         
            order.year = 1
            def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email,"in progress"]
-   	       def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email,status) values (?,?,?,?,?,?,?,?,?,?,?)', params   
+   	       def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email,status) values (?,?,?,?,?,?,?,?,?,?,?)', params
+   	       def bill = createBill(order)
+           params = [bill.fee,"mailhosting",bill.amount,result[0][0],user.structure_id]
+	       connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
        }else{
          def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
    	     def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
-   	     params = ["h&eacute;bergement domaine : "+order.domain,"mailhosting",order.price,result[0][0],user.structure_id]
-		 connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
+   	     params = ["h&eacute;bergement domaine : "+order.domain,"domainhosting",order.price,result[0][0],user.structure_id]
+		 result = connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
+		 def bill = createBill(order)
+         params = [bill.fee,"mailhosting",bill.amount,result[0][0],user.structure_id]
+	     connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 		 def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 		 def mailSender = new MailSender(mailConfig)
 		 def mail = new Mail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",getBillTemplate(order))
@@ -35,17 +38,17 @@ class Service extends ActionSupport {
        }
 	}
     
-    def createBill(hosting){
+    def createBill(order){
 	   def bill = new Expando()
 	   bill.fee = "h&eacute;bergement email"
-	   if(hosting.plan == "free") {
+	   if(order.plan == "free") {
 	      bill.amount = 20000
 	   }
-	   else if(hosting.plan == "standard") {
+	   else if(order.plan == "standard") {
 	      bill.amount = 14000
-	   }else if(hosting.plan == "pro") {
+	   }else if(order.plan == "pro") {
 	      bill.amount = 34000
-	   }else if(hosting.plan == "enterprise") {
+	   }else if(order.plan == "enterprise") {
 	      bill.amount = 54000
 	   }
 	   bill

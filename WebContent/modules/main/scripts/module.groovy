@@ -21,8 +21,14 @@ class Dispatcher extends ActionSupport {
 			        user = new Expando()
 			        def params = [subscription.structure]
 			        def result = connection.executeInsert 'insert into structures(name) values (?)', params
-		            user.structure_id = result[0][0]
-		            params = [subscription.name,subscription.email,subscription.password,"administrateur",subscription.telephone,true,user.structure_id]
+			        user.with{
+                      name = subscription.name
+                      email = subscription.email
+                      password = subscription.password
+                      telephone = subscription.telephone
+                      structure_id = result[0][0]
+                 	}	        
+		            params = [user.name,user.email,user.password,"administrateur",user.telephone,true,user.structure_id]
 		            result = connection.executeInsert 'insert into users(name,email,password,role,telephone,owner,structure_id) values (?,?,sha(?),?,?,?,?)', params
 		            user.id = result[0][0]
 		            def alphabet = (('A'..'N')+('P'..'Z')+('a'..'k')+('m'..'z')+('2'..'9')).join()  
@@ -41,7 +47,7 @@ class Dispatcher extends ActionSupport {
 		          service.subscribe(subscription)
 		          def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 				  def mailSender = new MailSender(mailConfig)
-				  def mail = new Mail(subscription.name,subscription.email,"${subscription.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
+				  def mail = new Mail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 				  mailSender.sendMail(mail)
 			    }
 			    connection.close()

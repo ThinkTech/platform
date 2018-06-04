@@ -35,8 +35,8 @@ class Dispatcher extends ActionSupport {
 			    if(!count){
 			      service.metaClass.connection = connection
 		          service.metaClass.user = user   
-		          def params = [subscription.service,subscription.plan,subscription.per,user.structure_id]
-			      def result = connection.executeInsert 'insert into subscriptions(service,plan,per,structure_id) values (?,?,?,?)', params
+		          def params = [subscription.service,subscription.per,user.structure_id]
+			      def result = connection.executeInsert 'insert into subscriptions(service,per,structure_id) values (?,?,?,?)', params
 		          subscription.id = result[0][0]
 		          service.subscribe(subscription)
 		          def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))

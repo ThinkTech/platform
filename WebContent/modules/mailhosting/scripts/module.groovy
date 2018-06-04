@@ -11,7 +11,7 @@ class Service extends ActionSupport {
 	   ticket.with {
          subject = "configuration business email "+order.plan
          service = "mailhosting"
-         message = "<p>Configuration business email pour le domaine "+order.domain+" et avec le plan "+order.plan+"</p>"
+         message = "<p>Configuration business email pour le domaine "+order.domain+" suivant le plan "+order.plan+"</p>"
        }
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params

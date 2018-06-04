@@ -9,9 +9,9 @@ class Service extends ActionSupport {
     def order(order){
        def ticket = new Expando()
 	   ticket.with {
-         subject = "configuration business email : domaine "+order.domain
+         subject = "configuration business email"
          service = "mailhosting"
-         message = "<p>Configuration business email - plan "+order.plan+"</p>"
+         message = "<p>Configuration business email pour le domaine "+order.domain+" et avec le plan "+order.plan+"</p>"
        }
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params

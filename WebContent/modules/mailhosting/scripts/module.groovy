@@ -12,8 +12,8 @@ class Service extends ActionSupport {
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
        def bill = createBill(subscription.hosting)
-       params = [bill.fee,subscription.service,bill.amount,subscription.id]
-	   connection.executeInsert 'insert into bills(fee,service,amount,product_id) values (?,?,?,?)', params
+       params = [bill.fee,subscription.service,bill.amount,subscription.id,user.structure_id]
+	   connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 	   saveDomain(subscription.hosting)
     }
     
@@ -71,7 +71,7 @@ class Service extends ActionSupport {
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Plan Business Email : $order.plan")
+		         span("Plan : $order.plan")
 		     }
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.domain")

@@ -9,7 +9,7 @@ class Service extends ActionSupport {
     def order(order){
        def ticket = new Expando()
 	   ticket.with {
-         subject = "configuration business email"
+         subject = "configuration business email : domaine "+order.domain
          service = "mailhosting"
          message = "<p>Configuration business email - plan "+order.plan+"</p>"
        }
@@ -33,7 +33,7 @@ class Service extends ActionSupport {
 	     connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 		 def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 		 def mailSender = new MailSender(mailConfig)
-		 def mail = new Mail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",getBillTemplate(order))
+		 def mail = new Mail(user.name,user.email,"Configuration business email pour le domaine ${order.domain}",getBillTemplate(order))
 		 mailSender.sendMail(mail)
        }
 	}

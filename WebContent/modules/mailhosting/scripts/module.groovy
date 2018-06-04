@@ -7,14 +7,13 @@ class Service extends ActionSupport {
 	   ticket.with {
          subject = "configuration business email"
          service = subscription.service
-         message = "<p>Configuration business email - plan "+subscription.plan+"</p>"
+         message = "<p>Configuration business email - plan "+subscription.hosting.plan+"</p>"
        }
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
        def bill = createBill(subscription)
        params = [bill.fee,subscription.service,bill.amount,subscription.id]
 	   connection.executeInsert 'insert into bills(fee,service,amount,product_id) values (?,?,?,?)', params
-	   subscription.hosting.plan = subscription.plan
 	   saveDomain(subscription.hosting)
     }
     

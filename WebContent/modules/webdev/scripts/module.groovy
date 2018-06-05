@@ -4,35 +4,16 @@ import app.FileManager
 
 class Service extends ActionSupport {
     
-	def subscribe(subscription) {
-	  def count = connection.firstRow("select count(*) as num from subscriptions where service = ? and structure_id = ?", ["mailhosting",user.structure_id]).num
-	  if(!count) {
-	    def params = ["mailhosting","free",user.structure_id]
-	    connection.executeInsert 'insert into subscriptions(service,plan,structure_id) values (?,?,?)', params
-	  }		    
-   	  def params = [subscription.project,subscription.project,subscription.service,subscription.plan,user.id,user.structure_id]
-   	  def result = connection.executeInsert 'insert into projects(subject,description,service,plan,user_id,structure_id) values (?,?,?,?,?,?)', params
-   	  def project_id = result[0][0]
-   	  def tasks
-   	  def bill = createBill(subscription)
-   	  if(bill.amount){
-	  params = [bill.fee,subscription.service,bill.amount,project_id,user.structure_id]
-	  connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-      tasks = getTasks(true)
-     }else{
-        tasks = getTasks(false)
-     }
-     def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
-     connection.withBatch(query){ ps ->
-         tasks.each{
-            ps.addBatch(it.name,it.description,project_id)
-         } 
-      }
+	def subscribe(subscription) {	    
+   	  order(subscription.hosting)
     }
     
-    def createProject(project) {
+    def order(order) {
+         def params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id]
+	     def result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id) values (?, ?, ?,?,?,?,?)', params
+	     project.id = result[0][0]
 		 def tasks
-	     def bill = createBill(project)
+	     def bill = createBill(order)
 	     if(bill.amount){
 		      def params = [bill.fee,bill.amount,project.id,project.structure]
 		      connection.executeInsert 'insert into bills(fee,amount,project_id,structure_id) values (?,?,?,?)', params
@@ -48,14 +29,14 @@ class Service extends ActionSupport {
 	      }
 	}
     
-    def createBill(subscription){
+    def createBill(order){
 	   def bill = new Expando()
 	   bill.fee = "caution"
-	   if(subscription.plan == "business") {
+	   if(order.plan == "business") {
 	      bill.amount = 20000 * 3
-	   }else if(subscription.plan == "corporate") {
+	   }else if(order.plan == "corporate") {
 	      bill.amount = 15000 * 3
-	   }else if(subscription.plan == "personal") {
+	   }else if(order.plan == "personal") {
 	      bill.amount = 10000 * 3
 	   }
 	   bill
@@ -86,7 +67,7 @@ class Service extends ActionSupport {
 	   tasks
 	}
 	
-	def payBill(bill){
+	def pay(bill){
 	  if(bill.fee == "caution"){
 	  	connection.executeUpdate "update projects set status = 'in progress', startedOn = NOW(), progression = 10 where id = ?", [bill.project_id]
 	  	def project = connection.firstRow("select * from projects  where id = ?", [bill.project_id])

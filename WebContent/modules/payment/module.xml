@@ -4,6 +4,6 @@
   <visible>false</visible>
   <type>front-end</type>
   <actions>
-   	<action url="pay"  method="payBill"/>
+   	<action url="pay"  method="pay"/>
   </actions>
 </module>

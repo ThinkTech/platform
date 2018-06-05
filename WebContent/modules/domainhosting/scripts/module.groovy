@@ -41,7 +41,7 @@ class Service extends ActionSupport {
 		}
 	}
 
-    def payBill(bill){
+    def pay(bill){
         connection.executeUpdate "update domains set status = 'in progress' where id = ?", [bill.product_id]
     }
     

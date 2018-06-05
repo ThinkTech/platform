@@ -54,7 +54,7 @@ class Service extends ActionSupport {
 	   bill
 	}
 	
-	def payBill(bill){
+	def pay(bill){
 		
 	}
 	

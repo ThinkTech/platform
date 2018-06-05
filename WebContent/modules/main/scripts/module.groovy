@@ -54,28 +54,7 @@ class Dispatcher extends ActionSupport {
 	      }
 	      json([status : status])
 	   }
-   }
-   
-   def createProject() {
-	   response.addHeader("Access-Control-Allow-Origin", "*");
-       response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-       if(request.method == "POST") { 
-		   def project = parse(request) 
-		   def module = getModule(project.service)
-	       if(module){
-	         def connection = getConnection()
-		     def params = [project.subject,project.priority,project.service,project.plan,project.description,project.user,project.structure]
-	         def result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id) values (?, ?, ?,?,?,?,?)', params
-	         project.id = result[0][0]
-	         def service = getService(module)
-	         service.metaClass.connection = connection
-		     service.metaClass.module = module
-		     service.createProject(project)
-		     connection.close()
-		     json([id: project.id])
-		   }	   
-	   }
-	}
+    }
 	
 	def order() {
 	   response.addHeader("Access-Control-Allow-Origin", "*");

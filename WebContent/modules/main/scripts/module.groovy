@@ -46,7 +46,7 @@ class Dispatcher extends ActionSupport {
 		          subscription.id = result[0][0]
 		          if(subscription.services){
 		              subscription.services.each{
-		                  params = [it.service,user.structure_id]
+		                  params = [it,user.structure_id]
 		                  connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
 		              }
 		          }

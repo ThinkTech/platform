@@ -27,7 +27,7 @@ class Service extends ActionSupport {
          params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
    	     def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
    	     params = ["h&eacute;bergement domaine : "+order.domain,"domainhosting",order.price,result[0][0],user.structure_id]
-		 result = connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
+		 connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 		 def bill = createBill(order)
          params = [bill.fee,"mailhosting",bill.amount,result[0][0],user.structure_id]
 	     connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params

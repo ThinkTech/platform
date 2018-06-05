@@ -12,14 +12,24 @@ class Service extends ActionSupport {
     def order(order) {
          def params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id]
 	     def result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id) values (?, ?, ?,?,?,?,?)', params
-	     project.id = result[0][0]
+	     order.id = result[0][0]
 		 def tasks
 	     def bill = createBill(order)
 	     if(bill.amount){
-		      def params = [bill.fee,bill.amount,project.id,project.structure]
-		      connection.executeInsert 'insert into bills(fee,amount,project_id,structure_id) values (?,?,?,?)', params
+	          def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
+   	          connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
+		      params = [bill.fee,bill.amount,order.id,user.structure_id]
+		      connection.executeInsert 'insert into bills(fee,amount,product_id,structure_id) values (?,?,?,?)', params
+		      def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
+			  def mailSender = new MailSender(mailConfig)
+			  def mail = new Mail(user.name,user.email,"${order.subject} pour le domaine ${order.domain}",getBillTemplate(order))
+			  mailSender.sendMail(mail)
 	       	  tasks = getTasks(true)
 		  }else{
+		   	  order.price = order.price/order.year         
+           	  order.year = 1
+              params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
+   	          connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
 	          tasks = getTasks(false)
 		  }
 		  def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'

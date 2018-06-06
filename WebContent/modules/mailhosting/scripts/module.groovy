@@ -46,11 +46,11 @@ class Service extends ActionSupport {
          def bill = createBill(order)
          params = [bill.fee,"mailhosting",bill.amount,product_id,user.structure_id]
 	     connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-		 def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
-		 def mailSender = new MailSender(mailConfig)
-		 def mail = new Mail(user.name,user.email,"Configuration business email pour le domaine ${order.domain}",getBillTemplate(order))
-		 mailSender.sendMail(mail)
        }
+       def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
+	   def mailSender = new MailSender(mailConfig)
+	   def mail = new Mail(user.name,user.email,"Configuration business email pour le domaine ${order.domain}",getBillTemplate(order))
+	   mailSender.sendMail(mail)
 	}
     
     def createBill(order){

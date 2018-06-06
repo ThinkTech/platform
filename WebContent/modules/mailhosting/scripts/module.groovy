@@ -27,7 +27,7 @@ class Service extends ActionSupport {
 		       connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
            }else{
                product_id = order.product_id
-               connection.executeUpdate "update domains set emailOn = true, plan = ? where id = ?", [order.plan,product_id]
+               connection.executeUpdate "update domains set emailOn = true, email = ?, plan = ? where id = ?", [order.email,order.plan,product_id]
            }
            def bill = createBill(order)
            params = [bill.fee,"mailhosting",bill.amount,product_id,user.structure_id]
@@ -41,7 +41,7 @@ class Service extends ActionSupport {
 		    connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
          }else{
              product_id = order.product_id
-             connection.executeUpdate "update domains set emailOn = true, plan = ? where id = ?", [order.plan,product_id]
+             connection.executeUpdate "update domains set emailOn = true, email = ?, plan = ? where id = ?", [order.email,order.plan,product_id]
          }
          def bill = createBill(order)
          params = [bill.fee,"mailhosting",bill.amount,product_id,user.structure_id]

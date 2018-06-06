@@ -15,21 +15,34 @@ class Service extends ActionSupport {
        }
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
+       def product_id 
        if(order.plan == "free"){
-           order.price = order.price/order.year         
-           order.year = 1
-           params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
-   	       def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
-   	       def bill = createBill(order)
-           params = [bill.fee,"mailhosting",bill.amount,result[0][0],user.structure_id]
+           if(!order.domainRegistered){
+               order.price = order.price/order.year         
+               order.year = 1
+               params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
+   	           def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
+   	           product_id = result[0][0]
+           }else{
+               product_id = order.product_id
+               connection.executeUpdate "update domains set emailOn = true, plan = ? where id = ?", [order.plan,product_id]
+           }
+           def bill = createBill(order)
+           params = [bill.fee,"mailhosting",bill.amount,product_id,user.structure_id]
 	       connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
        }else{
-         params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
-   	     def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
-   	     params = ["h&eacute;bergement domaine : "+order.domain,"domainhosting",order.price,result[0][0],user.structure_id]
+         if(order.domainRegistered){
+            params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
+   	        def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
+   	        product_id = result[0][0]
+         }else{
+             product_id = order.product_id
+             connection.executeUpdate "update domains set emailOn = true, plan = ? where id = ?", [order.plan,product_id]
+         }
+         params = ["h&eacute;bergement domaine : "+order.domain,"domainhosting",order.price,product_id,user.structure_id]
 		 connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 		 def bill = createBill(order)
-         params = [bill.fee,"mailhosting",bill.amount,result[0][0],user.structure_id]
+         params = [bill.fee,"mailhosting",bill.amount,product_id,user.structure_id]
 	     connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 		 def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
 		 def mailSender = new MailSender(mailConfig)

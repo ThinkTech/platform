@@ -16,10 +16,12 @@ class Service extends ActionSupport {
 	   def params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
        def product_id 
+       order.status = "en attente";
        if(order.plan == "free"){
            if(!order.domainRegistered){
                order.price = order.price/order.year         
                order.year = 1
+               order.status = "en cours"
                params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id,true,order.email,"in progress"]
    	           def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id,emailOn,email,status) values (?,?,?,?,?,?,?,?,?,?,?,?)', params
    	           product_id = result[0][0]
@@ -79,7 +81,7 @@ class Service extends ActionSupport {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Votre business email est en attente de configuration")
+		        span("Votre business email est $order.status de configuration")
 		      }
 		       p(style : "font-size:100%;color:#fff"){
 			        span("cliquer sur le bouton en bas pour effectuer le paiement")

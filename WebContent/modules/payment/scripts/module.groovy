@@ -19,11 +19,8 @@ class Service extends ActionSupport {
 		    service.metaClass.user = user 
 		    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,user.id,bill.id]
          	service.pay(bill)
-         	def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
-		    def mailSender = new MailSender(mailConfig)
-		    def mail = new Mail(user.name,user.email,"Confirmation paiement "+bill.fee,getPaymentTemplate(bill))
-		    mailSender.sendMail(mail)
-         	connection.close()
+         	sendMail(user.name,user.email,"Confirmation paiement "+bill.fee,getPaymentTemplate(bill))
+		    connection.close()
          	status = 1
           }
 		  json([status: status])

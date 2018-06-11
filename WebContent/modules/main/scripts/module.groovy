@@ -51,10 +51,7 @@ class Dispatcher extends ActionSupport {
 		              }
 		          }
 		          service.subscribe(subscription)
-		          def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
-				  def mailSender = new MailSender(mailConfig)
-				  def mail = new Mail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
-				  mailSender.sendMail(mail)
+		          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 			    }
 			    connection.close()
 	      }

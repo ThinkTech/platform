@@ -50,7 +50,11 @@ class Dispatcher extends ActionSupport {
 		                  connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
 		              }
 		          }
-		          service.subscribe(subscription)
+		          try{
+		              service.subscribe(subscription)
+		          }catch(e){
+		              println e
+		          }		          
 		          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 			    }
 			    connection.close()

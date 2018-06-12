@@ -10,32 +10,30 @@ class Service extends ActionSupport {
     }
     
     def order(order) {
+         order.priority = order.priority ? order.priority : "normal";
          def params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id]
 	     def result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id) values (?, ?, ?,?,?,?,?)', params
 	     order.id = result[0][0]
 		 def tasks
 	     def bill = createBill(order)
 	     if(bill.amount){
-	          def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
-   	          connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
-		      params = [bill.fee,bill.amount,order.id,user.structure_id]
-		      connection.executeInsert 'insert into bills(fee,amount,product_id,structure_id) values (?,?,?,?)', params
-		      def mailConfig = new MailConfig(getInitParameter("smtp.email"),getInitParameter("smtp.password"),getInitParameter("smtp.host"),getInitParameter("smtp.port"))
-			  def mailSender = new MailSender(mailConfig)
-			  def mail = new Mail(user.name,user.email,"${order.subject} pour le domaine ${order.domain}",getBillTemplate(order))
-			  mailSender.sendMail(mail)
-	       	  tasks = getTasks(true)
+	          params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id]
+   	          connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id) values (?,?,?,?,?,?,?,?,?)', params
+		      params = [bill.fee,"webdev",bill.amount,order.id,user.structure_id]
+		      connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
+		      sendMail(user.name,user.email,"${order.subject} pour le domaine ${order.domain}",getBillTemplate(order))
+			  tasks = getTasks(true)
 		  }else{
 		   	  order.price = order.price/order.year         
            	  order.year = 1
-              params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.structure_id,true,order.email]
-   	          connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?)', params
-	          tasks = getTasks(false)
+              params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id]
+   	          connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id) values (?,?,?,?,?,?,?,?,?)', params
+              tasks = getTasks(false)
 		  }
 		  def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
 	      connection.withBatch(query){ ps ->
 	         tasks.each{
-	            ps.addBatch(it.name,it.description,project.id)
+	            ps.addBatch(it.name,it.description,order.id)
 	         } 
 	      }
 	}
@@ -117,7 +115,7 @@ class Service extends ActionSupport {
 		        span("Votre projet est en attente de traitement")
 		      }
 		       p(style : "font-size:100%;color:#fff"){
-			        span("cliquer sur le bouton en bas pour effectuer le paiement")
+			        span("cliquer sur le bouton en bas pour effectuer le paiement de la caution")
 			   }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
@@ -127,7 +125,7 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
-		     p("Un ticket a &eacute;t&eacute; cr&eacute;&eacute; et vous devez maintenant effectuer le paiement de vos factures pour la configuration de votre business email par notre &eacute;quipe technique.")
+		     p("Vous devez maintenant effectuer le paiement de vos factures pour le traitement de votre projet par notre &eacute;quipe technique.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/billing",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
@@ -138,7 +136,7 @@ class Service extends ActionSupport {
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
 		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
-		      p("a souscrit au service emailhosting en utilisant cette adresse")
+		      p("a souscrit au service webdev en utilisant cette adresse")
 		  }
 		  
 		 }

@@ -87,19 +87,20 @@ class Service extends ActionSupport {
 	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'in progress' where name = ? and project_id = ?", ["Traitement",bill.product_id]
 	  	def params = ["contrat.doc",50000,bill.product_id,user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
-	    def project = connection.firstRow("select * from projects  where id = ?", [bill.product_id])
-	  	generateContract(project)
+	    def project = connection.firstRow("select id,plan from projects  where id = ?", [bill.product_id])
+	    def structure = connection.firstRow("select id,name from structures where id = ?", [user.structure_id])
+	    generateContract(structure,project) 
 	  }
     }
    
-    def generateContract(project) {
+    def generateContract(structure,project) {
       def folder =  module.folder.absolutePath + "/contracts/"
       def file = project.plan+".doc"
 	  def document = new HWPFDocument(new POIFSFileSystem(new File(folder+file)))
-	  document.range.replaceText("structure_name",user.structure.name)
+	  document.range.replaceText("structure_name",structure.name)
 	  document.range.replaceText("date_contract",new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date()))
 	  def out = new ByteArrayOutputStream() 
-	  def dir = "structure_"+user.structure.id+"/"+"project_"+project.id   
+	  def dir = "structure_"+structure.id+"/"+"project_"+project.id   
       Thread.start{
           document.write(out)
 	      def manager = new FileManager()

@@ -16,7 +16,6 @@ class Service extends ActionSupport {
             service.metaClass.connection = connection
 		    service.metaClass.module = module
 		    def user = connection.firstRow("select * from users where id = ?", [bill.user.id])
-		    user.structure = connection.firstRow("select * from structures where id = ?", [user.structure_id])
 		    service.metaClass.user = user 
 		    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,user.id,bill.id]
          	service.pay(bill)   

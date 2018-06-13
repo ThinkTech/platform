@@ -9,11 +9,11 @@ import com.dropbox.core.v2.files.WriteMode;
 
 public class FileManager {
 	
-    private static final String ACCESS_TOKEN = "pQXsY7k7n6AAAAAAAAAAPE59xGueXQxNqKrFl95la3LrTUA1sislihQdW8vKbc1I";
+    private static final String ACCESS_TOKEN = "pQXsY7k7n6AAAAAAAAAAPWBEAjxZy5Xcgtsd8kyz9VsKOIrEzorICsW29BV4bspM";
     private DbxClientV2 client;
     
     public FileManager(){
-    	DbxRequestConfig config = new DbxRequestConfig("dropbox/portal-documents");
+    	DbxRequestConfig config = new DbxRequestConfig("dropbox/thinktech-app");
         client = new DbxClientV2(config, ACCESS_TOKEN);
     }
     

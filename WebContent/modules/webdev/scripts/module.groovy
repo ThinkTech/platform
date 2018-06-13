@@ -85,14 +85,14 @@ class Service extends ActionSupport {
 	  	def info = "le paiement de la caution a &eacute;t&eacute; &eacute;ffectu&eacute; et le contrat vous liant &aacute; ThinkTech a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; et ajout&eacute; aux documents du projet"
 	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'finished', info = ? , progression = 100 where name = ? and project_id = ?", [info,"Contrat et Caution",bill.product_id]
 	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'in progress' where name = ? and project_id = ?", ["Traitement",bill.product_id]
-	  	def params = ["contrat.doc",50000,bill.product_id,bill.user.id]
+	  	def params = ["contrat.doc",50000,bill.product_id,user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
 	    def project = connection.firstRow("select * from projects  where id = ?", [bill.product_id])
-	  	generateContract(bill.user,project)
+	  	generateContract(project)
 	  }
     }
    
-    def generateContract(user,project) {
+    def generateContract(project) {
       def folder =  module.folder.absolutePath + "/contracts/"
       Thread.start{
           def file = project.plan.replace(' ','-')+".doc"

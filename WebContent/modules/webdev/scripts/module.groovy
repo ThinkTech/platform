@@ -95,7 +95,7 @@ class Service extends ActionSupport {
     def generateContract(project) {
       def folder =  module.folder.absolutePath + "/contracts/"
       Thread.start{
-          def file = project.plan.replace(' ','-')+".doc"
+          def file = project.plan+".doc"
 	      def document = new HWPFDocument(new POIFSFileSystem(new File(folder+file)))
 	      document.range.replaceText("structure_name",user.structure.name)
 	      document.range.replaceText("date_contract",new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date()))

@@ -20,7 +20,7 @@ class Service extends ActionSupport {
 	         result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
      	     order.id = result[0][0]
 	     }else {
-              params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,order.domain]
+              params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,order.domain_id]
 	          result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
      	      order.id = result[0][0]
 	     }
@@ -42,7 +42,7 @@ class Service extends ActionSupport {
     
     def createBill(order){
 	   def bill = new Expando()
-	   bill.fee = "caution"
+	   bill.fee = "caution "+order.subject+" : "+order.domain
 	   if(order.plan == "business") {
 	      bill.amount = 20000 * 3
 	   }else if(order.plan == "corporate") {

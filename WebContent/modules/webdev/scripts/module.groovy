@@ -11,6 +11,7 @@ class Service extends ActionSupport {
     
     def order(order) {
          order.priority = order.priority ? order.priority : "normal";
+         order.subject =  order.subject " : "+order.domain 
          def params,result,tasks
          def bill = createBill(order)
          if(!order.domainCreated){
@@ -27,7 +28,7 @@ class Service extends ActionSupport {
 	     if(bill.amount){
 	          params = [bill.fee,"webdev",bill.amount,order.id,user.structure_id]
 		      connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-		      sendMail(user.name,user.email,"${order.subject} pour le domaine ${order.domain}",getBillTemplate(order))
+		      sendMail(user.name,user.email,"${order.subject}",getBillTemplate(order))
 			  tasks = getTasks(true)
 		  }else{
 		      tasks = getTasks(false)

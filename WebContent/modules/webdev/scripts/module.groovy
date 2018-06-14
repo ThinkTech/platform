@@ -11,27 +11,26 @@ class Service extends ActionSupport {
     
     def order(order) {
          order.priority = order.priority ? order.priority : "normal";
-         def tasks
-	     def bill = createBill(order)
+         def params,result,tasks
+         def bill = createBill(order)
+         if(!order.domainCreated){
+             params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id]
+             result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id) values (?,?,?,?,?,?,?,?,?)', params
+	      	 params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,result[0][0]]
+	         result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
+     	     order.id = result[0][0]
+	     }else {
+              params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,order.domain]
+	          result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
+     	      order.id = result[0][0]
+	     }
 	     if(bill.amount){
-	          def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id]
-   	          def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id) values (?,?,?,?,?,?,?,?,?)', params
-		      params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,result[0][0]]
-		      result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
-	     	  order.id = result[0][0]
-		      params = [bill.fee,"webdev",bill.amount,order.id,user.structure_id]
+	          params = [bill.fee,"webdev",bill.amount,order.id,user.structure_id]
 		      connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 		      sendMail(user.name,user.email,"${order.subject} pour le domaine ${order.domain}",getBillTemplate(order))
 			  tasks = getTasks(true)
 		  }else{
-		   	  order.price = order.price/order.year         
-           	  order.year = 1
-              def params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id]
-   	          def result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id) values (?,?,?,?,?,?,?,?,?)', params
-		      params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,result[0][0]]
-		      result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
-	     	  order.id = result[0][0]
-              tasks = getTasks(false)
+		      tasks = getTasks(false)
 		  }
 		  def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
 	      connection.withBatch(query){ ps ->

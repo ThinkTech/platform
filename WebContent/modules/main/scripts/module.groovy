@@ -8,6 +8,7 @@ class Dispatcher extends ActionSupport {
        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
        if(request.method == "POST") { 
           def status = 2
+          def params, result
           def subscription = parse(request) 
 	      def service = getService(subscription.service)
 	      if(service){
@@ -19,8 +20,8 @@ class Dispatcher extends ActionSupport {
 			        if(count) status = 0
 			    }else{
 			        user = new Expando()
-			        def params = [subscription.structure]
-			        def result = connection.executeInsert 'insert into structures(name) values (?)', params
+			        params = [subscription.structure]
+			        result = connection.executeInsert 'insert into structures(name) values (?)', params
 			        user.with{
                       name = subscription.name
                       email = subscription.email
@@ -41,8 +42,8 @@ class Dispatcher extends ActionSupport {
 			    if(!count){
 			      service.metaClass.connection = connection
 		          service.metaClass.user = user   
-		          def params = [subscription.service,user.structure_id]
-			      def result = connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
+		          params = [subscription.service,user.structure_id]
+			      result = connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
 		          subscription.id = result[0][0]
 		          if(subscription.services){
 		              subscription.services.each{

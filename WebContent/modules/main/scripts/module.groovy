@@ -65,11 +65,10 @@ class Dispatcher extends ActionSupport {
        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
        if(request.method == "POST") { 
 		   def order = parse(request) 
-		   def module = getModule(order.service)
-	       if(module){
+		   def service = getService(order.service)
+	       if(service){
 	         def connection = getConnection()
 	         def user = connection.firstRow("select * from users where id = ?", [order.user_id])
-		     def service = getService(module)
 		     service.metaClass.connection = connection
 	         service.metaClass.user = user
 		     service.order(order)

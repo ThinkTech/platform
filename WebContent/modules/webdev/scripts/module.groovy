@@ -13,7 +13,7 @@ class Service extends ActionSupport {
          order.priority = order.priority ? order.priority : "normal"
          order.subject =  order.subject + " : " + order.domain 
          def params,result,tasks
-         def email = user.email.substring(0,user.email.indexOf("@"));
+         def email = user.email.substring(0,user.email.indexOf("@"))
          def bill = createBill(order)
          if(!order.domainCreated){
              params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,true,email,"free",user.id,user.structure_id]
@@ -22,7 +22,7 @@ class Service extends ActionSupport {
 	         result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
      	     order.id = result[0][0]
 	     }else {
-	          connection.executeUpdate "update domains set emailOn = if(emailOn = false,true, emailOn), plan = if(emailOn = false, 'free', plan), email = if(emailOn = false,?, email) where id = ?", [email,order.domain_id]
+	          connection.executeUpdate "update domains set plan = if(emailOn = false, 'free', plan), email = if(emailOn = false,?,email), emailOn = if(emailOn = false,true, emailOn) where id = ?", [email,order.domain_id]
               params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,order.domain_id]
 	          result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
      	      order.id = result[0][0]

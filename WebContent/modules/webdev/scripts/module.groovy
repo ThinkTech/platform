@@ -16,6 +16,8 @@ class Service extends ActionSupport {
          def email = user.email.substring(0,user.email.indexOf("@"))
          def bill = createBill(order)
          if(!order.domainCreated){
+             order.price = order.price/order.year         
+             order.year = 1 
              params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,true,email,"free",user.id,user.structure_id]
              result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,emailOn,email,plan,user_id,structure_id) values (?,?,?,?,?,?,?,?,?,?,?)', params
 	      	 params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,result[0][0]]

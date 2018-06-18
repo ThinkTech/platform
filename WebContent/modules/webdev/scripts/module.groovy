@@ -99,16 +99,18 @@ class Service extends ActionSupport {
    
     def generateContract(structure,project) {
       def folder =  module.folder.absolutePath + "/contracts/"
-      def file = project.plan+".doc"
-	  def document = new HWPFDocument(new POIFSFileSystem(new File(folder+file)))
-	  document.range.replaceText("structure_name",structure.name)
-	  document.range.replaceText("date_contract",new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date()))
-	  def out = new ByteArrayOutputStream() 
-	  def dir = "structure_"+structure.id+"/"+"project_"+project.id   
-      Thread.start{
-          document.write(out)
-	      def manager = new FileManager()
-	      manager.upload(dir+"/contrat.doc",new ByteArrayInputStream(out.toByteArray()))
+      def file = new File(folder+project.plan+".doc")
+      if(file.exists()){
+		  def document = new HWPFDocument(new POIFSFileSystem(file))
+		  document.range.replaceText("structure_name",structure.name)
+		  document.range.replaceText("date_contract",new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date()))
+		  def out = new ByteArrayOutputStream() 
+		  def dir = "structure_"+structure.id+"/"+"project_"+project.id   
+	      Thread.start{
+	          document.write(out)
+		      def manager = new FileManager()
+		      manager.upload(dir+"/contrat.doc",new ByteArrayInputStream(out.toByteArray()))
+	      }
       }
     }
     

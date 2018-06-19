@@ -50,14 +50,6 @@ class Service extends ActionSupport {
 		    table {
 		        tr{
 		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){
-		               span("Frais :")
-		           }
-                   td{
-                       span("$bill.fee")
-                   }
-		        }
-		        tr{
-		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){
 		               span("Montant :")
 		           }
                    td{

@@ -107,7 +107,7 @@ class Service extends ActionSupport {
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Domaine : $order.domain")
+		         span("Domaine : $order.name")
 		     }
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Dur&eacute;e : $order.year an")
@@ -120,7 +120,7 @@ class Service extends ActionSupport {
 		         span("Action : transfert")
 		     	}                                
 		     }
-		     p("le paiement a &eacute;t&eacute; &eacute;ffectu&eacute; et le domaine est en attente d\'enregistrement.")
+		     p("le paiement a &eacute;t&eacute; bien &eacute;ffectu&eacute; et le domaine est maintenant en attente d\'enregistrement.")
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {

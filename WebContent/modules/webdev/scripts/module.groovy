@@ -94,7 +94,7 @@ class Service extends ActionSupport {
 	    def project = connection.firstRow("select id,plan from projects  where id = ?", [bill.product_id])
 	    def structure = connection.firstRow("select id,name from structures where id = ?", [user.structure_id])
 	    generateContract(structure,project) 
-	    sendMail("ThinkTech Support","support@thinktech.sn","${order.subject}",getSupportTemplate(project))
+	    sendMail("ThinkTech Support","support@thinktech.sn","${project.subject}",getSupportTemplate(project))
 	  }
     }
    
@@ -174,7 +174,7 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Plan : $order.plan")
 		     }
-		     p("Vous devez maintenant proc&eacute;der au traitement du projet.")
+		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et le projet est maintenant en cours de traitement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/projects",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {

@@ -86,20 +86,16 @@ class Service extends ActionSupport {
 	def pay(bill){
 	  if(bill.fee.indexOf("caution")!=-1){
 	  	connection.executeUpdate "update projects set status = 'in progress', startedOn = NOW(), progression = 10 where id = ?", [bill.product_id]
-	  	def info = "le paiement de la caution a &eacute;t&eacute; &eacute;ffectu&eacute; et le contrat vous liant &aacute; ThinkTech a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; et ajout&eacute; aux documents du projet"
+	  	def info = "le paiement de la caution a &eacute;t&eacute; &eacute;ffectu&eacute; et le contrat vous liant &aacute; notre structure ThinkTech a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; et ajout&eacute; aux documents du projet"
 	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'finished', info = ? , progression = 100 where name = ? and project_id = ?", [info,"Contrat et Caution",bill.product_id]
 	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'in progress' where name = ? and project_id = ?", ["Traitement",bill.product_id]
 	  	def params = ["contrat.doc",50000,bill.product_id,user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
-	    def project = connection.firstRow("select * from projects  where id = ?", [bill.product_id])
+	    def order = connection.firstRow("select * from projects  where id = ?", [bill.product_id])
 	    def structure = connection.firstRow("select id,name from structures where id = ?", [user.structure_id])
-	    generateContract(structure,project) 
-	    try{
-	    sendMail(user.name,user.email,"${project.subject}",getConfirmationTemplate(project))
-	    sendMail("ThinkTech Support","support@thinktech.sn","${project.subject}",getSupportTemplate(project))
-	    }catch(e){
-	        println e
-	    }
+	    generateContract(structure,order) 
+	    sendMail(user.name,user.email,"${order.subject}",getConfirmationTemplate(order))
+	    sendMail("ThinkTech Support","support@thinktech.sn","${order.subject}",getSupportTemplate(order))
 
 	  }
     }
@@ -175,12 +171,10 @@ class Service extends ActionSupport {
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Sujet : $order.subject")
-		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Plan : $order.plan")
 		     }
-		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et le projet est maintenant en cours de traitement.")
+		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et votre projet est maintenant en cours de traitement.")
+		     p("le contrat vous liant &aacute; notre structure ThinkTech a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; et ajout&eacute; aux documents du projet.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/projects",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
@@ -207,9 +201,6 @@ class Service extends ActionSupport {
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Sujet : $order.subject")
-		     }
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Plan : $order.plan")
 		     }

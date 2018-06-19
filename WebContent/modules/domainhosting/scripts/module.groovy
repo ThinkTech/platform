@@ -19,7 +19,7 @@ class Service extends ActionSupport {
    	   params = ["h&eacute;bergement domaine : "+order.domain,"domainhosting",order.price,result[0][0],user.structure_id]
 	   result = connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 	   order.bill_id = result[0][0];
-	   sendMail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",getBillTemplate(order))
+	   sendMail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",getOrderTemplate(order))
 	}
 
 	
@@ -40,9 +40,11 @@ class Service extends ActionSupport {
 
     def pay(bill){
         connection.executeUpdate "update domains set status = 'in progress' where id = ?", [bill.product_id]
+        def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
+        sendMail("ThinkTech Support","suppor@thinktech.sn","Enregistrement du domaine ${order.domain} pour ${order.year} an",getSupportTemplate(order))
     }
     
-     def getBillTemplate(order) {
+    def getOrderTemplate(order) {
 		MarkupTemplateEngine engine = new MarkupTemplateEngine()
 		def text = '''\
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
@@ -89,6 +91,48 @@ class Service extends ActionSupport {
 		 }
 		'''
 		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-app.herokuapp.com"])
+		template.toString()
+	 }
+	
+	 def getSupportTemplate(order) {
+		MarkupTemplateEngine engine = new MarkupTemplateEngine()
+		def text = '''\
+		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
+		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
+		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
+		        span("Enregistrement du domaine web en attente")
+		      }
+		    }
+		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		         span("Domaine : $order.domain")
+		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		         span("Dur&eacute;e : $order.year an")
+		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		         span("Montant : $order.price CFA")
+		     }
+		     if(order.action == "transfer"){
+		        h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		         span("Action : transfert")
+		     	}                                
+		     }
+		     p("le paiement a &eacute;t&eacute; &eacute;ffectu&eacute; et le domaine est en attente d\'enregistrement.")
+
+		    }
+		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
+			    a(href : "$url/dashboard/domains",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			        span("Enregistrer")
+			    }
+			}
+		  }
+		  
+		 }
+		'''
+		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-crm.herokuapp.com"])
 		template.toString()
 	}
 }

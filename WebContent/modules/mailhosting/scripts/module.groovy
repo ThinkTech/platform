@@ -44,7 +44,7 @@ class Service extends ActionSupport {
        def bill = createBill(order)
        params = [bill.fee,"mailhosting",bill.amount,product_id,user.structure_id]
 	   connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-       sendMail(user.name,user.email,"Configuration business email pour le domaine ${order.domain}",getBillTemplate(order))
+       sendMail(user.name,user.email,"Configuration business email pour le domaine ${order.domain}",getOrderTemplate(order))
 	}
     
     def createBill(order){
@@ -67,7 +67,7 @@ class Service extends ActionSupport {
 		
 	}
 	
-	def getBillTemplate(order) {
+	def getOrderTemplate(order) {
 		MarkupTemplateEngine engine = new MarkupTemplateEngine()
 		def text = '''\
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){

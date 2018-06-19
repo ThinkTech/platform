@@ -19,7 +19,7 @@ class Service extends ActionSupport {
 		    service.metaClass.user = user 
 		    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,user.id,bill.id]
          	service.pay(bill)   
-         	sendMail(user.name,user.email,"Confirmation paiement "+bill.fee,getPaymentTemplate(bill))
+         	sendMail(user.name,user.email,"Confirmation paiement "+bill.fee,getBillTemplate(bill))
 		    connection.close()
          	status = 1
           }
@@ -31,7 +31,7 @@ class Service extends ActionSupport {
 		new Sql(dataSource)
    }
    
-   def getPaymentTemplate(bill) {
+   def getBillTemplate(bill) {
 		MarkupTemplateEngine engine = new MarkupTemplateEngine()
 		def text = '''\
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){

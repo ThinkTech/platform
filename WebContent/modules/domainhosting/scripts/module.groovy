@@ -112,9 +112,6 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Dur&eacute;e : $order.year an")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Montant : $order.price CFA")
-		     }
 		     if(order.action == "transfer"){
 		        h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Action : transfert")

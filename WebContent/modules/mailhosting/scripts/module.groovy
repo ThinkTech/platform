@@ -164,8 +164,7 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.name")
 		     }
-		     p("le paiement de la facture a &eacute;t&eacute; bien effectu&eacute; et le business email est maintenant en cours de configuration.
-		     Cliquer sur le bouton Configurer en bas pour d&eacute;marrer la r&eacute;solution du ticket correspondant.")
+		     p("le paiement de la facture a &eacute;t&eacute; bien effectu&eacute; et le business email est maintenant en cours de configuration. Cliquer sur le bouton Configurer en bas pour d&eacute;marrer la r&eacute;solution du ticket correspondant.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/support",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {

@@ -42,7 +42,7 @@ class Service extends ActionSupport {
         connection.executeUpdate "update domains set status = 'in progress' where id = ?", [bill.product_id]
         def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
         sendMail(user.name,user.email,"Enregistrement du domaine ${order.name} pour ${order.year} an en cours",getConfirmationTemplate(order))
-        sendMail("ThinkTech Support","support@thinktech.sn","Enregistrement du domaine ${order.name} pour ${order.year} an",getSupportTemplate(order))
+        sendMail("ThinkTech Support","support@thinktech.sn","Enregistrement du domaine ${order.name} pour ${order.year} an en cours",getSupportTemplate(order))
     }
     
     def getOrderTemplate(order) {
@@ -108,7 +108,7 @@ class Service extends ActionSupport {
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Domaine : $order.domain")
+		         span("Domaine : $order.name")
 		     }
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Dur&eacute;e : $order.year an")
@@ -150,7 +150,7 @@ class Service extends ActionSupport {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Enregistrement du domaine web en attente")
+		        span("Enregistrement du domaine web en cours")
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
@@ -165,7 +165,7 @@ class Service extends ActionSupport {
 		         span("Action : transfert")
 		     	}                                
 		     }
-		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en attente d\'enregistrement.")
+		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en cours d\'enregistrement.")
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {

@@ -16,12 +16,10 @@ class Service extends ActionSupport {
        def params,result,product_id
 	   params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id) values (?, ?, ?,?,?)', params
-       order.status = "en attente";
        if(order.plan == "free"){
            if(!order.domainCreated){
                order.price = order.price/order.year         
                order.year = 1
-               order.status = "en cours"
                params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id,true,order.email,"in progress"]
    	           result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id,emailOn,email,status) values (?,?,?,?,?,?,?,?,?,?,?,?)', params
    	           product_id = result[0][0]
@@ -64,7 +62,9 @@ class Service extends ActionSupport {
 	}
 	
 	def pay(bill){
-		
+		def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
+        sendMail(user.name,user.email,"Configuration business email pour le domaine ${order.name} en cours",getConfirmationTemplate(order))
+        sendMail("ThinkTech Support","support@thinktech.sn","Configuration business email pour le domaine ${order.domain} en cours",getSupportTemplate(order))
 	}
 	
 	def getOrderTemplate(order) {
@@ -75,7 +75,7 @@ class Service extends ActionSupport {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Votre business email est $order.status de configuration")
+		        span("Votre business email est en attente de configuration")
 		      }
 		       p(style : "font-size:100%;color:#fff"){
 			        span("cliquer sur le bouton en bas pour effectuer le paiement")
@@ -107,4 +107,77 @@ class Service extends ActionSupport {
 		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-app.herokuapp.com"])
 		template.toString()
 	}
+	
+	def getConfirmationTemplate(order) {
+		MarkupTemplateEngine engine = new MarkupTemplateEngine()
+		def text = '''\
+		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
+		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
+		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
+		        span("Votre business email est en cours de configuration")
+		      }
+		    }
+		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		         span("Plan : $order.plan")
+		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		         span("Domaine : $order.name")
+		     }
+		     p("le ticket est en cours de r&eacute;solution par notre &eacute;quipe technique.")
+		    }
+		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
+			    a(href : "$url/dashboard/support",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			        span("Voir")
+			    }
+			}
+		  }
+		  
+		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
+		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
+		      p("a souscrit au service emailhosting en utilisant cette adresse")
+		  }
+		  
+		 }
+		'''
+		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-app.herokuapp.com"])
+		template.toString()
+	}
+	
+	def getSupportTemplate(order) {
+		MarkupTemplateEngine engine = new MarkupTemplateEngine()
+		def text = '''\
+		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
+		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
+		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
+		        span("Business email en cours de configuration")
+		      }
+		    }
+		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		         span("Plan : $order.plan")
+		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		         span("Domaine : $order.name")
+		     }
+		     p("le paiement de la facture a &eacute;t&eacute; bien effectu&eacute; et le business email est maintenant en cours de configuration.")
+		    }
+		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
+			    a(href : "$url/dashboard/domains",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			        span("Configurer")
+			    }
+			}
+		  }
+		  
+		  
+		 }
+		'''
+		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-crm.herokuapp.com"])
+		template.toString()
+	}
+	
 }

@@ -117,7 +117,7 @@ class Service extends ActionSupport {
 		         span("Action : transfert")
 		     	}                                
 		     }
-		     p("le paiement a &eacute;t&eacute; bien &eacute;ffectu&eacute; et le domaine est maintenant en attente d\'enregistrement.")
+		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en attente d\'enregistrement.")
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {

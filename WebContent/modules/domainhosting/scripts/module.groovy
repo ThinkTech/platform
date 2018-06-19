@@ -113,9 +113,6 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Dur&eacute;e : $order.year an")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Montant : $order.price CFA")
-		     }
 		     if(order.action == "transfer"){
 		        h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Action : transfert")
@@ -165,7 +162,7 @@ class Service extends ActionSupport {
 		         span("Action : transfert")
 		     	}                                
 		     }
-		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en cours d\'enregistrement.")
+		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en cours d\'enregistrement. Cliquer sur le bouton Enregistrer en bas pour d&eacute;marrer l\'enregistrement du domaine.")
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {

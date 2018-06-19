@@ -41,7 +41,7 @@ class Service extends ActionSupport {
     def pay(bill){
         connection.executeUpdate "update domains set status = 'in progress' where id = ?", [bill.product_id]
         def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
-        sendMail("ThinkTech Support","support@thinktech.sn","Enregistrement du domaine ${order.domain} pour ${order.year} an",getSupportTemplate(order))
+        sendMail("ThinkTech Support","support@thinktech.sn","Enregistrement du domaine ${order.name} pour ${order.year} an",getSupportTemplate(order))
     }
     
     def getOrderTemplate(order) {

@@ -92,7 +92,7 @@ class Service extends ActionSupport {
 	  	def params = ["contrat.doc",50000,bill.product_id,user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
 	    def project = connection.firstRow("select * from projects  where id = ?", [bill.product_id])
-	    def structure = connection.firstRow("select name from structures where id = ?", [user.structure_id])
+	    def structure = connection.firstRow("select id,name from structures where id = ?", [user.structure_id])
 	    generateContract(structure,project) 
 	    try{
 	    sendMail(user.name,user.email,"${project.subject}",getConfirmationTemplate(project))

@@ -78,7 +78,7 @@ class Service extends ActionSupport {
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/billing",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/billing",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Payer")
 			    }
 			}
@@ -122,7 +122,7 @@ class Service extends ActionSupport {
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/domains",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/domains",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Voir")
 			    }
 			}
@@ -166,7 +166,7 @@ class Service extends ActionSupport {
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/domains",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/domains",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Enregistrer")
 			    }
 			}

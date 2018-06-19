@@ -141,7 +141,7 @@ class Service extends ActionSupport {
 		     p("Vous devez maintenant effectuer le paiement pour le traitement de votre projet par notre &eacute;quipe technique.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/billing",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/billing",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Payer")
 			    }
 			}
@@ -176,7 +176,7 @@ class Service extends ActionSupport {
 		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et votre projet est maintenant en cours de traitement. le contrat vous liant &aacute; notre structure ThinkTech a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; et ajout&eacute; aux documents du projet.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Voir")
 			    }
 			}
@@ -206,7 +206,7 @@ class Service extends ActionSupport {
 		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et le projet est maintenant en cours de traitement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:150%;width:180px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Traiter")
 			    }
 			}

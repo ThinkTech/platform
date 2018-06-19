@@ -91,10 +91,15 @@ class Service extends ActionSupport {
 	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'in progress' where name = ? and project_id = ?", ["Traitement",bill.product_id]
 	  	def params = ["contrat.doc",50000,bill.product_id,user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
-	    def project = connection.firstRow("select id,plan from projects  where id = ?", [bill.product_id])
-	    def structure = connection.firstRow("select id,name from structures where id = ?", [user.structure_id])
+	    def project = connection.firstRow("select * from projects  where id = ?", [bill.product_id])
+	    def structure = connection.firstRow("select name from structures where id = ?", [user.structure_id])
 	    generateContract(structure,project) 
+	    try{
 	    sendMail("ThinkTech Support","support@thinktech.sn","${project.subject}",getSupportTemplate(project))
+	    }catch(e){
+	        println e
+	    }
+
 	  }
     }
    

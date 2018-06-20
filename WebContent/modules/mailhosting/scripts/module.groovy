@@ -33,16 +33,16 @@ class Service extends ActionSupport {
        }
        def ticket = new Expando()
 	   ticket.with {
-         subject = "configuration business email "+order.plan+" : "+order.domain
+         subject = "configuration email "+order.plan+" : "+order.domain
          service = "mailhosting"
-         message = "<p>Configuration business email pour le domaine "+order.domain+" suivant le plan "+order.plan+"</p>"
+         message = "<p>Configuration email pour le domaine "+order.domain+" suivant le plan "+order.plan+"</p>"
        }
        params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id,product_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id,product_id) values (?,?,?,?,?,?)', params
        def bill = createBill(order)
        params = [bill.fee,"mailhosting",bill.amount,product_id,user.structure_id]
 	   connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-       sendMail(user.name,user.email,"Configuration business email pour le domaine ${order.domain}",getOrderTemplate(order))
+       sendMail(user.name,user.email,"Configuration email pour le domaine ${order.domain}",getOrderTemplate(order))
 	}
     
     def createBill(order){
@@ -64,8 +64,8 @@ class Service extends ActionSupport {
 	def pay(bill){
 	    connection.executeUpdate "update tickets set status = 'in progress', progression = 10 where product_id = ?", [bill.product_id]
 		def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
-        sendMail(user.name,user.email,"Configuration business email pour le domaine ${order.name} en cours",getConfirmationTemplate(order))
-        sendMail("ThinkTech Support","support@thinktech.sn","Configuration business email pour le domaine ${order.name} en cours",getSupportTemplate(order))
+        sendMail(user.name,user.email,"Configuration email pour le domaine ${order.name} en cours",getConfirmationTemplate(order))
+        sendMail("ThinkTech Support","support@thinktech.sn","Configuration email pour le domaine ${order.name} en cours",getSupportTemplate(order))
 	}
 	
 	def getOrderTemplate(order) {

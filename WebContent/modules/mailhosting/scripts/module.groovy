@@ -33,7 +33,7 @@ class Service extends ActionSupport {
        }
        def ticket = new Expando()
 	   ticket.with {
-         subject = "configuration business email "+order.plan
+         subject = "configuration business email "+order.plan+" : "+order.domain
          service = "mailhosting"
          message = "<p>Configuration business email pour le domaine "+order.domain+" suivant le plan "+order.plan+"</p>"
        }

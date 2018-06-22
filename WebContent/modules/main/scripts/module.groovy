@@ -141,7 +141,7 @@ class Dispatcher extends ActionSupport {
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		      h5(style : "font-size: 110%;color: rgb(0, 0, 0);margin-bottom: 15px") {
+		      h5(style : "font-size: 110%;color: rgb(0, 0, 0);margin-bottom: 10px") {
 		         span("Client : $user.name")
 		      }
 		      if(subscription.structure) {
@@ -149,9 +149,10 @@ class Dispatcher extends ActionSupport {
 		         span("Structure : $subscription.structure")
 		        }
 		      }
+		      p("cliquer maintenant sur le bouton Voir pour consulter les details du nouveau client.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-		       a(href : "$url/customers",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+		       a(href : "$url/dashboard/customers",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 		         span("Voir")
 		       }
 			}

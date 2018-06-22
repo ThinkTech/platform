@@ -97,12 +97,9 @@ class Dispatcher extends ActionSupport {
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
 		      if(subscription.structure) {
-		        h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
+		        h5(style : "font-size: 110%;color: rgb(0, 0, 0);margin-bottom: 15px") {
 		         span("Structure : $subscription.structure")
 		        }
-		      }
-		      h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
-		         span("Service : $subscription.service")
 		      }
 		      if(subscription.activationCode){
 		      	p("Veuillez confirmer votre souscription au service $subscription.service pour activer votre compte client.")
@@ -144,16 +141,13 @@ class Dispatcher extends ActionSupport {
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		      h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
+		      h5(style : "font-size: 110%;color: rgb(0, 0, 0);margin-bottom: 15px") {
 		         span("Client : $user.name")
 		      }
 		      if(subscription.structure) {
-		        h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
+		        h5(style : "font-size: 110%;color: rgb(0, 0, 0);margin-bottom: 15px") {
 		         span("Structure : $subscription.structure")
 		        }
-		      }
-		      h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
-		         span("Service : $subscription.service")
 		      }
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {

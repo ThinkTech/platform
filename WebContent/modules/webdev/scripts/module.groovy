@@ -11,7 +11,7 @@ class Service extends ActionSupport {
     
     def order(order) {
          order.priority = order.priority ? order.priority : "normal"
-         order.subject =  order.subject + " : " + order.domain 
+         order.subject =  order.subject + " " + order.domain 
          def params,result,tasks
          def email = user.email.substring(0,user.email.indexOf("@"))
          def bill = createBill(order)

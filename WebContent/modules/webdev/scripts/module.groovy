@@ -18,8 +18,8 @@ class Service extends ActionSupport {
          if(!order.domainCreated){
              order.price = order.price/order.year         
              order.year = 1 
-             params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,true,email,"free",user.id,user.structure_id,"in progress"]
-             result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,emailOn,email,plan,user_id,structure_id,status) values (?,?,?,?,?,?,?,?,?,?,?,?)', params
+             params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,true,email,"free",user.id,user.structure_id]
+             result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,emailOn,email,plan,user_id,structure_id) values (?,?,?,?,?,?,?,?,?,?,?)', params
 	      	 params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,result[0][0]]
 	         result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
      	     order.id = result[0][0]
@@ -92,6 +92,7 @@ class Service extends ActionSupport {
 	  	def params = ["contrat.doc",50000,bill.product_id,user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
 	    def order = connection.firstRow("select * from projects  where id = ?", [bill.product_id])
+	    connection.executeUpdate "update domains set status = 'in progress' where id = ?", [order.domain_id]
 	    def structure = connection.firstRow("select id,name from structures where id = ?", [user.structure_id])
 	    generateContract(structure,order) 
 	    sendMail(user.name,user.email,"${order.subject} en cours",getConfirmationTemplate(order))

@@ -12,8 +12,8 @@ class Service extends ActionSupport {
            if(!order.domainCreated){
                order.price = order.price/order.year         
                order.year = 1
-               params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id,true,order.email,"in progress"]
-   	           result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id,emailOn,email,status) values (?,?,?,?,?,?,?,?,?,?,?,?)', params
+               params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id,true,order.email]
+   	           result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?,?)', params
    	           product_id = result[0][0]
            }else{
                product_id = order.product_id
@@ -64,6 +64,7 @@ class Service extends ActionSupport {
 	
 	def pay(bill){
 	    connection.executeUpdate "update tickets set status = 'in progress', progression = 10 where product_id = ?", [bill.product_id]
+	    connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where product_id = ?", [bill.product_id]
 		def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
         sendMail(user.name,user.email,"Configuration email pour le domaine ${order.name} en cours",getConfirmationTemplate(order))
         sendMail("ThinkTech Support","support@thinktech.sn","Configuration email pour le domaine ${order.name} en cours",getSupportTemplate(order))

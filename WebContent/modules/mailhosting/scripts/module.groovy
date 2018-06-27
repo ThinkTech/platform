@@ -26,6 +26,9 @@ class Service extends ActionSupport {
    	        product_id = result[0][0]
    	        params = ["h&eacute;bergement domaine "+order.domain,"domainhosting",order.price,product_id,user.structure_id]
 		    connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
+		    def service = getService("domainhosting")
+		    sendMail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",service.getOrderTemplate(order))
+            
          }else{
              product_id = order.product_id
              connection.executeUpdate "update domains set emailOn = true, email = ?, plan = ? where id = ?", [order.email,order.plan,product_id]

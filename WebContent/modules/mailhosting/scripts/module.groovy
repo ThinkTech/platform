@@ -63,7 +63,7 @@ class Service extends ActionSupport {
 	}
 	
 	def pay(bill){
-	    connection.executeUpdate "update tickets set status = 'in progress', progression = 10 where product_id = ?", [bill.product_id]
+	    connection.executeUpdate "update tickets set status = 'in progress', progression = 10 where product_id = ? and service = 'mailhosting'", [bill.product_id]
 	    connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where id = ?", [bill.product_id]
 		def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
         sendMail(user.name,user.email,"Configuration email pour le domaine ${order.name} en cours",getConfirmationTemplate(order))
@@ -102,7 +102,7 @@ class Service extends ActionSupport {
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
 		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
-		      p("a souscrit au service emailhosting en utilisant cette adresse")
+		      p("a souscrit au service mailhosting en utilisant cette adresse")
 		  }
 		  
 		 }
@@ -140,7 +140,7 @@ class Service extends ActionSupport {
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
 		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
-		      p("a souscrit au service emailhosting en utilisant cette adresse")
+		      p("a souscrit au service mailhosting en utilisant cette adresse")
 		  }
 		  
 		 }

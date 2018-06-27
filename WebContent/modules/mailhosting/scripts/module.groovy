@@ -37,6 +37,7 @@ class Service extends ActionSupport {
          service = "mailhosting"
          message = "<p>Configuration email pour le domaine "+order.domain+" suivant le plan "+order.plan+"</p>"
        }
+       ticket.message += "<p>Super Administrateur : "+order.email+"@"+order.domain+"</p>"
        params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id,product_id]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id,product_id) values (?,?,?,?,?,?)', params
        def bill = createBill(order)

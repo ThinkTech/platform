@@ -60,7 +60,7 @@ class Service extends ActionSupport {
 	
 	def getTasks(caution){
 	   def tasks = []
-	   def task = new Expando(name : caution ? "Contrat et Caution" : "Contrat",description :"cette phase intiale &eacute;tablit la relation l&eacute;gale qui vous lie &agrave; ThinkTech")
+	   def task = new Expando(name : caution ? "Contrat et Caution" : "Contrat",description :"cette phase intiale &eacute;tablit la relation l&eacute;gale qui vous lie &agrave; notre structure ThinkTech")
 	   tasks << task
 	   task = new Expando(name :"Traitement",description : "cette phase d'approbation est celle o&ugrave; notre &eacute;quipe technique prend en charge votre projet")
        tasks << task

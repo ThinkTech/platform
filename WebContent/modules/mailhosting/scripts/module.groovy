@@ -63,7 +63,7 @@ class Service extends ActionSupport {
 	}
 	
 	def pay(bill){
-	    connection.executeUpdate "update tickets set status = 'in progress', progression = 10 where product_id = ? and service = 'mailhosting'", [bill.product_id]
+	    connection.executeUpdate "update tickets set status = 'in progress', startedOn = Now(), progression = 10 where product_id = ? and service = 'mailhosting'", [bill.product_id]
 	    def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
         if(order.plan=="free") connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where id = ?", [bill.product_id]
 		sendMail(user.name,user.email,"Configuration email pour le domaine ${order.name} en cours",getConfirmationTemplate(order))

@@ -1,7 +1,5 @@
 import org.apache.poi.hwpf.HWPFDocument
 import org.apache.poi.poifs.filesystem.POIFSFileSystem
-import app.FileManager
-import groovy.text.markup.MarkupTemplateEngine
 
 class Service extends ActionSupport {
     

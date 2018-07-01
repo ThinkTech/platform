@@ -1,6 +1,3 @@
-import groovy.sql.Sql
-import groovy.text.markup.MarkupTemplateEngine
-
 class Service extends ActionSupport {
 
     def pay(){

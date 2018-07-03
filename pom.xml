@@ -86,7 +86,7 @@
 				<configuration>
 					<email>dev@thinktech.sn</email>
 					<password>${mirhosting.password}</password>
-					<environment>thinktech-platform</environment>
+					<environment>thinktechplatform</environment>
 					<api_hoster>app.mircloud.host</api_hoster>
 				</configuration>
 			</plugin>

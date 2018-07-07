@@ -28,9 +28,7 @@ class Service extends ActionSupport {
 	         result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
      	     order.id = result[0][0]
 	     }else {
-	          if(count==0){
-	          	connection.executeUpdate "update domains set plan = if(emailOn = false, 'free', plan), email = if(emailOn = false,?,email), emailOn = if(emailOn = false,true, emailOn) where id = ?", [email,order.domain_id]
-	          }
+	          if(count==0) connection.executeUpdate "update domains set plan = if(emailOn = false, 'free', plan), email = if(emailOn = false,?,email), emailOn = if(emailOn = false,true, emailOn) where id = ?", [email,order.domain_id]
               params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,order.domain_id]
 	          result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
      	      order.id = result[0][0]

@@ -13,16 +13,24 @@ class Service extends ActionSupport {
          def params,result,tasks
          def email = user.email.substring(0,user.email.indexOf("@"))
          def bill = createBill(order)
+         def count = connection.firstRow("select count(*) AS count from domains where plan = 'free' and structure_id = $user.structure_id").count
          if(!order.domainCreated){
              order.price = order.price/order.year         
              order.year = 1 
-             params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,true,email,"free",user.id,user.structure_id]
-             result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,emailOn,email,plan,user_id,structure_id) values (?,?,?,?,?,?,?,?,?,?,?)', params
-	      	 params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,result[0][0]]
+             if(count==0){
+                 params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,true,email,"free",user.id,user.structure_id]
+                 result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,emailOn,email,plan,user_id,structure_id) values (?,?,?,?,?,?,?,?,?,?,?)', params
+             }else{
+                  params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id]
+                  result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,user_id,structure_id) values (?,?,?,?,?,?,?,?)', params
+             }
+             params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,result[0][0]]
 	         result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
      	     order.id = result[0][0]
 	     }else {
-	          connection.executeUpdate "update domains set plan = if(emailOn = false, 'free', plan), email = if(emailOn = false,?,email), emailOn = if(emailOn = false,true, emailOn) where id = ?", [email,order.domain_id]
+	          if(count==0){
+	          	connection.executeUpdate "update domains set plan = if(emailOn = false, 'free', plan), email = if(emailOn = false,?,email), emailOn = if(emailOn = false,true, emailOn) where id = ?", [email,order.domain_id]
+	          }
               params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,order.domain_id]
 	          result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params
      	      order.id = result[0][0]

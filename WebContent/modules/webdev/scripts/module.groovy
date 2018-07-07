@@ -18,11 +18,11 @@ class Service extends ActionSupport {
              order.price = order.price/order.year         
              order.year = 1 
              if(count==0){
-                 params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,true,email,"free",user.id,user.structure_id]
-                 result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,emailOn,email,plan,user_id,structure_id) values (?,?,?,?,?,?,?,?,?,?,?)', params
+                params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,true,email,"free",user.id,user.structure_id]
+                result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,emailOn,email,plan,user_id,structure_id) values (?,?,?,?,?,?,?,?,?,?,?)', params
              }else{
-                  params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id]
-                  result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,user_id,structure_id) values (?,?,?,?,?,?,?,?)', params
+                params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id]
+                result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,user_id,structure_id) values (?,?,?,?,?,?,?,?)', params
              }
              params = [order.subject,order.priority,"webdev",order.plan,order.description,user.id,user.structure_id,result[0][0]]
 	         result = connection.executeInsert 'insert into projects(subject,priority,service,plan,description,user_id,structure_id,domain_id) values (?,?,?,?,?,?,?,?)', params

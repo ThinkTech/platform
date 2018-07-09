@@ -79,30 +79,6 @@
 					<appName>thinktech-platform</appName>
 				</configuration>
 			</plugin>
-		<plugin>
-				<groupId>com.jelastic</groupId>
-				<artifactId>jelastic-maven-plugin</artifactId>
-				<version>1.9</version>
-				<configuration>
-					<email>dev@thinktech.sn</email>
-					<password>${mirhosting.password}</password>
-					<environment>thinktechplatform</environment>
-					<api_hoster>app.mircloud.host</api_hoster>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
-	
-	<pluginRepositories>
-		<pluginRepository>
-			<id>sonatype-oss-public</id>
-			<url>https://oss.sonatype.org/content/groups/public</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 </project>

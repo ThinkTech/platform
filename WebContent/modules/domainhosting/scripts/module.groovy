@@ -90,7 +90,7 @@ class Service extends ActionSupport {
 		  
 		 }
 		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-app.herokuapp.com"])
+		def template = engine.createTemplate(text).make([order:order,url : "https://app.thinktech.sn"])
 		template.toString()
 	 }
 	 
@@ -134,7 +134,7 @@ class Service extends ActionSupport {
 		  
 		 }
 		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-app.herokuapp.com"])
+		def template = engine.createTemplate(text).make([order:order,url : "https://app.thinktech.sn"])
 		template.toString()
 	 }
 	

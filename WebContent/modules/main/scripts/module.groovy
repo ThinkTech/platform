@@ -121,7 +121,7 @@ class Dispatcher extends ActionSupport {
 		  
 		 }
 		'''
-		def template = engine.createTemplate(text).make([subscription:subscription,url : "https://thinktech-app.herokuapp.com"])
+		def template = engine.createTemplate(text).make([subscription:subscription,url : "https://app.thinktech.sn"])
 		template.toString()
 	}
    

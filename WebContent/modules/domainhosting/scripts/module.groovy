@@ -62,14 +62,14 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Dur&eacute;e : $order.year an")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Montant : $order.price CFA")
 		     }
 		     if(order.action == "transfer"){
-		        h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		        h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Action : transfert")
 		     	}                                
 		     }
@@ -109,11 +109,11 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.name")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Dur&eacute;e : $order.year an")
 		     }
 		     if(order.action == "transfer"){
-		        h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		        h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Action : transfert")
 		     	}                                
 		     }
@@ -153,11 +153,11 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.name")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Dur&eacute;e : $order.year an")
 		     }
 		     if(order.action == "transfer"){
-		        h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		        h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Action : transfert")
 		     	}                                
 		     }

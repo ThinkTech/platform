@@ -99,9 +99,9 @@ class Dispatcher extends ActionSupport {
 		        }
 		      }
 		      if(subscription.activationCode){
-		      	p("Veuillez confirmer votre souscription au service $subscription.service pour activer votre compte client.")
+		      	p("$subscription.name, nous vous remercions pour votre souscription au service $subscription.service et vous devez maintenant confirmer celle-ci pour activer votre compte client. Cliquer sur le bouton Confirmer en bas.")
 		      }else{
-		          p("Merci pour votre souscription au service $subscription.service et au plan ${subscription.plan}.")
+		          p("$subscription.name, nous vous remercions pour votre souscription au service $subscription.service.")
 		      }
 
 		    }

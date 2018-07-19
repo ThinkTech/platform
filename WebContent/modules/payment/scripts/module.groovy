@@ -34,14 +34,14 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-top:2%;padding-bottom:2%;text-align:center;background:#05d2ff") {
-		      h4(style : "font-size: 200%;color: #fff;margin: 3px") {
-		        span("Paiement reussie")
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
+		        span("Paiement facture reussie")
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		    p("Le paiement de votre facture a &eacute;t&eacute; effectu&eacute; avec succ&eacute;s. ")  
-		    h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px") {
+		    p("Le paiement de votre facture a &eacute;t&eacute; bien effectu&eacute; avec succ&eacute;s. Vous pouvez lire ci-dessous les details de votre transaction.")  
+		    h5(style : "font-size: 120%;color: rgb(0, 0, 0);margin-bottom: 15px;margin-top:0") {
 		         span("Service : $bill.service")
 		    }
 		    table {

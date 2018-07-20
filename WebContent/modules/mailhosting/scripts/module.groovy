@@ -133,7 +133,7 @@ class Service extends ActionSupport {
 		         span("Domaine : $order.name")
 		     }
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Email : $order.email@$order.domain")
+		         span("Email : $order.email@$order.name")
 		     }
 		     p("Votre business email est en cours de configuration et le ticket est en cours de r&eacute;solution par notre &eacute;quipe technique. Nous vous contacterons sou peu pour la validation des informations fournies ou vous pouvez juste ajouter un commentaire au ticket pour confirmation.")
 		    }
@@ -174,7 +174,7 @@ class Service extends ActionSupport {
 		         span("Domaine : $order.name")
 		     }
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Email : $order.email@$order.domain")
+		         span("Email : $order.email@$order.name")
 		     }
 		     p("le paiement de la facture a &eacute;t&eacute; bien effectu&eacute; et le business email est maintenant en cours de configuration. Cliquer sur le bouton Configurer en bas pour d&eacute;marrer la r&eacute;solution du ticket correspondant.")
 		    }

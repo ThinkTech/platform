@@ -22,7 +22,7 @@ class Service extends ActionSupport {
             params = [order.domain,order.extension,order.plan,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id,true,order.email]
    	        result = connection.executeInsert 'insert into domains(name,extension,plan,price,year,action,eppCode,user_id,structure_id,emailOn,email) values (?,?,?,?,?,?,?,?,?,?,?)', params
    	        product_id = result[0][0]
-   	        params = ["h&eacute;bergement domaine "+order.domain,"domainhosting",order.price,product_id,user.structure_id]
+   	        params = ["enregistrement domaine "+order.domain,"domainhosting",order.price,product_id,user.structure_id]
 		    connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
 		    def service = getService("domainhosting")
 		    sendMail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",service.getOrderTemplate(order))
@@ -48,7 +48,7 @@ class Service extends ActionSupport {
     
     def createBill(order){
 	   def bill = new Expando()
-	   bill.fee = "h&eacute;bergement email "+order.plan+" "+order.domain
+	   bill.fee = "configuration email "+order.plan+" "+order.domain
 	   if(order.plan == "free") {
 	      bill.amount = 20000
 	   }

@@ -10,13 +10,15 @@ class Service extends ActionSupport {
           if(module){
             def connection = getConnection()
             def service = getService(module)
-            service.metaClass.connection = connection
-		    service.metaClass.module = module
-		    def user = connection.firstRow("select * from users where id = ?", [bill.user.id])
-		    service.metaClass.user = user 
-		    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,user.id,bill.id]
-         	service.pay(bill)   
-         	sendMail(user.name,user.email,"Confirmation paiement "+bill.fee,getBillTemplate(bill))
+            synchronized(this){
+	            service.metaClass.connection = connection
+			    service.metaClass.module = module
+			    def user = connection.firstRow("select * from users where id = ?", [bill.user.id])
+			    service.metaClass.user = user 
+			    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,user.id,bill.id]
+	         	service.pay(bill)   
+	         	sendMail(user.name,user.email,"Confirmation paiement "+bill.fee,getBillTemplate(bill))
+         	}
 		    connection.close()
          	status = 1
           }

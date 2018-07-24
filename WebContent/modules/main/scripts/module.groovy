@@ -37,20 +37,22 @@ class Dispatcher extends ActionSupport {
 		            status = 1
 			    }
 			    if(!count){
-			      service.metaClass.connection = connection
-		          service.metaClass.user = user   
-		          params = [subscription.service,user.structure_id]
-			      result = connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
-		          subscription.id = result[0][0]
-		          if(subscription.services){
-		              subscription.services.each{
-		                  params = [it,user.structure_id]
-		                  connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
-		              }
-		          }
-		          service.subscribe(subscription)	          
-		          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
-		          sendMail("ThinkTech Support","support@thinktech.sn","Nouvelle souscription au service ${subscription.service} reussie",getSupportTemplate(user,subscription))
+			      synchronized(this){
+				      service.metaClass.connection = connection
+			          service.metaClass.user = user   
+			          params = [subscription.service,user.structure_id]
+				      result = connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
+			          subscription.id = result[0][0]
+			          if(subscription.services){
+			              subscription.services.each{
+			                  params = [it,user.structure_id]
+			                  connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
+			              }
+			          }
+			          service.subscribe(subscription)	          
+			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
+			          sendMail("ThinkTech Support","support@thinktech.sn","Nouvelle souscription au service ${subscription.service} reussie",getSupportTemplate(user,subscription))
+			      }
 			    }
 			    connection.close()
 	      }
@@ -67,9 +69,11 @@ class Dispatcher extends ActionSupport {
 	       if(service){
 	         def connection = getConnection()
 	         def user = connection.firstRow("select * from users where id = ?", [order.user_id])
-		     service.metaClass.connection = connection
-	         service.metaClass.user = user
-		     service.order(order)
+	         synchronized(this){
+			     service.metaClass.connection = connection
+		         service.metaClass.user = user
+			     service.order(order)
+		     }
 		     connection.close()
 		     json([entity: order])
 		   }	   

@@ -139,10 +139,10 @@ class Service extends ActionSupport {
 			   }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Plan : $order.plan")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
 		     p("Vous devez maintenant effectuer le paiement pour le traitement de votre projet par notre &eacute;quipe technique.")
@@ -177,10 +177,10 @@ class Service extends ActionSupport {
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Plan : $order.plan")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
 		     p("Nous vous contacterons sous peu pour le traitement de votre projet par notre &eacute;quipe technique.")
@@ -218,10 +218,10 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Plan : $order.plan")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Auteur : $user.name")
 		     }
 		     p("Cliquer sur le bouton Voir pour visualiser les details du projet.")

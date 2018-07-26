@@ -51,7 +51,7 @@ class Dispatcher extends ActionSupport {
 			          }
 			          service.subscribe(subscription)	          
 			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
-			          sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle vente effectu&eacute;e pour le service ${subscription.service}",service.getSalesTemplate(subscription.order))
+			          sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle souscription et vente effectu&eacute;e pour le service ${subscription.service}",service.getSalesTemplate(subscription.order))
 			      }
 			    }
 			    connection.close()

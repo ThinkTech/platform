@@ -194,12 +194,6 @@ class Service extends ActionSupport {
 			    }
 			}
 		  }
-		  
-		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
-		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
-		      p("a souscrit au service webdev en utilisant cette adresse")
-		  }
-		  
 		 }
 		'''
 		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-crm.herokuapp.com"])

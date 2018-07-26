@@ -104,7 +104,7 @@ class Dispatcher extends ActionSupport {
 		        }
 		      }
 		      if(subscription.activationCode){
-		      	p("$subscription.name, nous vous remercions pour votre souscription au service $subscription.service. Vous devez maintenant confirmer celle-ci pour activer votre compte client. Cliquer sur le bouton Confirmer en bas.")
+		      	p("$subscription.name, nous vous remercions pour votre souscription au service $subscription.service. vous devez maintenant confirmer celle-ci pour activer votre compte client. Cliquer sur le bouton Confirmer en bas.")
 		      }else{
 		          p("$subscription.name, nous vous remercions pour votre souscription au service $subscription.service.")
 		      }
@@ -120,7 +120,7 @@ class Dispatcher extends ActionSupport {
 		  }
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
-		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
+		      p("vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
 		      p("a souscrit au service $subscription.service en utilisant cette adresse")
 		  }
 		  

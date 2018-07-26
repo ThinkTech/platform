@@ -143,7 +143,7 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
-		     p("Vous devez maintenant effectuer le paiement de votre facture pour le traitement de votre projet par notre &eacute;quipe de d&eacute;veloppement.")
+		     p("vous devez maintenant effectuer le paiement de votre facture pour le traitement de votre projet par notre &eacute;quipe de d&eacute;veloppement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/billing",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
@@ -153,7 +153,7 @@ class Service extends ActionSupport {
 		  }
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
-		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
+		      p("vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
 		      p("a souscrit au service webdev en utilisant cette adresse")
 		  }
 		  
@@ -226,7 +226,7 @@ class Service extends ActionSupport {
 		  }
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
-		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
+		      p("vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
 		      p("a souscrit au service webdev en utilisant cette adresse")
 		  }
 		  

@@ -73,7 +73,7 @@ class Service extends ActionSupport {
 		         span("Action : transfert")
 		     	}                                
 		     }
-		     p("Vous devez maintenant effectuer le paiement de votre facture pour l\'enregistrement de votre domaine web.")
+		     p("vous devez maintenant effectuer le paiement de votre facture pour l\'enregistrement de votre domaine web.")
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
@@ -84,7 +84,7 @@ class Service extends ActionSupport {
 		  }
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
-		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
+		      p("vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
 		      p("a souscrit au service domainhosting en utilisant cette adresse")
 		  }
 		  
@@ -173,7 +173,7 @@ class Service extends ActionSupport {
 		  }
 		  
 		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
-		      p("Vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
+		      p("vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
 		      p("a souscrit au service domainhosting en utilisant cette adresse")
 		  }
 		  

@@ -48,7 +48,6 @@ class Service extends ActionSupport {
 	            ps.addBatch(it.name,it.description,order.id)
 	         } 
 	      }
-	      sendMail("ThinkTech Dev","dev@thinktech.sn","${order.subject}",getNotificationTemplate(order))
 	}
     
     def createBill(order){
@@ -103,7 +102,6 @@ class Service extends ActionSupport {
 	    generateContract(structure,order) 
 	    sendMail(user.name,user.email,"${order.subject} en cours",getConfirmationTemplate(order))
 	    sendMail("ThinkTech Dev","dev@thinktech.sn","${order.subject} en cours",getSupportTemplate(order))
-
 	  }
     }
    
@@ -196,7 +194,7 @@ class Service extends ActionSupport {
 		  }
 		 }
 		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-crm.herokuapp.com"])
+		def template = engine.createTemplate(text).make([order:order,user:user,url : "https://thinktech-crm.herokuapp.com"])
 		template.toString()
 	}
 	
@@ -235,42 +233,6 @@ class Service extends ActionSupport {
 		 }
 		'''
 		def template = engine.createTemplate(text).make([order:order,url : "https://app.thinktech.sn"])
-		template.toString()
-	}
-	
-	def getNotificationTemplate(order) {
-		MarkupTemplateEngine engine = new MarkupTemplateEngine()
-		def text = '''\
-		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
-		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
-		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
-		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Un nouveau projet en attente de traitement")
-		      }
-		    }
-		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Plan : $order.plan")
-		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Domaine : $order.domain")
-		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Auteur : $user.name")
-		     }
-		     p("Cliquer sur le bouton Voir pour visualiser les details du projet.")
-		    }
-		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
-			        span("Voir")
-			    }
-			}
-		  }
-		  
-		 }
-		'''
-		def template = engine.createTemplate(text).make([order:order,user : user,url : "https://thinktech-crm.herokuapp.com"])
 		template.toString()
 	}
 	

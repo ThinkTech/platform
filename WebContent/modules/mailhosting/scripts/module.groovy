@@ -149,7 +149,7 @@ class Service extends ActionSupport {
 		  }
 		 }
 		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-crm.herokuapp.com"])
+		def template = engine.createTemplate(text).make([order:order,user : user,url : "https://thinktech-crm.herokuapp.com"])
 		template.toString()
 	}
 	

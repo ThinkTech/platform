@@ -94,7 +94,7 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Email : $order.email@$order.domain")
 		     }
-		     p("Un ticket a &eacute;t&eacute; cr&eacute;&eacute; et vous devez maintenant effectuer le paiement pour la configuration de votre business email par notre &eacute;quipe technique.")
+		     p("Un ticket a &eacute;t&eacute; cr&eacute;&eacute; et vous devez maintenant effectuer le paiement de votre facture pour la configuration de votre business email par notre &eacute;quipe technique.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/billing",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {

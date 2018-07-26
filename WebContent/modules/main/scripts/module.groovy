@@ -51,7 +51,7 @@ class Dispatcher extends ActionSupport {
 			          }
 			          service.subscribe(subscription)	          
 			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
-			          sendMail("ThinkTech Support","support@thinktech.sn","Nouvelle souscription au service ${subscription.service}",getSupportTemplate(user,subscription))
+			          sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle souscription au service ${subscription.service}",getSalesTemplate(user,subscription))
 			      }
 			    }
 			    connection.close()
@@ -73,6 +73,7 @@ class Dispatcher extends ActionSupport {
 			     service.metaClass.connection = connection
 		         service.metaClass.user = user
 			     service.order(order)
+			     sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle vente effectu&eacute;e pour le service ${order.service}",service.getSalesTemplate(order))
 		     }
 		     connection.close()
 		     json([entity: order])
@@ -130,7 +131,7 @@ class Dispatcher extends ActionSupport {
 	}
    
    
-   def getSupportTemplate(user,subscription) {
+   def getSalesTemplate(user,subscription) {
 		MarkupTemplateEngine engine = new MarkupTemplateEngine()
 		def text = '''\
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){

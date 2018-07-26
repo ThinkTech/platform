@@ -51,7 +51,7 @@ class Dispatcher extends ActionSupport {
 			          }
 			          service.subscribe(subscription)	          
 			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
-			          sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle souscription au service ${subscription.service}",getSalesTemplate(user,subscription))
+			          sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle vente effectu&eacute;e pour le service ${subscription.service}",service.getSalesTemplate(subscription.order))
 			      }
 			    }
 			    connection.close()
@@ -128,44 +128,9 @@ class Dispatcher extends ActionSupport {
 		'''
 		def template = engine.createTemplate(text).make([subscription:subscription,url : "https://app.thinktech.sn"])
 		template.toString()
-	}
+   }
    
-   
-   def getSalesTemplate(user,subscription) {
-		MarkupTemplateEngine engine = new MarkupTemplateEngine()
-		def text = '''\
-		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
-		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
-		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
-		      h4(style : "font-size: 170%;color: #fff;margin: 3px") {
-		        span("Nouvelle souscription au service $subscription.service")
-		      }
-		    }
-		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		      h5(style : "font-size: 110%;color: rgb(0, 0, 0);margin-bottom: 10px") {
-		         span("Client : $user.name")
-		      }
-		      if(subscription.structure) {
-		        h5(style : "font-size: 110%;color: rgb(0, 0, 0);margin-bottom: 15px") {
-		         span("Structure : $subscription.structure")
-		        }
-		      }
-		      p("cliquer maintenant sur le bouton Voir pour consulter les details du nouveau client et le compte client est en cours d\'activation.")
-		    }
-		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-		       a(href : "$url/dashboard/customers",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
-		         span("Voir")
-		       }
-			}
-		  }
-		  
-		 }
-		'''
-		def template = engine.createTemplate(text).make([user:user,subscription:subscription,url:"https://thinktech-crm.herokuapp.com"])
-		template.toString()
-	}
-   
+
    def getConnection()  {
 		new Sql(dataSource)
    }

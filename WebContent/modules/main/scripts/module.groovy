@@ -51,7 +51,7 @@ class Dispatcher extends ActionSupport {
 			          }
 			          service.subscribe(subscription)	          
 			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
-			          sendMail("ThinkTech Support","support@thinktech.sn","Nouvelle souscription au service ${subscription.service} reussie",getSupportTemplate(user,subscription))
+			          sendMail("ThinkTech Support","support@thinktech.sn","Nouvelle souscription au service ${subscription.service}",getSupportTemplate(user,subscription))
 			      }
 			    }
 			    connection.close()
@@ -138,7 +138,7 @@ class Dispatcher extends ActionSupport {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 170%;color: #fff;margin: 3px") {
-		        span("Nouvelle souscription reussie")
+		        span("Nouvelle souscription au service $subscription.service")
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
@@ -150,7 +150,7 @@ class Dispatcher extends ActionSupport {
 		         span("Structure : $subscription.structure")
 		        }
 		      }
-		      p("cliquer maintenant sur le bouton Voir pour consulter les details du nouveau client et le compte est en cours d\'activation.")
+		      p("cliquer maintenant sur le bouton Voir pour consulter les details du nouveau client et le compte client est en cours d\'activation.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 		       a(href : "$url/dashboard/customers",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {

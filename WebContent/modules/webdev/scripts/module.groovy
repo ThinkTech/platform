@@ -184,7 +184,7 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Auteur : $user.name")
 		     }
-		     p("Le client doit maintenant effectuer le paiement de sa facture pour le traitement de son projet par notre &eacute;quipe de d&eacute;veloppement.")
+		     p("le client doit maintenant effectuer le paiement de sa facture pour le traitement de son projet par notre &eacute;quipe de d&eacute;veloppement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {

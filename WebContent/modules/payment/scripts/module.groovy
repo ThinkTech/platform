@@ -43,7 +43,7 @@ class Service extends ActionSupport {
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		    p("Le paiement de votre facture a &eacute;t&eacute; bien effectu&eacute; avec succ&eacute;s. Vous pouvez lire ci-dessous les details de votre transaction.")  
+		    p("le paiement de votre facture a &eacute;t&eacute; bien effectu&eacute; avec succ&eacute;s. Vous pouvez lire ci-dessous les details de votre transaction.")  
 		    table {
 		        tr{
 		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){
@@ -110,7 +110,7 @@ class Service extends ActionSupport {
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
-		    p("Le client a bien effectu&eacute; le paiement de sa facture avec succ&eacute;s. Vous pouvez lire ci-dessous les details de la transaction.")  
+		    p("le client a bien effectu&eacute; le paiement de sa facture avec succ&eacute;s. Vous pouvez lire ci-dessous les details de la transaction.")  
 		    table {
 		        tr{
 		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){

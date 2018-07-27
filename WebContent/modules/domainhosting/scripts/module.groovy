@@ -206,7 +206,7 @@ class Service extends ActionSupport {
 		         span("Action : transfert")
 		     	}                                
 		     }
-		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en cours d\'enregistrement. Cliquer sur le bouton Enregistrer en bas pour d&eacute;marrer l\'enregistrement du domaine.")
+		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en cours d\'enregistrement. cliquer sur le bouton Enregistrer en bas pour d&eacute;marrer l\'enregistrement du domaine.")
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {

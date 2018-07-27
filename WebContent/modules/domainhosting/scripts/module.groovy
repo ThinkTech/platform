@@ -57,7 +57,7 @@ class Service extends ActionSupport {
 			        span("cliquer sur le bouton en bas pour effectuer le paiement")
 			   }
 		    }
-		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
@@ -104,7 +104,7 @@ class Service extends ActionSupport {
 		        span("Enregistrement du domaine web en attente")
 		      }
 		    }
-		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
@@ -149,7 +149,7 @@ class Service extends ActionSupport {
 		        span("Enregistrement du domaine web en cours")
 		      }
 		    }
-		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.name")
 		     }
@@ -193,7 +193,7 @@ class Service extends ActionSupport {
 		        span("Enregistrement du domaine web en cours")
 		      }
 		    }
-		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Domaine : $order.name")
 		     }

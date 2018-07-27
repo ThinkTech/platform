@@ -42,7 +42,7 @@ class Service extends ActionSupport {
 		        span("Paiement facture effectu&eacute;")
 		      }
 		    }
-		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
 		    p("le paiement de votre facture a &eacute;t&eacute; bien effectu&eacute; avec succ&eacute;s. vous pouvez lire ci-dessous les details de votre transaction.")  
 		    table {
 		        tr{
@@ -109,7 +109,7 @@ class Service extends ActionSupport {
 		        span("Paiement facture effectu&eacute;")
 		      }
 		    }
-		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
 		    p("le client a bien effectu&eacute; le paiement de sa facture avec succ&eacute;s. vous pouvez lire ci-dessous les details de la transaction.")  
 		    table {
 		        tr{

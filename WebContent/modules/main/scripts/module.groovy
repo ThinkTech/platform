@@ -97,7 +97,7 @@ class Dispatcher extends ActionSupport {
 			      }
 		      }
 		    }
-		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
+		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
 		      if(subscription.structure) {
 		        h5(style : "font-size: 110%;color: rgb(0, 0, 0);margin-bottom: 15px") {
 		         span("Structure : $subscription.structure")

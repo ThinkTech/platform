@@ -78,7 +78,7 @@ class Service extends ActionSupport {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("votre business email est en attente de configuration")
+		        span("Business email en attente de configuration")
 		      }
 		       p(style : "font-size:100%;color:#fff"){
 			        span("cliquer sur le bouton en bas pour effectuer le paiement")
@@ -161,7 +161,7 @@ class Service extends ActionSupport {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("votre business email est en cours de configuration")
+		        span("Business email en cours de configuration")
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {

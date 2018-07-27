@@ -130,7 +130,7 @@ class Service extends ActionSupport {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Votre projet est en attente de traitement")
+		        span("votre projet est en attente de traitement")
 		      }
 		       p(style : "font-size:100%;color:#fff"){
 			        span("cliquer sur le bouton en bas pour effectuer le paiement de la caution")
@@ -206,7 +206,7 @@ class Service extends ActionSupport {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Votre projet est en attente de traitement")
+		        span("votre projet est en attente de traitement")
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {
@@ -216,7 +216,7 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
-		     p("Nous vous contacterons sous peu pour le traitement de votre projet par notre &eacute;quipe de d&eacute;veloppement.")
+		     p("nous vous contacterons sous peu pour le traitement de votre projet par notre &eacute;quipe de d&eacute;veloppement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
@@ -244,7 +244,7 @@ class Service extends ActionSupport {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
 		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Votre projet est en cours de traitement")
+		        span("votre projet est en cours de traitement")
 		      }
 		    }
 		    div(style : "width:90%;margin:auto;margin-top : 30px;margin-bottom:30px") {

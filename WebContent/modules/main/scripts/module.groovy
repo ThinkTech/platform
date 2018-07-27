@@ -38,8 +38,8 @@ class Dispatcher extends ActionSupport {
 			    }
 			    if(!count){
 			      synchronized(this){
-				      service.metaClass.connection = connection
-			          service.metaClass.user = user   
+			          service.metaClass.getConnection = {-> connection}
+			          service.metaClass.getUser = {-> user}   
 			          params = [subscription.service,user.structure_id]
 				      result = connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
 			          subscription.id = result[0][0]
@@ -49,6 +49,7 @@ class Dispatcher extends ActionSupport {
 			                  connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
 			              }
 			          }
+			          println user
 			          service.subscribe(subscription)	          
 			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 			          sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle souscription effectu&eacute;e pour le service ${subscription.service}",service.getSalesTemplate(subscription.order))
@@ -70,10 +71,11 @@ class Dispatcher extends ActionSupport {
 	         def connection = getConnection()
 	         def user = connection.firstRow("select * from users where id = ?", [order.user_id])
 	         synchronized(this){
-			     service.metaClass.connection = connection
-		         service.metaClass.user = user
+			     service.metaClass.getConnection = {-> connection}
+			     service.metaClass.getUser = {-> user}  
 			     service.order(order)
 			     sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle vente effectu&eacute;e pour le service ${order.service}",service.getSalesTemplate(order))
+			     service.metaClass = null
 		     }
 		     connection.close()
 		     json([entity: order])

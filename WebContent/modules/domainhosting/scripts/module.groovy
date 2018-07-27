@@ -7,6 +7,8 @@ import org.apache.http.util.EntityUtils
 class Service extends ActionSupport {
     
 	def subscribe(subscription) {
+	    println "subscription"
+	    println user
 	    order(subscription.order)
     }
 	

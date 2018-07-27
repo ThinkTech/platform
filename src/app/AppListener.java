@@ -1,14 +1,13 @@
 package app;
 
 import java.sql.SQLException;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
-
 import org.apache.commons.dbcp2.BasicDataSource;
+import groovy.lang.ExpandoMetaClass;
 
 @WebListener
 public class AppListener implements ServletContextListener {
@@ -17,6 +16,7 @@ public class AppListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {
 		ServletContext context = event.getServletContext();
 		context.setAttribute("datasource", setupDataSource());
+		ExpandoMetaClass.enableGlobally();
 	}
 	
 	@Override

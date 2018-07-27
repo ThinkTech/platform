@@ -174,7 +174,7 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Business Email : $order.email@$order.name")
 		     }
-		     p("votre business email est en cours de configuration et le ticket est en cours de r&eacute;solution par notre &eacute;quipe technique. nous vous contacterons sou peu pour la validation des informations fournies ou vous pouvez juste ajouter un commentaire au ticket pour confirmation.")
+		     p("votre business email est en cours de configuration et le ticket est en cours de r&eacute;solution par notre &eacute;quipe technique. nous vous contacterons sou peu pour la validation des informations que vous nous avez fournies ou vous pouvez juste ajouter un commentaire au ticket pour confirmation.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/support",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {

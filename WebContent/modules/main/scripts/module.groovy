@@ -49,7 +49,6 @@ class Dispatcher extends ActionSupport {
 			                  connection.executeInsert 'insert into subscriptions(service,structure_id) values (?,?)', params
 			              }
 			          }
-			          println user
 			          service.subscribe(subscription)	          
 			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",getSubscriptionTemplate(subscription))
 			          sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle souscription effectu&eacute;e pour le service ${subscription.service}",service.getSalesTemplate(subscription.order))

@@ -208,6 +208,12 @@ class Service extends ActionSupport {
 		         span("Action : transfert")
 		     	}                                
 		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Auteur : $user.name")
+		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Structure : $user.structure")
+		     }
 		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en cours d\'enregistrement. cliquer sur le bouton Enregistrer en bas pour d&eacute;marrer l\'enregistrement du domaine.")
 
 		    }
@@ -220,7 +226,7 @@ class Service extends ActionSupport {
 		  
 		 }
 		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-crm.herokuapp.com"])
+		def template = engine.createTemplate(text).make([order:order,user : user,url : "https://thinktech-crm.herokuapp.com"])
 		template.toString()
 	}
 }

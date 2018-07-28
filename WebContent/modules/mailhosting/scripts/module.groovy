@@ -218,6 +218,12 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Business Email : $order.email@$order.name")
 		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Auteur : $user.name")
+		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Structure : $user.structure")
+		     }
 		     p("le paiement de la facture a &eacute;t&eacute; bien effectu&eacute; et le business email est maintenant en cours de configuration. cliquer sur le bouton Configurer en bas pour d&eacute;marrer la r&eacute;solution du ticket correspondant.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
@@ -230,7 +236,7 @@ class Service extends ActionSupport {
 		  
 		 }
 		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-crm.herokuapp.com"])
+		def template = engine.createTemplate(text).make([order:order,user : user,url : "https://thinktech-crm.herokuapp.com"])
 		template.toString()
 	}
 	

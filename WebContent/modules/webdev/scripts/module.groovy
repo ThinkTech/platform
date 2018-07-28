@@ -96,7 +96,7 @@ class Service extends ActionSupport {
 	  	connection.executeUpdate "update projects_tasks set startedOn = NOW(), status = 'in progress' where name = ? and project_id = ?", ["Traitement",bill.product_id]
 	  	def params = ["contrat.doc",50000,bill.product_id,user.id]
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
-	    def order = connection.firstRow("select * from projects  where id = ?", [bill.product_id])
+	    def order = connection.firstRow("select p.*, d.name as domain from projects p, domains d where p.domain_id = d.id and p.id = ?", [bill.product_id])
 	    connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where id = ?", [order.domain_id]
 	    generateContract(order) 
 	    sendMail(user.name,user.email,"${order.subject} en cours",getConfirmationTemplate(order))
@@ -253,6 +253,9 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Plan : $order.plan")
 		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Domaine : $order.domain")
+		     }
 		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et votre projet est maintenant en cours de traitement par notre &eacute;quipe de d&eacute;veloppement. le contrat vous liant &aacute; notre structure ThinkTech a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; et ajout&eacute; aux documents du projet.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
@@ -283,6 +286,15 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
 		         span("Plan : $order.plan")
 		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Domaine : $order.domain")
+		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Auteur : $user.name")
+		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Structure : $user.structure")
+		     }
 		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et le projet est maintenant en cours de traitement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
@@ -294,7 +306,7 @@ class Service extends ActionSupport {
 		 
 		 }
 		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://thinktech-crm.herokuapp.com"])
+		def template = engine.createTemplate(text).make([order:order,user : user,url : "https://thinktech-crm.herokuapp.com"])
 		template.toString()
 	}
 		

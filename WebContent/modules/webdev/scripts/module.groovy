@@ -127,7 +127,7 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
 		        span("Projet en attente de traitement")
 		      }
@@ -145,7 +145,7 @@ class Service extends ActionSupport {
 		     p("vous devez maintenant effectuer le paiement de votre facture pour le traitement de votre projet par notre &eacute;quipe de d&eacute;veloppement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/billing",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/billing",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Payer")
 			    }
 			}
@@ -168,7 +168,7 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
 		        span("Projet en attente de traitement")
 		      }
@@ -189,7 +189,7 @@ class Service extends ActionSupport {
 		     p("le client doit maintenant effectuer le paiement de sa facture pour le traitement de son projet par notre &eacute;quipe de d&eacute;veloppement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Voir")
 			    }
 			}
@@ -206,7 +206,7 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
 		        span("Projet en attente de traitement")
 		      }
@@ -221,7 +221,7 @@ class Service extends ActionSupport {
 		     p("nous vous contacterons sous peu pour le traitement de votre projet par notre &eacute;quipe de d&eacute;veloppement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Voir")
 			    }
 			}
@@ -244,7 +244,7 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
 		        span("Projet en cours de traitement")
 		      }
@@ -259,7 +259,7 @@ class Service extends ActionSupport {
 		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et votre projet est maintenant en cours de traitement par notre &eacute;quipe de d&eacute;veloppement. le contrat vous liant &aacute; notre structure ThinkTech a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; et ajout&eacute; aux documents du projet.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Voir")
 			    }
 			}
@@ -277,7 +277,7 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
 		        span("Projet en cours de traitement")
 		      }
@@ -298,7 +298,7 @@ class Service extends ActionSupport {
 		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et le projet est maintenant en cours de traitement.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Traiter")
 			    }
 			}

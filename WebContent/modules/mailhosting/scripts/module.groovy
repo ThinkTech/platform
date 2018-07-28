@@ -76,7 +76,7 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
 		        span("Configuration du business email en attente")
 		      }
@@ -97,7 +97,7 @@ class Service extends ActionSupport {
 		     p("un ticket a &eacute;t&eacute; cr&eacute;&eacute; et vous devez maintenant effectuer le paiement de votre facture pour la configuration de votre business email par notre &eacute;quipe technique.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/billing",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/billing",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Payer")
 			    }
 			}
@@ -121,7 +121,7 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
 		        span("Configuration du business email en attente")
 		      }
@@ -145,7 +145,7 @@ class Service extends ActionSupport {
 		     p("le client doit maintenant effectuer le paiement de sa facture pour la configuration de son business email par notre &eacute;quipe technique.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/domains",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/domains",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Voir")
 			    }
 			}
@@ -162,7 +162,7 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
 		        span("Configuration du business email en cours")
 		      }
@@ -180,7 +180,7 @@ class Service extends ActionSupport {
 		     p("votre business email est en cours de configuration et le ticket est en cours de r&eacute;solution par notre &eacute;quipe technique. nous vous contacterons sou peu pour la validation des informations que vous nous avez fournies ou vous pouvez juste ajouter un commentaire au ticket pour confirmation.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/support",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/support",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Voir")
 			    }
 			}
@@ -203,7 +203,7 @@ class Service extends ActionSupport {
 		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
 		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
 		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#05d2ff") {
+		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
 		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
 		        span("Configuration du business email en cours")
 		      }
@@ -227,7 +227,7 @@ class Service extends ActionSupport {
 		     p("le paiement de la facture a &eacute;t&eacute; bien effectu&eacute; et le business email est maintenant en cours de configuration. cliquer sur le bouton Configurer en bas pour d&eacute;marrer la r&eacute;solution du ticket correspondant.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/support",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #05d2ff;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
+			    a(href : "$url/dashboard/support",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
 			        span("Configurer")
 			    }
 			}

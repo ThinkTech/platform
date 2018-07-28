@@ -68,7 +68,7 @@ class Dispatcher extends ActionSupport {
 		   def service = getService(order.service)
 	       if(service){
 	         def connection = getConnection()
-	         def user = connection.firstRow("select * from users where id = ?", [order.user_id])
+	         def user = connection.firstRow("select u.*, s.name as structure from users u, structures s where u.structure_id = s.id and u.id = ?", [order.user_id])
 	         synchronized(this){
 			     service.metaClass.getConnection = {-> connection}
 			     service.metaClass.getUser = {-> user}  

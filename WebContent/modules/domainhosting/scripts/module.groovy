@@ -122,6 +122,9 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Auteur : $user.name")
 		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Structure : $user.structure")
+		     }
 		     p("le client doit maintenant effectuer le paiement de sa facture pour l\'enregistrement de son domaine web.")
 
 		    }

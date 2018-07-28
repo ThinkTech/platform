@@ -98,22 +98,21 @@ class Service extends ActionSupport {
 	    connection.executeInsert 'insert into documents(name,size,project_id,createdBy) values (?,?,?,?)',params
 	    def order = connection.firstRow("select * from projects  where id = ?", [bill.product_id])
 	    connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where id = ?", [order.domain_id]
-	    def structure = connection.firstRow("select id,name from structures where id = ?", [user.structure_id])
-	    generateContract(structure,order) 
+	    generateContract(order) 
 	    sendMail(user.name,user.email,"${order.subject} en cours",getConfirmationTemplate(order))
 	    sendMail("ThinkTech Dev","dev@thinktech.sn","${order.subject} en cours",getSupportTemplate(order))
 	  }
     }
    
-    def generateContract(structure,project) {
+    def generateContract(project) {
       def folder =  module.folder.absolutePath + "/contracts/"
       def file = new File(folder+project.plan+".doc")
       if(file.exists()){
 		  def document = new HWPFDocument(new POIFSFileSystem(file))
-		  document.range.replaceText("structure_name",structure.name)
+		  document.range.replaceText("structure_name",user.structure)
 		  document.range.replaceText("date_contract",new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date()))
 		  def out = new ByteArrayOutputStream() 
-		  def dir = "structure_"+structure.id+"/"+"project_"+project.id   
+		  def dir = "structure_"+user.structure_id+"/"+"project_"+project.id   
 	      Thread.start{
 	          document.write(out)
 		      def manager = new FileManager()
@@ -183,6 +182,9 @@ class Service extends ActionSupport {
 		     }
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Auteur : $user.name")
+		     }
+		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
+		         span("Structure : $user.structure")
 		     }
 		     p("le client doit maintenant effectuer le paiement de sa facture pour le traitement de son projet par notre &eacute;quipe de d&eacute;veloppement.")
 		    }

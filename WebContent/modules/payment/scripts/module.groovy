@@ -13,7 +13,7 @@ class Service extends ActionSupport {
             synchronized(this){
 	            service.metaClass.getConnection = {-> connection}
 			    service.metaClass.getModule = {-> module}  
-			    def user = connection.firstRow("select * from users where id = ?", [bill.user.id])
+			    def user = connection.firstRow("select u.*, s.name as structure from users u, structures s where u.structure_id = s.id and u.id = ?", [bill.user.id])
 			    service.metaClass.getUser = {-> user}   
 			    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,user.id,bill.id]
 	         	service.pay(bill)   
@@ -119,6 +119,14 @@ class Service extends ActionSupport {
 		           }
                    td{
                        span("$user.name")
+                   }
+		         }
+		         tr{
+		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){
+		               span("Structure :")
+		           }
+                   td{
+                       span("$user.structure")
                    }
 		        }
 		        tr{

@@ -164,7 +164,7 @@ class Service extends ActionSupport {
 		         span("Action : transfert")
 		     	}                                
 		     }
-		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en cours d\'enregistrement.")
+		     p("le paiement a &eacute;t&eacute; bien effectu&eacute; et le domaine est maintenant en cours d\'enregistrement. la dur&eacute;e maximale d\'enregistrement est de deux heures")
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {

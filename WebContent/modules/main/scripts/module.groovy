@@ -24,6 +24,7 @@ class Dispatcher extends ActionSupport {
                       email = subscription.email
                       password = subscription.password
                       telephone = subscription.telephone
+                      structure = subscription.structure
                       structure_id = result[0][0]
                  	}	        
 		            params = [user.name,user.email,user.password,"administrateur","manager",user.telephone,true,user.structure_id]

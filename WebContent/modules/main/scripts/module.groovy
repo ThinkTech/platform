@@ -95,7 +95,7 @@ class Dispatcher extends ActionSupport {
 		      }
 		      if(subscription.activationCode){
 			      p(style : "font-size:100%;color:#fff"){
-			         span("cliquer sur le bouton en bas pour confirmation")
+			         span("cliquer sur le bouton en bas pour confirmer")
 			      }
 		      }
 		    }

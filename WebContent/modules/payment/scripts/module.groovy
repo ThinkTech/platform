@@ -123,7 +123,7 @@ class Service extends ActionSupport {
 		         }
 		         tr{
 		           td(style:"text-align:right;vertical-align:top;width : 100px;white-space : nowrap;padding-right : 2px"){
-		               span("Client :")
+		               span("Email :")
 		           }
                    td{
                        span("$user.email")

@@ -72,7 +72,7 @@ class Service extends ActionSupport {
 		         span("Action : transfert")
 		     	}                                
 		     }
-		     p("vous devez maintenant effectuer le paiement de votre facture pour l\'enregistrement de votre domaine web.")
+		     p("vous devez maintenant effectuer le paiement de votre facture pour l\'enregistrement de votre domaine web comme vous pouvez tout aussi choisir de le faire plus tard par cash.")
 
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {

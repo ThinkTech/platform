@@ -221,7 +221,7 @@ class Service extends ActionSupport {
 		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
 		         span("Domaine : $order.domain")
 		     }
-		     p("nous vous contacterons sous peu pour le traitement de votre projet par notre &eacute;quipe de d&eacute;veloppement.")
+		     p("votre projet a &eacute;t&eacute; bien cr&eacute;&eacute; et nous vous contacterons sous peu pour son traitement par notre &eacute;quipe de d&eacute;veloppement. s\'il dispose d\'un cahier de charges, vous pouvez l\'ajouter aux documents du projet.")
 		    }
 		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
 			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {

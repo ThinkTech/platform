@@ -6,21 +6,6 @@
          version="3.0">
    
    <context-param>
-     <param-name>db.url</param-name>
-     <param-value>jdbc:mysql://us-cdbr-iron-east-05.cleardb.net/heroku_f55a18f0ecfd999</param-value>
-   </context-param>
-   
-   <context-param>
-     <param-name>db.user</param-name>
-     <param-value>bb9837ece01288</param-value>
-   </context-param>
-   
-   <context-param>
-     <param-name>db.password</param-name>
-     <param-value>fe21ab0a</param-value>
-   </context-param>
-   
-   <context-param>
      <param-name>smtp.host</param-name>
      <param-value>smtp.zoho.com</param-value>
    </context-param>

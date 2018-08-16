@@ -35,7 +35,7 @@ class Service extends ActionSupport {
 	   ticket.with {
          subject = "configuration email "+order.plan+" "+order.domain
          service = "mailhosting"
-         message = "<p>Configuration email pour le domaine "+order.domain+" suivant le plan "+order.plan+"</p>"
+         message = "<p>Configuration email "+order.plan+" pour le domaine "+order.domain+"</p>"
        }
        ticket.message += "<p>Super Administrateur Email : "+order.email+"@"+order.domain+"</p>"
        params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id,product_id,true]

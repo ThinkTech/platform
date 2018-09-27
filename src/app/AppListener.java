@@ -14,7 +14,7 @@ public class AppListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		ServletContext context = event.getServletContext();
-		context.setAttribute("datasource", setupDataSource(context));
+		context.setAttribute("datasource", setupDataSource());
 	}
 	
 	@Override
@@ -27,7 +27,7 @@ public class AppListener implements ServletContextListener {
 		}
 	}
 	
-	private DataSource setupDataSource(ServletContext context) {
+	private DataSource setupDataSource() {
 		  BasicDataSource ds = new BasicDataSource();
 		  ds.setDriverClassName("com.mysql.jdbc.Driver");
 		  ds.setUrl(System.getenv("db.url"));

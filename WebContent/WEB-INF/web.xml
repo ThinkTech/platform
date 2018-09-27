@@ -27,7 +27,7 @@
    
    <context-param>
      <param-name>groovy.imports</param-name>
-     <param-value>groovy.sql.Sql,app.FileManager,groovy.text.markup.MarkupTemplateEngine</param-value>
+     <param-value>groovy.sql.Sql,app.FileManager,app.ActionSupport,groovy.text.markup.MarkupTemplateEngine</param-value>
    </context-param>
    
    <session-config>

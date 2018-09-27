@@ -30,9 +30,9 @@ public class AppListener implements ServletContextListener {
 	private DataSource setupDataSource(ServletContext context) {
 		  BasicDataSource ds = new BasicDataSource();
 		  ds.setDriverClassName("com.mysql.jdbc.Driver");
-		  ds.setUrl(System.getenv("db.url")!=null?System.getenv("db.url"):context.getInitParameter("db.url"));
-		  ds.setUsername(System.getenv("db.user")!=null?System.getenv("db.user"):context.getInitParameter("db.user"));
-		  ds.setPassword(System.getenv("db.password")!=null?System.getenv("db.password"):context.getInitParameter("db.password"));
+		  ds.setUrl(System.getenv("db.url"));
+		  ds.setUsername(System.getenv("db.user"));
+		  ds.setPassword(System.getenv("db.password"));
 		  ds.setInitialSize(3);
 		  ds.setMaxTotal(10);
 	      return ds;

@@ -9,12 +9,11 @@ import com.dropbox.core.v2.files.WriteMode;
 
 public class FileManager {
 	
-    private static final String ACCESS_TOKEN = "pQXsY7k7n6AAAAAAAAAAPWBEAjxZy5Xcgtsd8kyz9VsKOIrEzorICsW29BV4bspM";
+	private static final String ACCESS_TOKEN = "pQXsY7k7n6AAAAAAAAAAPWBEAjxZy5Xcgtsd8kyz9VsKOIrEzorICsW29BV4bspM";
     private DbxClientV2 client;
     
     public FileManager(){
-    	DbxRequestConfig config = new DbxRequestConfig("dropbox/thinktech-app");
-        client = new DbxClientV2(config, ACCESS_TOKEN);
+        client = new DbxClientV2(new DbxRequestConfig("dropbox/thinktech-app"), ACCESS_TOKEN);
     }
     
     public void upload(String name,InputStream in) throws Exception {
@@ -24,4 +23,5 @@ public class FileManager {
     public void download(String name,OutputStream out) throws Exception {
     	client.files().downloadBuilder("/"+name).start().download(out);
     }
+    
 }

@@ -47,8 +47,7 @@ class Service extends ActionSupport {
 	}
     
     def createBill(order){
-	   def bill = new Expando()
-	   bill.fee = "configuration email "+order.plan+" "+order.domain
+	   def bill = new Expando(fee : "configuration email "+order.plan+" "+order.domain)
 	   if(order.plan == "free") {
 	      bill.amount = 20000
 	   }

@@ -99,23 +99,22 @@ class Service extends ActionSupport {
 	    connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where id = ?", [order.domain_id]
 	    generateContract(order) 
 	    sendMail(user.name,user.email,"${order.subject} en cours",parseTemplate("confirmation",[order:order,url : "https://app.thinktech.sn"]))
-	    sendMail("ThinkTech Dev","dev@thinktech.sn","${order.subject} en cours",parseTemplate("support",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
+	    sendDevMail("${order.subject} en cours",parseTemplate("support",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
 	  }
     }
    
     def generateContract(project) {
-      def folder =  module.folder.absolutePath + "/contracts/"
-      def file = new File(folder+project.plan+".doc")
+      def file = new File(module.folder + "/contracts/" + project.plan+".doc")
       if(file.exists()){
 		  def document = new HWPFDocument(new POIFSFileSystem(file))
 		  document.range.replaceText("structure_name",user.structure)
 		  document.range.replaceText("date_contract",new SimpleDateFormat("dd/MM/yyyy").format(new Date()))
-		  def dir = "structure_"+user.structure_id+"/"+"project_"+project.id   
+		  def folder = "structure_"+user.structure_id+"/"+"project_"+project.id   
 	      Thread.start{
 	          def out = new ByteArrayOutputStream()
 	          document.write(out)
 		      def manager = new FileManager()
-		      manager.upload(dir+"/contrat.doc",new ByteArrayInputStream(out.toByteArray()))
+		      manager.upload(folder+"/contrat.doc",new ByteArrayInputStream(out.toByteArray()))
 	      }
       }
     }

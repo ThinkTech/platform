@@ -109,10 +109,10 @@ class Service extends ActionSupport {
       if(file.exists()){
 		  def document = new HWPFDocument(new POIFSFileSystem(file))
 		  document.range.replaceText("structure_name",user.structure)
-		  document.range.replaceText("date_contract",new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date()))
-		  def out = new ByteArrayOutputStream() 
+		  document.range.replaceText("date_contract",new SimpleDateFormat("dd/MM/yyyy").format(new Date()))
 		  def dir = "structure_"+user.structure_id+"/"+"project_"+project.id   
 	      Thread.start{
+	          def out = new ByteArrayOutputStream()
 	          document.write(out)
 		      def manager = new FileManager()
 		      manager.upload(dir+"/contrat.doc",new ByteArrayInputStream(out.toByteArray()))

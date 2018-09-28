@@ -24,5 +24,10 @@ public class ActionSupport extends org.metamorphosis.core.ActionSupport {
 	public String parseTemplate(String template, Map map) throws Exception {
 		return new MarkupTemplateEngine().createTemplate(readFile("templates/"+template+".groovy")).make(map).toString();
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public String parseTemplate(String service, String template, Map map) throws Exception {
+		return new MarkupTemplateEngine().createTemplate(readFile(getModule(service),"templates/"+template+".groovy")).make(map).toString();
+	}
 
 }

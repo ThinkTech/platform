@@ -74,7 +74,7 @@ class Dispatcher extends ActionSupport {
 			     service.metaClass.getConnection = {-> connection}
 			     service.metaClass.getUser = {-> user}  
 			     service.order(order)
-			     sendSalesMail("Nouvelle vente effectu&eacute;e pour le service ${order.service}",service.getSalesTemplate(order))
+			     sendSalesMail("Nouvelle vente effectu&eacute;e pour le service ${order.service}",parseTemplate(order.service,"sales",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
 		     }
 		     connection.close()
 		     json([entity: order])

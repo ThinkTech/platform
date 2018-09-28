@@ -36,10 +36,10 @@ class Service extends ActionSupport {
 	     if(bill.amount){
 	          params = [bill.fee,"webdev",bill.amount,order.id,user.structure_id]
 		      connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-		      sendMail(user.name,user.email,"${order.subject}",getOrderTemplate(order))
+		      sendMail(user.name,user.email,"${order.subject}",parseTemplate("order",[order:order,url : "https://app.thinktech.sn"]))
 			  tasks = getTasks(true)
 		  }else{
-		      sendMail(user.name,user.email,"${order.subject}",getCustomOrderTemplate(order))
+		      sendMail(user.name,user.email,"${order.subject}",parseTemplate("custom",[order:order,url : "https://app.thinktech.sn"]))
 		      tasks = getTasks(false)
 		  }
 		  def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
@@ -99,8 +99,8 @@ class Service extends ActionSupport {
 	    def order = connection.firstRow("select p.*, d.name as domain from projects p, domains d where p.domain_id = d.id and p.id = ?", [bill.product_id])
 	    connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where id = ?", [order.domain_id]
 	    generateContract(order) 
-	    sendMail(user.name,user.email,"${order.subject} en cours",getConfirmationTemplate(order))
-	    sendMail("ThinkTech Dev","dev@thinktech.sn","${order.subject} en cours",getSupportTemplate(order))
+	    sendMail(user.name,user.email,"${order.subject} en cours",parseTemplate("confirmation",[order:order,url : "https://app.thinktech.sn"]))
+	    sendMail("ThinkTech Dev","dev@thinktech.sn","${order.subject} en cours",parseTemplate("support",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
 	  }
     }
    
@@ -120,47 +120,6 @@ class Service extends ActionSupport {
 	      }
       }
     }
-    
-    def getOrderTemplate(order) {
-		MarkupTemplateEngine engine = new MarkupTemplateEngine()
-		def text = '''\
-		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
-		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
-		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
-		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Traitement projet en attente")
-		      }
-		       p(style : "font-size:100%;color:#fff"){
-			        span("cliquer sur le bouton en bas pour effectuer le paiement de la caution")
-			   }
-		    }
-		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Plan : $order.plan")
-		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Domaine : $order.domain")
-		     }
-		     p("vous devez maintenant effectuer le paiement de votre facture pour le traitement de votre projet par notre &eacute;quipe de d&eacute;veloppement comme vous pouvez tout aussi choisir de le faire plus tard par cash.")
-		    }
-		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/billing",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
-			        span("Payer")
-			    }
-			}
-		  }
-		  
-		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
-		      p("vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
-		      p("a souscrit au service webdev en utilisant cette adresse")
-		  }
-		  
-		 }
-		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://app.thinktech.sn"])
-		template.toString()
-	}
 	
 	def getSalesTemplate(order) {
 		MarkupTemplateEngine engine = new MarkupTemplateEngine()
@@ -203,114 +162,4 @@ class Service extends ActionSupport {
 		template.toString()
 	}
 	
-	def getCustomOrderTemplate(order) {
-		MarkupTemplateEngine engine = new MarkupTemplateEngine()
-		def text = '''\
-		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
-		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
-		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
-		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Traitement projet en attente")
-		      }
-		    }
-		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Plan : $order.plan")
-		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Domaine : $order.domain")
-		     }
-		     p("votre projet a &eacute;t&eacute; bien cr&eacute;&eacute; et nous vous contacterons sous peu pour son traitement par notre &eacute;quipe de d&eacute;veloppement. s\'il dispose d\'un cahier de charges, vous pouvez l\'ajouter aux documents du projet.")
-		    }
-		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
-			        span("Voir")
-			    }
-			}
-		  }
-		  
-		  div(style :"margin: 10px;margin-top:10px;font-size : 80%;text-align:center") {
-		      p("vous recevez cet email parce que vous (ou quelqu\'un utilisant cet email)")
-		      p("a souscrit au service webdev en utilisant cette adresse")
-		  }
-		  
-		 }
-		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://app.thinktech.sn"])
-		template.toString()
-	}
-	
-	def getConfirmationTemplate(order) {
-		MarkupTemplateEngine engine = new MarkupTemplateEngine()
-		def text = '''\
-		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
-		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
-		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
-		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Traitement projet en cours")
-		      }
-		    }
-		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Plan : $order.plan")
-		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Domaine : $order.domain")
-		     }
-		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et votre projet est maintenant en cours de traitement par notre &eacute;quipe de d&eacute;veloppement. le contrat vous liant &aacute; notre structure ThinkTech a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; et ajout&eacute; aux documents du projet.")
-		    }
-		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
-			        span("Voir")
-			    }
-			}
-		  }
-		 
-		 }
-		'''
-		def template = engine.createTemplate(text).make([order:order,url : "https://app.thinktech.sn"])
-		template.toString()
-	}
-	
-	def getSupportTemplate(order) {
-		MarkupTemplateEngine engine = new MarkupTemplateEngine()
-		def text = '''\
-		 div(style : "font-family:Tahoma;background:#fafafa;padding-bottom:16px;padding-top: 25px"){
-		 div(style : "padding-bottom:12px;margin-left:auto;margin-right:auto;width:80%;background:#fff") {
-		    img(src : "https://www.thinktech.sn/images/logo.png", style : "display:block;margin : 0 auto")
-		    div(style : "margin-top:10px;padding-bottom:2%;padding-top:2%;text-align:center;background:#3abfdd") {
-		      h4(style : "font-size: 120%;color: #fff;margin: 3px") {
-		        span("Traitement projet en cours")
-		      }
-		    }
-		    div(style : "width:90%;margin:auto;margin-top : 20px;margin-bottom:30px") {
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-bottom: 0px") {
-		         span("Plan : $order.plan")
-		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Domaine : $order.domain")
-		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Auteur : $user.name")
-		     }
-		     h5(style : "font-size: 90%;color: rgb(0, 0, 0);margin-top:5px;margin-bottom: 0px") {
-		         span("Structure : $user.structure")
-		     }
-		     p("le paiement de la caution a &eacute;t&eacute; bien effectu&eacute; et le projet est maintenant en cours de traitement.")
-		    }
-		    div(style : "text-align:center;margin-top:30px;margin-bottom:10px") {
-			    a(href : "$url/dashboard/projects",style : "font-size:130%;width:140px;margin:auto;text-decoration:none;background: #3abfdd;display:block;padding:10px;border-radius:2px;border:1px solid #eee;color:#fff;") {
-			        span("Traiter")
-			    }
-			}
-		  }
-		 
-		 }
-		'''
-		def template = engine.createTemplate(text).make([order:order,user : user,url : "https://thinktech-crm.herokuapp.com"])
-		template.toString()
-	}
-		
 }

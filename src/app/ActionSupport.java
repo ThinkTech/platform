@@ -34,4 +34,11 @@ public class ActionSupport extends org.metamorphosis.core.ActionSupport {
 		return new MarkupTemplateEngine().createTemplate(readFile(getModule(service),"templates/"+template+".groovy")).make(map).toString();
 	}
 
+	public String getAppURL() {
+		return "https://app.thinktech.sn";
+	}
+	
+	public String getCrmURL() {
+		return "https://thinktech-crm.herokuapp.com";
+	}
 }

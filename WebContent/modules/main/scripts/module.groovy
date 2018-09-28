@@ -51,13 +51,13 @@ class Dispatcher extends ActionSupport {
 			              }
 			          }
 			          service.subscribe(subscription)	          
-			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",parseTemplate("subscription",[subscription:subscription,url : "https://app.thinktech.sn"]))
+			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",parseTemplate("subscription",[subscription:subscription,url:appURL]))
 			          sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle souscription effectu&eacute;e pour le service ${subscription.service}",service.getSalesTemplate(subscription.order))
 			      }
 			    }
 			    connection.close()
 	      }
-	      json([status : status])
+	      json([status:status])
 	   }
     }
 	
@@ -74,7 +74,7 @@ class Dispatcher extends ActionSupport {
 			     service.metaClass.getConnection = {-> connection}
 			     service.metaClass.getUser = {-> user}  
 			     service.order(order)
-			     sendSalesMail("Nouvelle vente effectu&eacute;e pour le service ${order.service}",parseTemplate(order.service,"sales",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
+			     sendSalesMail("Nouvelle vente effectu&eacute;e pour le service ${order.service}",parseTemplate(order.service,"sales",[order:order,user:user,url:crmURL]))
 		     }
 		     connection.close()
 		     json([entity: order])

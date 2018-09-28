@@ -17,8 +17,8 @@ class Service extends ActionSupport {
 			    service.metaClass.getUser = {-> user}   
 			    connection.executeUpdate "update bills set code = ?, status = 'finished', paidWith = ?, paidOn = NOW(), paidBy = ? where id = ?", [bill.code,bill.paidWith,user.id,bill.id]
 	         	service.pay(bill)   
-	         	sendMail(user.name,user.email,"Confirmation paiement "+bill.fee,parseTemplate("bill",[bill:bill,url : "https://app.thinktech.sn"]))
-	         	sendSalesMail("Confirmation paiement "+bill.fee,parseTemplate("sales",[bill:bill,user:user,url : "https://thinktech-crm.herokuapp.com"]))
+	         	sendMail(user.name,user.email,"Confirmation paiement "+bill.fee,parseTemplate("bill",[bill:bill,url:appURL]))
+	         	sendSalesMail("Confirmation paiement "+bill.fee,parseTemplate("sales",[bill:bill,user:user,url:crmURL]))
          	}
 		    connection.close()
          	status = 1

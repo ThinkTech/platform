@@ -24,8 +24,7 @@ class Service extends ActionSupport {
    	        product_id = result[0][0]
    	        params = ["enregistrement domaine "+order.domain,"domainhosting",order.price,product_id,user.structure_id]
 		    connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-		    def service = getService("domainhosting")
-		    sendMail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",service.getOrderTemplate(order))
+		    sendMail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",parseTemplate("domainhosting","order",[order:order,url:appURL]))
          }else{
              product_id = order.product_id
              connection.executeUpdate "update domains set emailOn = true, email = ?, plan = ? where id = ?", [order.email,order.plan,product_id]
@@ -37,17 +36,17 @@ class Service extends ActionSupport {
          service = "mailhosting"
          message = "<p>Configuration email "+order.plan+" pour le domaine "+order.domain+"</p>"
        }
-       ticket.message += "<p>Super Administrateur Email : "+order.email+"@"+order.domain+"</p>"
+       ticket.message += "<p>Super Administrateur Email:"+order.email+"@"+order.domain+"</p>"
        params = [ticket.subject,ticket.service,ticket.message,user.id,user.structure_id,product_id,true]
        connection.executeInsert 'insert into tickets(subject,service,message,user_id,structure_id,product_id,autoClose) values (?,?,?,?,?,?,?)', params
        def bill = createBill(order)
        params = [bill.fee,"mailhosting",bill.amount,product_id,user.structure_id]
 	   connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-       sendMail(user.name,user.email,"Configuration email pour le domaine ${order.domain}",parseTemplate("order",[order:order,url : "https://app.thinktech.sn"]))
+       sendMail(user.name,user.email,"Configuration email pour le domaine ${order.domain}",parseTemplate("order",[order:order,url:appURL]))
 	}
     
     def createBill(order){
-	   def bill = new Expando(fee : "configuration email "+order.plan+" "+order.domain)
+	   def bill = new Expando(fee:"configuration email "+order.plan+" "+order.domain)
 	   if(order.plan == "free") {
 	      bill.amount = 20000
 	   }
@@ -65,8 +64,8 @@ class Service extends ActionSupport {
 	    connection.executeUpdate "update tickets set status = 'in progress', startedOn = Now(), progression = 10 where product_id = ? and service = 'mailhosting'", [bill.product_id]
 	    def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
         if(order.plan=="free") connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where id = ?", [bill.product_id]
-		sendMail(user.name,user.email,"Configuration email pour le domaine ${order.name} en cours",parseTemplate("configuration",[order:order,url : "https://app.thinktech.sn"]))
-        sendSupportMail("Configuration email pour le domaine ${order.name} en cours",parseTemplate("support",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
+		sendMail(user.name,user.email,"Configuration email pour le domaine ${order.name} en cours",parseTemplate("configuration",[order:order,url:appURL]))
+        sendSupportMail("Configuration email pour le domaine ${order.name} en cours",parseTemplate("support",[order:order,user:user,url:crmURL]))
 	}
 	
 }

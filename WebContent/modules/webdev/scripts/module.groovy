@@ -36,10 +36,10 @@ class Service extends ActionSupport {
 	     if(bill.amount){
 	          params = [bill.fee,"webdev",bill.amount,order.id,user.structure_id]
 		      connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-		      sendMail(user.name,user.email,"${order.subject}",parseTemplate("order",[order:order,url : "https://app.thinktech.sn"]))
+		      sendMail(user.name,user.email,"${order.subject}",parseTemplate("order",[order:order,url : appURL]))
 			  tasks = getTasks(true)
 		  }else{
-		      sendMail(user.name,user.email,"${order.subject}",parseTemplate("custom",[order:order,url : "https://app.thinktech.sn"]))
+		      sendMail(user.name,user.email,"${order.subject}",parseTemplate("custom",[order:order,url : appURL]))
 		      tasks = getTasks(false)
 		  }
 		  def query = 'insert into projects_tasks(name,description,project_id) values (?, ?, ?)'
@@ -98,8 +98,8 @@ class Service extends ActionSupport {
 	    def order = connection.firstRow("select p.*, d.name as domain from projects p, domains d where p.domain_id = d.id and p.id = ?", [bill.product_id])
 	    connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where id = ?", [order.domain_id]
 	    generateContract(order) 
-	    sendMail(user.name,user.email,"${order.subject} en cours",parseTemplate("confirmation",[order:order,url : "https://app.thinktech.sn"]))
-	    sendDevMail("${order.subject} en cours",parseTemplate("support",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
+	    sendMail(user.name,user.email,"${order.subject} en cours",parseTemplate("confirmation",[order:order,url:appURL]))
+	    sendDevMail("${order.subject} en cours",parseTemplate("support",[order:order,user : user,url:crmURL]))
 	  }
     }
    

@@ -13,17 +13,17 @@ class Service extends ActionSupport {
 	def order(order){
 	   def params = [order.domain,order.extension,order.price,order.year,order.action,order.eppCode,user.id,user.structure_id]
    	   def result = connection.executeInsert 'insert into domains(name,extension,price,year,action,eppCode,user_id,structure_id) values (?,?,?,?,?,?,?,?)', params
-   	   order.id = result[0][0];
+   	   order.id = result[0][0]
    	   params = ["enregistrement domaine "+order.domain,"domainhosting",order.price,result[0][0],user.structure_id]
 	   result = connection.executeInsert 'insert into bills(fee,service,amount,product_id,structure_id) values (?,?,?,?,?)', params
-	   order.bill_id = result[0][0];
-	   sendMail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",parseTemplate("order",[order:order,url : "https://app.thinktech.sn"]))
+	   order.bill_id = result[0][0]
+	   sendMail(user.name,user.email,"Enregistrement du domaine ${order.domain} pour ${order.year} an",parseTemplate("order",[order:order,url:appURL]))
 	}
 
 	
 	def search(){
-	    response.addHeader("Access-Control-Allow-Origin", "*");
-        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	    response.addHeader("Access-Control-Allow-Origin", "*")
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
         response.addHeader("Cache-control", "private, max-age=7200")   
 	    def domain = getParameter("domain")
 	    if(domain){
@@ -36,8 +36,8 @@ class Service extends ActionSupport {
     def pay(bill){
         connection.executeUpdate "update domains set status = 'in progress' where id = ?", [bill.product_id]
         def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
-        sendMail(user.name,user.email,"Enregistrement du domaine ${order.name} pour ${order.year} an en cours",parseTemplate("confirmation",[order:order,url : "https://app.thinktech.sn"]))
-        sendSupportMail("Enregistrement du domaine ${order.name} pour ${order.year} an en cours",parseTemplate("support",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
+        sendMail(user.name,user.email,"Enregistrement du domaine ${order.name} pour ${order.year} an en cours",parseTemplate("confirmation",[order:order,url:appURL]))
+        sendSupportMail("Enregistrement du domaine ${order.name} pour ${order.year} an en cours",parseTemplate("support",[order:order,user:user,url:crmURL]))
     }
 	
 }

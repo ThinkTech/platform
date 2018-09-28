@@ -66,7 +66,7 @@ class Service extends ActionSupport {
 	    def order = connection.firstRow("select * from  domains  where id = ?", [bill.product_id])
         if(order.plan=="free") connection.executeUpdate "update domains set status = if(status = 'stand by', 'in progress', status) where id = ?", [bill.product_id]
 		sendMail(user.name,user.email,"Configuration email pour le domaine ${order.name} en cours",parseTemplate("configuration",[order:order,url : "https://app.thinktech.sn"]))
-        sendMail("ThinkTech Support","support@thinktech.sn","Configuration email pour le domaine ${order.name} en cours",parseTemplate("support",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
+        sendSupportMail("Configuration email pour le domaine ${order.name} en cours",parseTemplate("support",[order:order,user : user,url : "https://thinktech-crm.herokuapp.com"]))
 	}
 	
 }

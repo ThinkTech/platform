@@ -75,7 +75,6 @@ class Dispatcher extends ActionSupport {
 			     service.metaClass.getUser = {-> user}  
 			     service.order(order)
 			     sendSalesMail("Nouvelle vente effectu&eacute;e pour le service ${order.service}",service.getSalesTemplate(order))
-			     service.metaClass = null
 		     }
 		     connection.close()
 		     json([entity: order])

@@ -19,7 +19,6 @@ class Service extends ActionSupport {
 	         	service.pay(bill)   
 	         	sendMail(user.name,user.email,"Confirmation paiement "+bill.fee,parseTemplate("bill",[bill:bill,url : "https://app.thinktech.sn"]))
 	         	sendSalesMail("Confirmation paiement "+bill.fee,parseTemplate("sales",[bill:bill,user:user,url : "https://thinktech-crm.herokuapp.com"]))
-	         	service.metaClass = null
          	}
 		    connection.close()
          	status = 1

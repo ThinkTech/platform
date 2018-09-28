@@ -74,7 +74,7 @@ class Dispatcher extends ActionSupport {
 			     service.metaClass.getConnection = {-> connection}
 			     service.metaClass.getUser = {-> user}  
 			     service.order(order)
-			     sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle vente effectu&eacute;e pour le service ${order.service}",service.getSalesTemplate(order))
+			     sendSalesMail("Nouvelle vente effectu&eacute;e pour le service ${order.service}",service.getSalesTemplate(order))
 			     service.metaClass = null
 		     }
 		     connection.close()

@@ -7,7 +7,7 @@ import groovy.text.markup.MarkupTemplateEngine;
 @SuppressWarnings("serial")
 public class ActionSupport extends org.metamorphosis.core.ActionSupport {
 	
-	public Object getConnection()  {
+	public Sql getConnection()  {
 		 return new Sql(getDataSource());	
     }
 	

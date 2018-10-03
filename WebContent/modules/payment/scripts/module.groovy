@@ -19,7 +19,6 @@ class Service extends ActionSupport {
 	         	sendMail(user.name,user.email,"Confirmation paiement "+bill.fee,parseTemplate("bill",[bill:bill,url:appURL]))
 	         	sendSalesMail("Confirmation paiement "+bill.fee,parseTemplate("sales",[bill:bill,user:user,url:crmURL]))
          	}
-		    connection.close()
          	status = 1
           }
 		  json([status: status])

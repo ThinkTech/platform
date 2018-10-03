@@ -53,8 +53,7 @@ class Dispatcher extends ActionSupport {
 			          sendMail(user.name,user.email,"${user.name}, merci pour votre souscription au service ${subscription.service}",parseTemplate("subscription",[subscription:subscription,url:appURL]))
 			          sendMail("ThinkTech Sales","sales@thinktech.sn","Nouvelle souscription effectu&eacute;e pour le service ${subscription.service}",service.getSalesTemplate(subscription.order))
 			      }
-			    }
-			    connection.close()
+			    }  
 	      }
 	      json([status:status])
 	   }
@@ -74,7 +73,6 @@ class Dispatcher extends ActionSupport {
 			     service.order(order)
 			     sendSalesMail("Nouvelle vente effectu&eacute;e pour le service ${order.service}",parseTemplate(order.service,"sales",[order:order,user:user,url:crmURL]))
 		     }
-		     connection.close()
 		     json([entity: order])
 		   }	   
 	   }

@@ -8,7 +8,6 @@ class Service extends ActionSupport {
 	      def status = 0
 	      def module = getModule(bill.service)
           if(module){
-            def connection = getConnection()
             def service = getService(module)
             synchronized(this){
 	            service.metaClass.getConnection = {-> connection}

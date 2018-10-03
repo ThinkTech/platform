@@ -10,7 +10,6 @@ class Dispatcher extends ActionSupport {
 	      def service = getService(subscription.service)
 	      if(service){
 	            def count = 0
-                def connection = getConnection()
 			    def user = connection.firstRow("select * from users where email = ?", [subscription.email])
 			    if(user) {
 			        count = connection.firstRow("select count(*) as num from subscriptions where service = ? and structure_id = ?", [subscription.service,user.structure_id]).num
@@ -68,7 +67,6 @@ class Dispatcher extends ActionSupport {
 		   def order = parse(request) 
 		   def service = getService(order.service)
 	       if(service){
-	         def connection = getConnection()
 	         def user = connection.firstRow("select u.*, s.name as structure from users u, structures s where u.structure_id = s.id and u.id = ?", [order.user_id])
 	         synchronized(this){
 			     service.metaClass.getConnection = {-> connection}

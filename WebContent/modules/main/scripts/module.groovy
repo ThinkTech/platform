@@ -6,7 +6,7 @@ class Dispatcher extends ActionSupport {
        if(request.method == "POST") { 
           def status = 2
           def params, result
-          def subscription = parse(request) 
+          def subscription = request.body 
 	      def service = getService(subscription.service)
 	      if(service){
 	            def count = 0
@@ -63,7 +63,7 @@ class Dispatcher extends ActionSupport {
 	   response.addHeader("Access-Control-Allow-Origin", "*");
        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
        if(request.method == "POST") { 
-		   def order = parse(request) 
+		   def order = request.body 
 		   def service = getService(order.service)
 	       if(service){
 	         def user = connection.firstRow("select u.*, s.name as structure from users u, structures s where u.structure_id = s.id and u.id = ?", [order.user_id])

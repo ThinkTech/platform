@@ -25,7 +25,7 @@ class Service extends ActionSupport {
 	    response.addHeader("Access-Control-Allow-Origin", "*")
         response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
         response.addHeader("Cache-control", "private, max-age=7200")   
-	    def domain = getParameter("domain")
+	    def domain = request.domain
 	    if(domain){
 		    def url = "https://api.duoservers.com/?auth_username=store203583&auth_password=apipassword&section=domains&command=check&name=${domain}&tlds[0]=com&tlds[1]=net&tlds[2]=org&tlds[3]=biz&tlds[4]=info&tlds[5]=tv&tlds[6]=press&tlds[7]=news&tlds[8]=tech&return_type=json"
 		    def client = HttpClientBuilder.create().build()

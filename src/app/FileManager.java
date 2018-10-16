@@ -10,7 +10,7 @@ import com.dropbox.core.v2.files.WriteMode;
 public class FileManager {
 	
 	private static final String ACCESS_TOKEN = "pQXsY7k7n6AAAAAAAAAAPWBEAjxZy5Xcgtsd8kyz9VsKOIrEzorICsW29BV4bspM";
-    private DbxClientV2 client;
+    private final DbxClientV2 client;
     
     public FileManager(){
         client = new DbxClientV2(new DbxRequestConfig("dropbox/thinktech-app"), ACCESS_TOKEN);

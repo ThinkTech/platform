@@ -113,8 +113,8 @@ class Service extends ActionSupport {
 	      Thread.start{
 	          def out = new ByteArrayOutputStream()
 	          document.write(out)
-		      def manager = new FileManager()
-		      manager.upload(folder+"/contrat.doc",new ByteArrayInputStream(out.toByteArray()))
+		      def manager = new FileManager(folder)
+		      manager.upload("contrat.doc",new ByteArrayInputStream(out.toByteArray()))
 	      }
       }
     }

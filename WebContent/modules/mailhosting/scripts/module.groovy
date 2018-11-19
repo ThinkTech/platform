@@ -48,14 +48,14 @@ class Service extends ActionSupport {
     def createBill(order){
 	   def bill = new Expando(fee:"configuration email "+order.plan+" "+order.domain)
 	   if(order.plan == "free") {
-	      bill.amount = 20000
+	      bill.amount = 15000
 	   }
-	   else if(order.plan == "standard") {
-	      bill.amount = 14000
-	   }else if(order.plan == "pro") {
-	      bill.amount = 34000
-	   }else if(order.plan == "enterprise") {
-	      bill.amount = 54000
+	   else if(order.plan == "lite") {
+	      bill.amount = 7200
+	   }else if(order.plan == "standard") {
+	      bill.amount = 21600
+	   }else if(order.plan == "professional") {
+	      bill.amount = 43200
 	   }
 	   bill
 	}
